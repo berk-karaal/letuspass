@@ -1,0 +1,27 @@
+basePath: /api/v1
+definitions:
+  controllers.HandleMetricsStatus.MetricsStatusResponse:
+    properties:
+      status:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Project description at https://github.com/berk-karaal/letuspass
+  title: LetusPass REST API
+  version: 0.0.1
+paths:
+  /metrics/status:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.HandleMetricsStatus.MetricsStatusResponse'
+      summary: Get status of the server
+      tags:
+      - metrics
+swagger: "2.0"
