@@ -4,6 +4,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/gin-contrib/requestid"
+	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
@@ -30,4 +32,10 @@ func NewLogger() *Logger {
 
 func (l *Logger) NewEvent(level zerolog.Level) *zerolog.Event {
 	return l.zLogger.WithLevel(level)
+}
+
+// RequestEvent returns "request_id" field added zerolog.Event with given level.
+// This is used to automatically add request_id field to log and reduce code duplication.
+func (l *Logger) RequestEvent(level zerolog.Level, c *gin.Context) *zerolog.Event {
+	return l.zLogger.WithLevel(level).Str("request_id", requestid.Get(c))
 }
