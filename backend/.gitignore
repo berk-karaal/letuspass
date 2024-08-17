@@ -1,0 +1,5 @@
+# air tmp folder
+tmp/
+
+# goland config folder
+.idea/
