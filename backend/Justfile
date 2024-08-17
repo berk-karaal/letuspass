@@ -1,0 +1,8 @@
+# List available recipes
+default:
+    @just --list --justfile {{justfile()}}
+
+# Format swag comments, then genereate swagger files
+swag:
+    swag fmt -g cmd/restapi/main.go
+    swag init -g cmd/restapi/main.go -o ./swagger
