@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/berk-karaal/letuspass/backend/internal/logging"
+	"github.com/gin-contrib/requestid"
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog"
 )
@@ -47,6 +48,7 @@ func LogHandler(logger *logging.Logger) gin.HandlerFunc {
 			Dur("process_time", processTime).
 			Str("user_agent", c.Request.UserAgent()).
 			Int("body_size", c.Writer.Size()).
+			Str("request_id", requestid.Get(c)).
 			Msg(msg)
 	}
 }
