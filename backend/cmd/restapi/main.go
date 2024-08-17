@@ -15,7 +15,7 @@ func main() {
 	engine.Use(gin.Recovery())
 	engine.Use(requestid.New())
 	engine.Use(middlewares.LogHandler(logger))
-	routes.SetupRoutes(engine)
+	routes.SetupRoutes(engine, logger)
 
 	engine.Run()
 }
