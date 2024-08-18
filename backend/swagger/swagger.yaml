@@ -1,8 +1,50 @@
 basePath: /api/v1
 definitions:
+  bodybinder.validationErrorResponse:
+    properties:
+      errors:
+        items:
+          $ref: '#/definitions/bodybinder.validationErrorResponseItem'
+        type: array
+    type: object
+  bodybinder.validationErrorResponseItem:
+    properties:
+      field:
+        type: string
+      reason:
+        type: string
+    type: object
+  controllers.HandleAuthLogin.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  controllers.HandleAuthRegister.RegisterRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
   controllers.HandleMetricsStatus.MetricsStatusResponse:
     properties:
       status:
+        type: string
+    type: object
+  schemas.BadRequestResponse:
+    properties:
+      error:
         type: string
     type: object
 host: localhost:8080
@@ -12,6 +54,58 @@ info:
   title: LetusPass REST API
   version: 0.0.1
 paths:
+  /auth/login:
+    post:
+      parameters:
+      - description: Login credentials
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.HandleAuthLogin.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.BadRequestResponse'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/bodybinder.validationErrorResponse'
+      summary: Login user
+      tags:
+      - auth
+  /auth/register:
+    post:
+      parameters:
+      - description: User Registration Data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.HandleAuthRegister.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.BadRequestResponse'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/bodybinder.validationErrorResponse'
+        "500":
+          description: Internal Server Error
+      summary: Register user
+      tags:
+      - auth
   /metrics/status:
     get:
       produces:
