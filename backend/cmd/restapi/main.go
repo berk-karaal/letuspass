@@ -1,11 +1,14 @@
 package main
 
 import (
+	golog "log"
 	"reflect"
 	"strings"
 
 	"github.com/berk-karaal/letuspass/backend/internal/common/logging"
+	"github.com/berk-karaal/letuspass/backend/internal/databases/postgres"
 	"github.com/berk-karaal/letuspass/backend/internal/middlewares"
+	"github.com/berk-karaal/letuspass/backend/internal/models"
 	"github.com/berk-karaal/letuspass/backend/internal/routes"
 	_ "github.com/berk-karaal/letuspass/backend/swagger"
 	"github.com/gin-contrib/requestid"
@@ -27,6 +30,13 @@ func main() {
 	registerJsonTagNames()
 
 	logger := logging.NewLogger()
+
+	// TODO: get values from env
+	postgresDsn := "host=localhost user=postgres password=postgres dbname=letuspass port=5432 sslmode=disable TimeZone=UTC"
+	postgresDb, err := postgres.NewDB(postgresDsn)
+	if err != nil {
+		golog.Fatal(err)
+	}
 
 	engine := gin.New()
 	engine.Use(gin.Recovery())
