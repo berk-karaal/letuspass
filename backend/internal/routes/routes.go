@@ -4,9 +4,10 @@ import (
 	"github.com/berk-karaal/letuspass/backend/internal/common/logging"
 	"github.com/berk-karaal/letuspass/backend/internal/controllers"
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
-func SetupRoutes(engine *gin.Engine, logger *logging.Logger) {
+func SetupRoutes(engine *gin.Engine, logger *logging.Logger, postgres *gorm.DB) {
 	v1Group := engine.Group("/api/v1")
 	{
 		metricGroup := v1Group.Group("/metrics")

@@ -46,7 +46,7 @@ func main() {
 	engine.Use(gin.Recovery())
 	engine.Use(requestid.New())
 	engine.Use(middlewares.LogHandler(logger))
-	routes.SetupRoutes(engine, logger)
+	routes.SetupRoutes(engine, logger, postgresDb)
 
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
