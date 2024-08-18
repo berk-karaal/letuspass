@@ -17,7 +17,7 @@ func SetupRoutes(engine *gin.Engine, logger *logging.Logger, postgres *gorm.DB) 
 
 		authGroup := v1Group.Group("/auth")
 		{
-			authGroup.POST("/login", controllers.HandleAuthLogin())
+			authGroup.POST("/login", controllers.HandleAuthLogin(logger, postgres))
 			authGroup.POST("/register", controllers.HandleAuthRegister(logger, postgres))
 		}
 	}

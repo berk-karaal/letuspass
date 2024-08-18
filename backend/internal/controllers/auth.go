@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/berk-karaal/letuspass/backend/internal/common/bodybinder"
@@ -23,20 +24,49 @@ import (
 //	@Failure	400	{object}	schemas.BadRequestResponse
 //	@Failure	422	{object}	bodybinder.validationErrorResponse
 //	@Router		/auth/login [post]
-func HandleAuthLogin() func(c *gin.Context) {
+func HandleAuthLogin(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	type LoginRequest struct {
 		Email    string `json:"email" binding:"required"`
 		Password string `json:"password" binding:"required"`
 	}
 
+	type LoginResponse struct {
+		Email string `json:"email"`
+		Name  string `json:"name"`
+	}
+
 	return func(c *gin.Context) {
 		var requestData LoginRequest
-
 		if !bodybinder.Bind(&requestData, c) {
 			return
 		}
 
-		// TODO
+		var user models.User
+		err := db.First(&user, "email = ?", requestData.Email).Error
+		if err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				c.JSON(http.StatusBadRequest, schemas.BadRequestResponse{Error: "Wrong credentials."})
+				return
+			}
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Getting user by email failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		ok, err := authservice.ComparePassword(user.Password, requestData.Password)
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Comparing password failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+		if !ok {
+			c.JSON(http.StatusBadRequest, schemas.BadRequestResponse{Error: "Wrong credentials."})
+			return
+		}
+
+		// TODO: create a session and set session cookie
+
+		c.JSON(http.StatusOK, LoginResponse{Email: user.Email, Name: user.Name})
 	}
 }
 
