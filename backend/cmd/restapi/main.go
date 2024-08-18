@@ -37,6 +37,10 @@ func main() {
 	if err != nil {
 		golog.Fatal(err)
 	}
+	err = postgresDb.AutoMigrate(&models.User{})
+	if err != nil {
+		golog.Fatal(err)
+	}
 
 	engine := gin.New()
 	engine.Use(gin.Recovery())
