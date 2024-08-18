@@ -3,6 +3,7 @@ package controllers
 import (
 	"errors"
 	"net/http"
+	"time"
 
 	"github.com/berk-karaal/letuspass/backend/internal/common/bodybinder"
 	"github.com/berk-karaal/letuspass/backend/internal/common/logging"
@@ -64,7 +65,22 @@ func HandleAuthLogin(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 			return
 		}
 
-		// TODO: create a session and set session cookie
+		session := models.UserSession{
+			Token:     authservice.GenerateSessionToken(),
+			UserID:    user.ID,
+			ExpiresAt: time.Time{},
+			UserAgent: c.Request.UserAgent(),
+		}
+
+		err = db.Create(&session).Error
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Creating user session failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		// TODO: get from config
+		c.SetCookie("session_token", session.Token, int((time.Hour * 24).Seconds()), "/", "localhost", true, true)
 
 		c.JSON(http.StatusOK, LoginResponse{Email: user.Email, Name: user.Name})
 	}
