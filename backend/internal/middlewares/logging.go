@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/berk-karaal/letuspass/backend/internal/logging"
+	"github.com/berk-karaal/letuspass/backend/internal/common/logging"
 	"github.com/gin-contrib/requestid"
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog"

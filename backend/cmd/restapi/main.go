@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/berk-karaal/letuspass/backend/internal/logging"
+	"github.com/berk-karaal/letuspass/backend/internal/common/logging"
 	"github.com/berk-karaal/letuspass/backend/internal/middlewares"
 	"github.com/berk-karaal/letuspass/backend/internal/routes"
 	_ "github.com/berk-karaal/letuspass/backend/swagger"

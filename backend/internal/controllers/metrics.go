@@ -3,7 +3,7 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/berk-karaal/letuspass/backend/internal/logging"
+	"github.com/berk-karaal/letuspass/backend/internal/common/logging"
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog"
 )

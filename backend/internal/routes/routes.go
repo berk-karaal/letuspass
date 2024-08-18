@@ -1,8 +1,8 @@
 package routes
 
 import (
+	"github.com/berk-karaal/letuspass/backend/internal/common/logging"
 	"github.com/berk-karaal/letuspass/backend/internal/controllers"
-	"github.com/berk-karaal/letuspass/backend/internal/logging"
 	"github.com/gin-gonic/gin"
 )
 
