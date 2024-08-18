@@ -8,4 +8,6 @@ type User struct {
 	Password string
 	Name     string
 	IsActive bool `gorm:"default:true"`
+
+	UserSessions []UserSession
 }

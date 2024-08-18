@@ -37,7 +37,7 @@ func main() {
 	if err != nil {
 		golog.Fatal(err)
 	}
-	err = postgresDb.AutoMigrate(&models.User{})
+	err = postgresDb.AutoMigrate(&models.User{}, &models.UserSession{})
 	if err != nil {
 		golog.Fatal(err)
 	}
