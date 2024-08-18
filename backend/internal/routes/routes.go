@@ -13,5 +13,10 @@ func SetupRoutes(engine *gin.Engine, logger *logging.Logger) {
 		{
 			metricGroup.GET("/status", controllers.HandleMetricsStatus(logger))
 		}
+
+		authGroup := v1Group.Group("/auth")
+		{
+			authGroup.POST("/login", controllers.HandleAuthLogin())
+		}
 	}
 }
