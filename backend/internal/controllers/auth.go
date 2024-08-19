@@ -8,6 +8,7 @@ import (
 
 	"github.com/berk-karaal/letuspass/backend/internal/common/bodybinder"
 	"github.com/berk-karaal/letuspass/backend/internal/common/logging"
+	"github.com/berk-karaal/letuspass/backend/internal/middlewares"
 	"github.com/berk-karaal/letuspass/backend/internal/models"
 	"github.com/berk-karaal/letuspass/backend/internal/schemas"
 	authservice "github.com/berk-karaal/letuspass/backend/internal/services/auth"
@@ -25,6 +26,7 @@ import (
 //	@Success	200
 //	@Failure	400	{object}	schemas.BadRequestResponse
 //	@Failure	422	{object}	bodybinder.validationErrorResponse
+//	@Failure	500
 //	@Router		/auth/login [post]
 func HandleAuthLogin(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	type LoginRequest struct {
@@ -38,13 +40,29 @@ func HandleAuthLogin(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	}
 
 	return func(c *gin.Context) {
+		isAlreadyAuthenticated := true
+		_, _, err := middlewares.GetCurrentUser(c, db)
+		if err != nil {
+			if errors.Is(err, middlewares.UserNotAuthenticatedErr{}) {
+				isAlreadyAuthenticated = false
+			} else {
+				logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Checking if user already authenticated failed")
+				c.Status(http.StatusInternalServerError)
+				return
+			}
+		}
+		if isAlreadyAuthenticated {
+			c.JSON(http.StatusBadRequest, schemas.BadRequestResponse{Error: "User already logged-in."})
+			return
+		}
+
 		var requestData LoginRequest
 		if !bodybinder.Bind(&requestData, c) {
 			return
 		}
 
 		var user models.User
-		err := db.First(&user, "email = ?", requestData.Email).Error
+		err = db.First(&user, "email = ?", requestData.Email).Error
 		if err != nil {
 			if errors.Is(err, gorm.ErrRecordNotFound) {
 				c.JSON(http.StatusBadRequest, schemas.BadRequestResponse{Error: "Wrong credentials."})
