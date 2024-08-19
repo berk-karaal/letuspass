@@ -20,25 +20,13 @@ const UserContextKey = "user"
 // body. This middleware should only be used on routes that required authentication.
 func CurrentUserHandler(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	return func(c *gin.Context) {
-		sessionToken, err := c.Cookie("session_token") // TODO: get from config
+		user, userSession, err := GetCurrentUser(c, db)
 		if err != nil {
-			if errors.Is(err, http.ErrNoCookie) {
+			if errors.Is(err, UserNotAuthenticatedErr{}) {
 				c.AbortWithStatus(http.StatusUnauthorized)
 				return
 			}
-			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Checking session cookie failed.")
-			c.AbortWithStatus(http.StatusInternalServerError)
-			return
-		}
-
-		var userSession models.UserSession
-		err = db.First(&userSession, "token = ?", sessionToken).Error
-		if err != nil {
-			if errors.Is(err, gorm.ErrRecordNotFound) {
-				c.AbortWithStatus(http.StatusUnauthorized)
-				return
-			}
-			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Querying session token failed.")
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Getting current user failed.")
 			c.AbortWithStatus(http.StatusInternalServerError)
 			return
 		}
@@ -46,14 +34,6 @@ func CurrentUserHandler(logger *logging.Logger, db *gorm.DB) func(c *gin.Context
 		err = db.Model(&userSession).Update("expires_at", time.Now().Add(time.Minute*60*24)).Error
 		if err != nil {
 			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Extending user session expire time failed.")
-		}
-
-		var user models.User
-		err = db.First(&user, "id = ?", userSession.UserID).Error
-		if err != nil {
-			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Querying user failed.")
-			c.AbortWithStatus(http.StatusInternalServerError)
-			return
 		}
 
 		c.Set(UserContextKey, user)
