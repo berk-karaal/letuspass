@@ -42,6 +42,13 @@ definitions:
       status:
         type: string
     type: object
+  controllers.HandleUsersMe.MeResponse:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+    type: object
   schemas.BadRequestResponse:
     properties:
       error:
@@ -118,4 +125,20 @@ paths:
       summary: Get status of the server
       tags:
       - metrics
+  /users/me:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.HandleUsersMe.MeResponse'
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      summary: Get currently logged-in user
+      tags:
+      - users
 swagger: "2.0"
