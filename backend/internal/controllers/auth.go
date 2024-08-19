@@ -99,7 +99,7 @@ func HandleAuthLogin(apiConfig *config.RestapiConfig, logger *logging.Logger, db
 			return
 		}
 
-		c.SetCookie(apiConfig.SessionTokenCookieName, session.Token, int((time.Hour * 24).Seconds()), "/", "localhost", true, true)
+		c.SetCookie(apiConfig.SessionTokenCookieName, session.Token, apiConfig.SessionTokenExpireSeconds, "/", "localhost", true, true)
 
 		c.JSON(http.StatusOK, LoginResponse{Email: user.Email, Name: user.Name})
 	}
