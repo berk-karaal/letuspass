@@ -31,7 +31,14 @@ func CurrentUserHandler(logger *logging.Logger, db *gorm.DB) func(c *gin.Context
 			return
 		}
 
-		err = db.Model(&userSession).Update("expires_at", time.Now().Add(time.Minute*60*24)).Error
+		timeNow := time.Now()
+		if userSession.ExpiresAt.Before(timeNow) {
+			db.Delete(&userSession)
+			c.AbortWithStatus(http.StatusUnauthorized)
+			return
+		}
+
+		err = db.Model(&userSession).Update("expires_at", timeNow.Add(time.Minute*60*24)).Error
 		if err != nil {
 			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Extending user session expire time failed.")
 		}
