@@ -50,6 +50,31 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/bodybinder.validationErrorResponse"
                         }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Logout user",
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
                     }
                 }
             }

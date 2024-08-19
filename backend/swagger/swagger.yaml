@@ -83,7 +83,23 @@ paths:
           description: Unprocessable Entity
           schema:
             $ref: '#/definitions/bodybinder.validationErrorResponse'
+        "500":
+          description: Internal Server Error
       summary: Login user
+      tags:
+      - auth
+  /auth/logout:
+    post:
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      summary: Logout user
       tags:
       - auth
   /auth/register:
