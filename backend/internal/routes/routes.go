@@ -20,6 +20,7 @@ func SetupRoutes(engine *gin.Engine, logger *logging.Logger, postgres *gorm.DB) 
 		{
 			authGroup.POST("/login", controllers.HandleAuthLogin(logger, postgres))
 			authGroup.POST("/register", controllers.HandleAuthRegister(logger, postgres))
+			authGroup.POST("/logout", middlewares.CurrentUserHandler(logger, postgres), controllers.HandleAuthLogout(logger, postgres))
 		}
 
 		userGroup := v1Group.Group("/users", middlewares.CurrentUserHandler(logger, postgres))

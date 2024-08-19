@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -143,5 +144,37 @@ func HandleAuthRegister(logger *logging.Logger, db *gorm.DB) func(c *gin.Context
 		}
 
 		c.Status(http.StatusCreated)
+	}
+}
+
+// HandleAuthLogout
+//
+//	@Summary	Logout user
+//	@Tags		auth
+//	@Produce	json
+//	@Success	204
+//	@Failure	401
+//	@Failure	500
+//	@Router		/auth/logout [post]
+func HandleAuthLogout(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
+	return func(c *gin.Context) {
+		sessionToken, err := c.Cookie("session_token") // TODO: get from config
+
+		tx := db.Delete(&models.UserSession{}, "token = ?", sessionToken)
+		if tx.Error != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Deleting UserSession failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+		if tx.RowsAffected != 1 {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Str("used_token", sessionToken).
+				Msg(fmt.Sprintf("Deleted %d UserSession rows instead of just 1.", tx.RowsAffected))
+		}
+
+		// Remove cookie
+		// TODO: get from config
+		c.SetCookie("session_token", "", 0, "/", "localhost", true, true)
+
+		c.Status(http.StatusNoContent)
 	}
 }
