@@ -3,6 +3,7 @@ package routes
 import (
 	"github.com/berk-karaal/letuspass/backend/internal/common/logging"
 	"github.com/berk-karaal/letuspass/backend/internal/controllers"
+	"github.com/berk-karaal/letuspass/backend/internal/middlewares"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
@@ -19,6 +20,11 @@ func SetupRoutes(engine *gin.Engine, logger *logging.Logger, postgres *gorm.DB) 
 		{
 			authGroup.POST("/login", controllers.HandleAuthLogin(logger, postgres))
 			authGroup.POST("/register", controllers.HandleAuthRegister(logger, postgres))
+		}
+
+		userGroup := v1Group.Group("/users", middlewares.CurrentUserHandler(logger, postgres))
+		{
+			userGroup.GET("/me", controllers.HandleUsersMe(logger))
 		}
 	}
 }
