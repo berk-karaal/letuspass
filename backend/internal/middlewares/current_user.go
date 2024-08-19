@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/berk-karaal/letuspass/backend/internal/common/logging"
+	"github.com/berk-karaal/letuspass/backend/internal/config"
 	"github.com/berk-karaal/letuspass/backend/internal/models"
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog"
@@ -18,9 +19,9 @@ const UserContextKey = "user"
 // CurrentUserHandler middleware checks request for the authenticated user and puts user data to Gin context.
 // If request sent without authentication, this middleware aborts with HTTP 401 Unauthorized with no response
 // body. This middleware should only be used on routes that required authentication.
-func CurrentUserHandler(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
+func CurrentUserHandler(apiConfig *config.RestapiConfig, logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	return func(c *gin.Context) {
-		user, userSession, err := GetCurrentUser(c, db)
+		user, userSession, err := GetCurrentUser(c, apiConfig, db)
 		if err != nil {
 			if errors.Is(err, UserNotAuthenticatedErr{}) {
 				c.AbortWithStatus(http.StatusUnauthorized)
@@ -67,8 +68,8 @@ func (e UserNotAuthenticatedErr) Error() string { return "user is not authentica
 
 // GetCurrentUser returns the User and UserSession if the user is logged-in, if not returns
 // UserNotAuthenticatedErr.
-func GetCurrentUser(c *gin.Context, db *gorm.DB) (models.User, models.UserSession, error) {
-	sessionToken, err := c.Cookie("session_token") // TODO: get from config
+func GetCurrentUser(c *gin.Context, apiConfig *config.RestapiConfig, db *gorm.DB) (models.User, models.UserSession, error) {
+	sessionToken, err := c.Cookie(apiConfig.SessionTokenCookieName)
 	if err != nil {
 		if errors.Is(err, http.ErrNoCookie) {
 			return models.User{}, models.UserSession{}, UserNotAuthenticatedErr{}

@@ -14,9 +14,8 @@ type Logger struct {
 	zLogger *zerolog.Logger
 }
 
-func NewLogger() *Logger {
-	// TODO: do not hard-code log file
-	f, err := os.OpenFile("app.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+func NewLogger(logFilePath string) *Logger {
+	f, err := os.OpenFile(logFilePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		log.Fatal().Err(err).Msg("Can't open logging file")
 	}

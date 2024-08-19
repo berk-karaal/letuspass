@@ -1,11 +1,13 @@
 package main
 
 import (
+	"fmt"
 	golog "log"
 	"reflect"
 	"strings"
 
 	"github.com/berk-karaal/letuspass/backend/internal/common/logging"
+	"github.com/berk-karaal/letuspass/backend/internal/config"
 	"github.com/berk-karaal/letuspass/backend/internal/databases/postgres"
 	"github.com/berk-karaal/letuspass/backend/internal/middlewares"
 	"github.com/berk-karaal/letuspass/backend/internal/models"
@@ -15,6 +17,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
+	"github.com/joho/godotenv"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
@@ -27,12 +30,19 @@ import (
 //	@host			localhost:8080
 //	@BasePath		/api/v1
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		golog.Fatal(err)
+	}
+	apiConfig := config.NewRestapiConfigFromEnv()
+
 	registerJsonTagNames()
 
-	logger := logging.NewLogger()
+	logger := logging.NewLogger(apiConfig.LogFile)
 
-	// TODO: get values from env
-	postgresDsn := "host=localhost user=postgres password=postgres dbname=letuspass port=5432 sslmode=disable TimeZone=UTC"
+	postgresDsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=%s TimeZone=%s",
+		apiConfig.DbHost, apiConfig.DbUser, apiConfig.DbPassword, apiConfig.DbName,
+		apiConfig.DbPort, apiConfig.DbSSLMode, apiConfig.DbTimeZone)
 	postgresDb, err := postgres.NewDB(postgresDsn)
 	if err != nil {
 		golog.Fatal(err)
@@ -46,7 +56,7 @@ func main() {
 	engine.Use(gin.Recovery())
 	engine.Use(requestid.New())
 	engine.Use(middlewares.LogHandler(logger))
-	routes.SetupRoutes(engine, logger, postgresDb)
+	routes.SetupRoutes(engine, &apiConfig, logger, postgresDb)
 
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 

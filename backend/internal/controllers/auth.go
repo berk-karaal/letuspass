@@ -8,6 +8,7 @@ import (
 
 	"github.com/berk-karaal/letuspass/backend/internal/common/bodybinder"
 	"github.com/berk-karaal/letuspass/backend/internal/common/logging"
+	"github.com/berk-karaal/letuspass/backend/internal/config"
 	"github.com/berk-karaal/letuspass/backend/internal/middlewares"
 	"github.com/berk-karaal/letuspass/backend/internal/models"
 	"github.com/berk-karaal/letuspass/backend/internal/schemas"
@@ -28,7 +29,7 @@ import (
 //	@Failure	422	{object}	bodybinder.validationErrorResponse
 //	@Failure	500
 //	@Router		/auth/login [post]
-func HandleAuthLogin(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
+func HandleAuthLogin(apiConfig *config.RestapiConfig, logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	type LoginRequest struct {
 		Email    string `json:"email" binding:"required"`
 		Password string `json:"password" binding:"required"`
@@ -41,7 +42,7 @@ func HandleAuthLogin(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 
 	return func(c *gin.Context) {
 		isAlreadyAuthenticated := true
-		_, _, err := middlewares.GetCurrentUser(c, db)
+		_, _, err := middlewares.GetCurrentUser(c, apiConfig, db)
 		if err != nil {
 			if errors.Is(err, middlewares.UserNotAuthenticatedErr{}) {
 				isAlreadyAuthenticated = false
@@ -87,7 +88,7 @@ func HandleAuthLogin(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 		session := models.UserSession{
 			Token:     authservice.GenerateSessionToken(),
 			UserID:    user.ID,
-			ExpiresAt: time.Time{},
+			ExpiresAt: time.Now().Add(time.Second * time.Duration(apiConfig.SessionTokenExpireSeconds)),
 			UserAgent: c.Request.UserAgent(),
 		}
 
@@ -98,8 +99,7 @@ func HandleAuthLogin(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 			return
 		}
 
-		// TODO: get from config
-		c.SetCookie("session_token", session.Token, int((time.Hour * 24).Seconds()), "/", "localhost", true, true)
+		c.SetCookie(apiConfig.SessionTokenCookieName, session.Token, int((time.Hour * 24).Seconds()), "/", "localhost", true, true)
 
 		c.JSON(http.StatusOK, LoginResponse{Email: user.Email, Name: user.Name})
 	}
@@ -174,9 +174,9 @@ func HandleAuthRegister(logger *logging.Logger, db *gorm.DB) func(c *gin.Context
 //	@Failure	401
 //	@Failure	500
 //	@Router		/auth/logout [post]
-func HandleAuthLogout(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
+func HandleAuthLogout(apiConfig *config.RestapiConfig, logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	return func(c *gin.Context) {
-		sessionToken, err := c.Cookie("session_token") // TODO: get from config
+		sessionToken, err := c.Cookie(apiConfig.SessionTokenCookieName)
 
 		tx := db.Delete(&models.UserSession{}, "token = ?", sessionToken)
 		if tx.Error != nil {
@@ -190,8 +190,7 @@ func HandleAuthLogout(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) 
 		}
 
 		// Remove cookie
-		// TODO: get from config
-		c.SetCookie("session_token", "", 0, "/", "localhost", true, true)
+		c.SetCookie(apiConfig.SessionTokenCookieName, "", 0, "/", "localhost", true, true)
 
 		c.Status(http.StatusNoContent)
 	}
