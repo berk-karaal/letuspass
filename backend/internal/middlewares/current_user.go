@@ -2,6 +2,7 @@ package middlewares
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -71,4 +72,37 @@ func ExtractUserFromGinContext(c *gin.Context) (models.User, bool) {
 		return models.User{}, false
 	}
 	return user, true
+}
+
+type UserNotAuthenticatedErr struct{}
+
+func (e UserNotAuthenticatedErr) Error() string { return "user is not authenticated" }
+
+// GetCurrentUser returns the User and UserSession if the user is logged-in, if not returns
+// UserNotAuthenticatedErr.
+func GetCurrentUser(c *gin.Context, db *gorm.DB) (models.User, models.UserSession, error) {
+	sessionToken, err := c.Cookie("session_token") // TODO: get from config
+	if err != nil {
+		if errors.Is(err, http.ErrNoCookie) {
+			return models.User{}, models.UserSession{}, UserNotAuthenticatedErr{}
+		}
+		return models.User{}, models.UserSession{}, fmt.Errorf("getting session_token cookie failed: %w", err)
+	}
+
+	var userSession models.UserSession
+	err = db.First(&userSession, "token = ?", sessionToken).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return models.User{}, models.UserSession{}, UserNotAuthenticatedErr{}
+		}
+		return models.User{}, models.UserSession{}, fmt.Errorf("querying UserSession by token failed: %w", err)
+	}
+
+	var user models.User
+	err = db.First(&user, "id = ?", userSession.UserID).Error
+	if err != nil {
+		return models.User{}, models.UserSession{}, fmt.Errorf("querying User by id failed: %w", err)
+	}
+
+	return user, userSession, nil
 }
