@@ -11,7 +11,6 @@ import (
 	"github.com/berk-karaal/letuspass/backend/internal/databases/postgres"
 	"github.com/berk-karaal/letuspass/backend/internal/middlewares"
 	"github.com/berk-karaal/letuspass/backend/internal/models"
-	"github.com/berk-karaal/letuspass/backend/internal/routes"
 	_ "github.com/berk-karaal/letuspass/backend/swagger"
 	"github.com/gin-contrib/requestid"
 	"github.com/gin-gonic/gin"
@@ -42,7 +41,7 @@ func SetupRouter(apiConfig config.RestapiConfig) *gin.Engine {
 	router.Use(gin.Recovery())
 	router.Use(requestid.New())
 	router.Use(middlewares.LogHandler(logger))
-	routes.SetupRoutes(router, &apiConfig, logger, postgresDb)
+	SetupRoutes(router, &apiConfig, logger, postgresDb)
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 

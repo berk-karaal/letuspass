@@ -1,4 +1,4 @@
-package routes
+package router
 
 import (
 	"github.com/berk-karaal/letuspass/backend/internal/common/logging"
