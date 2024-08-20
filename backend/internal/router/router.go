@@ -37,6 +37,8 @@ func SetupRouter(apiConfig config.RestapiConfig) *gin.Engine {
 		golog.Fatal(err)
 	}
 
+	gin.SetMode(apiConfig.GinMode)
+
 	router := gin.New()
 	router.Use(gin.Recovery())
 	router.Use(requestid.New())

@@ -4,11 +4,14 @@ import (
 	"log"
 	"os"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
 )
 
 // use https://github.com/joho/godotenv
 
 type RestapiConfig struct {
+	GinMode string
 	LogFile string
 
 	DbHost     string
@@ -31,7 +34,20 @@ func NewRestapiConfigFromEnv() RestapiConfig {
 		log.Fatal("SESSION_TOKEN_EXPIRE_SECONDS env must be a valid integer")
 	}
 
+	var ginMode string
+	switch os.Getenv("GIN_MODE") {
+	case "debug":
+		ginMode = gin.DebugMode
+	case "test":
+		ginMode = gin.TestMode
+	case "release":
+		ginMode = gin.ReleaseMode
+	default:
+		log.Fatal("GIN_MODE must be one of these: debug, test, release.")
+	}
+
 	return RestapiConfig{
+		GinMode: ginMode,
 		LogFile: os.Getenv("LOG_FILE"),
 
 		DbHost:     os.Getenv("DB_HOST"),
