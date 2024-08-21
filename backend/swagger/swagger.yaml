@@ -49,6 +49,40 @@ definitions:
       name:
         type: string
     type: object
+  controllers.HandleVaultsCreate.VaultCreateRequest:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  controllers.HandleVaultsCreate.VaultCreateResponse:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  controllers.HandleVaultsList.VaultResponseItem:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  pagination.StandardPaginationResponse-controllers_HandleVaultsList_VaultResponseItem:
+    properties:
+      count:
+        type: integer
+      results:
+        items:
+          $ref: '#/definitions/controllers.HandleVaultsList.VaultResponseItem'
+        type: array
+    type: object
   schemas.BadRequestResponse:
     properties:
       error:
@@ -157,4 +191,84 @@ paths:
       summary: Get currently logged-in user
       tags:
       - users
+  /vaults:
+    get:
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        minimum: 1
+        name: page
+        type: integer
+      - default: 10
+        description: Item count per page
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pagination.StandardPaginationResponse-controllers_HandleVaultsList_VaultResponseItem'
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      summary: List vaults that user has read access to
+      tags:
+      - vaults
+    post:
+      parameters:
+      - description: New vault data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.HandleVaultsCreate.VaultCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/controllers.HandleVaultsCreate.VaultCreateResponse'
+        "401":
+          description: Unauthorized
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/bodybinder.validationErrorResponse'
+        "500":
+          description: Internal Server Error
+      summary: Create a new vault
+      tags:
+      - vaults
+  /vaults/{id}:
+    get:
+      parameters:
+      - description: Vault id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.HandleVaultsCreate.VaultCreateResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.BadRequestResponse'
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      summary: Retrieve vault by id
+      tags:
+      - vaults
 swagger: "2.0"
