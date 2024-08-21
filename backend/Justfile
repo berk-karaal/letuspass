@@ -5,4 +5,4 @@ default:
 # Format swag comments, then genereate swagger files
 swag:
     swag fmt -g cmd/restapi/main.go
-    swag init -g cmd/restapi/main.go -o ./swagger
+    swag init --pd -d ./internal/controllers -g ../../cmd/restapi/main.go -o ./swagger
