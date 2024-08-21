@@ -28,5 +28,10 @@ func SetupRoutes(engine *gin.Engine, apiConfig *config.RestapiConfig, logger *lo
 		{
 			userGroup.GET("/me", controllers.HandleUsersMe(logger))
 		}
+
+		vaultGroup := v1Group.Group("/vaults", middlewares.CurrentUserHandler(apiConfig, logger, postgres))
+		{
+			vaultGroup.POST("", controllers.HandleVaultsCreate(logger, postgres))
+		}
 	}
 }
