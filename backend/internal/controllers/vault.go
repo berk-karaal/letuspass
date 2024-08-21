@@ -10,6 +10,7 @@ import (
 	"github.com/berk-karaal/letuspass/backend/internal/middlewares"
 	"github.com/berk-karaal/letuspass/backend/internal/models"
 	"github.com/berk-karaal/letuspass/backend/internal/schemas"
+	vaultservice "github.com/berk-karaal/letuspass/backend/internal/services/vault"
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog"
 	"gorm.io/gorm"
@@ -108,16 +109,13 @@ func HandleVaultsRetrieve(logger *logging.Logger, db *gorm.DB) func(c *gin.Conte
 			return
 		}
 
-		var hasReadPerm bool
-		err = db.Model(&models.VaultPermission{}).Select("count(*) > 0").
-			Where("vault_id = ? AND user_id = ? AND permission = ?", vaultId, user.ID, models.VaultPermissionRead).
-			Scan(&hasReadPerm).Error
+		canRead, err := vaultservice.CheckUserHasVaultPermission(db, int(user.ID), vaultId, models.VaultPermissionRead)
 		if err != nil {
 			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Checking vault permissions of user failed.")
 			c.Status(http.StatusInternalServerError)
 			return
 		}
-		if !hasReadPerm {
+		if !canRead {
 			c.Status(http.StatusForbidden)
 			return
 		}
