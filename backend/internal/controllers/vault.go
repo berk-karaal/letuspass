@@ -7,6 +7,7 @@ import (
 
 	"github.com/berk-karaal/letuspass/backend/internal/common/bodybinder"
 	"github.com/berk-karaal/letuspass/backend/internal/common/logging"
+	"github.com/berk-karaal/letuspass/backend/internal/common/pagination"
 	"github.com/berk-karaal/letuspass/backend/internal/middlewares"
 	"github.com/berk-karaal/letuspass/backend/internal/models"
 	"github.com/berk-karaal/letuspass/backend/internal/schemas"
@@ -72,6 +73,49 @@ func HandleVaultsCreate(logger *logging.Logger, db *gorm.DB) func(c *gin.Context
 		// TODO: audit log
 
 		c.JSON(http.StatusCreated, VaultCreateResponse{Id: vault.ID, Name: vault.Name})
+	}
+}
+
+// HandleVaultsList
+//
+//	@Summary	List vaults that user has read access to
+//	@Tags		vaults
+//	@Produce	json
+//	@Param		page		query		int	false	"Page number"			default(1)	minimum(1)
+//	@Param		page_size	query		int	false	"Item count per page"	default(10)
+//	@Success	200			{object}	pagination.StandardPaginationResponse[controllers.HandleVaultsList.VaultResponseItem]
+//	@Failure	401
+//	@Failure	500
+//	@Router		/vaults [get]
+func HandleVaultsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
+	type VaultResponseItem struct {
+		Id        uint      `json:"id"`
+		Name      string    `json:"name"`
+		CreatedAt time.Time `json:"created_at"`
+		UpdatedAt time.Time `json:"updated_at"`
+	}
+
+	return func(c *gin.Context) {
+		user, ok := middlewares.ExtractUserFromGinContext(c)
+		if !ok {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Msg("Extracting user from Gin context failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		var results []VaultResponseItem
+		var count int64
+		db.Scopes(pagination.Paginate(c)).Select("vaults.id, vaults.name, vaults.created_at, vaults.updated_at").
+			Table("vault_permissions").
+			Joins("LEFT OUTER JOIN vaults ON vault_permissions.vault_id = vaults.id").
+			Where("vault_permissions.user_id = ? AND vault_permissions.permission = ?", user.ID, models.VaultPermissionRead).
+			Count(&count).
+			Scan(&results)
+
+		c.JSON(http.StatusOK, pagination.StandardPaginationResponse[VaultResponseItem]{
+			Results: results,
+			Count:   int(count),
+		})
 	}
 }
 
