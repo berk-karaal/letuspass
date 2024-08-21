@@ -32,7 +32,7 @@ func SetupRouter(apiConfig config.RestapiConfig) *gin.Engine {
 	if err != nil {
 		golog.Fatal(err)
 	}
-	err = postgresDb.AutoMigrate(&models.User{}, &models.UserSession{})
+	err = postgresDb.AutoMigrate(&models.User{}, &models.UserSession{}, &models.Vault{}, &models.VaultPermission{})
 	if err != nil {
 		golog.Fatal(err)
 	}

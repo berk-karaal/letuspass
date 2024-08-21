@@ -9,5 +9,6 @@ type User struct {
 	Name     string
 	IsActive bool `gorm:"default:true"`
 
-	UserSessions []UserSession
+	UserSessions     []UserSession
+	VaultPermissions []VaultPermission
 }
