@@ -120,7 +120,8 @@ func HandleVaultsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) 
 		err = db.Scopes(pagination.Paginate(c)).Select("vaults.id, vaults.name, vaults.created_at, vaults.updated_at").
 			Table("vault_permissions").
 			Joins("LEFT OUTER JOIN vaults ON vault_permissions.vault_id = vaults.id").
-			Where("vault_permissions.user_id = ? AND vault_permissions.permission = ?", user.ID, models.VaultPermissionRead).
+			Where("vault_permissions.deleted_at IS NULL AND vault_permissions.user_id = ? AND vault_permissions.permission = ?",
+				user.ID, models.VaultPermissionRead).
 			Order(ordering).
 			Count(&count).
 			Scan(&results).Error
