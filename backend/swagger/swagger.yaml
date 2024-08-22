@@ -95,6 +95,11 @@ definitions:
           type: string
         type: array
     type: object
+  controllers.HandleVaultsManageRemoveUser.RemoveUserRequest:
+    properties:
+      user_id:
+        type: integer
+    type: object
   pagination.StandardPaginationResponse-controllers_HandleVaultsList_VaultResponseItem:
     properties:
       count:
@@ -341,6 +346,8 @@ paths:
           description: OK
         "400":
           description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.BadRequestResponse'
         "401":
           description: Unauthorized
         "403":
@@ -355,6 +362,39 @@ paths:
       tags:
       - vault manage
   /vaults/{id}/manage/users:
+    delete:
+      parameters:
+      - description: Vault id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: ID of the user which will be removed
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.HandleVaultsManageRemoveUser.RemoveUserRequest'
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.BadRequestResponse'
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/bodybinder.validationErrorResponse'
+        "500":
+          description: Internal Server Error
+      summary: Remove user from vault
+      tags:
+      - vault manage
     get:
       parameters:
       - description: Vault id
