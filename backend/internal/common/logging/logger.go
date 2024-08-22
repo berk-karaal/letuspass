@@ -36,5 +36,13 @@ func (l *Logger) NewEvent(level zerolog.Level) *zerolog.Event {
 // RequestEvent returns "request_id" field added zerolog.Event with given level.
 // This is used to automatically add request_id field to log and reduce code duplication.
 func (l *Logger) RequestEvent(level zerolog.Level, c *gin.Context) *zerolog.Event {
-	return l.zLogger.WithLevel(level).Str("request_id", requestid.Get(c))
+	event := l.zLogger.WithLevel(level).Str("request_id", requestid.Get(c))
+
+	switch level {
+	case zerolog.ErrorLevel, zerolog.FatalLevel, zerolog.PanicLevel:
+		event.Caller(1)
+	default:
+	}
+
+	return event
 }
