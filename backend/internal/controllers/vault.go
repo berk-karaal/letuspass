@@ -272,7 +272,7 @@ func HandleVaultDelete(logger *logging.Logger, db *gorm.DB) func(c *gin.Context)
 //	@Param		request	body	controllers.HandleVaultsManageAddUser.AddUserRequest	true	"New user data"
 //	@Produce	json
 //	@Success	200
-//	@Failure	400
+//	@Failure	400	{object}	schemas.BadRequestResponse
 //	@Failure	401
 //	@Failure	403
 //	@Failure	422	{object}	bodybinder.validationErrorResponse
@@ -442,5 +442,64 @@ func HandleVaultsManageListUsers(logger *logging.Logger, db *gorm.DB) func(c *gi
 			result = append(result, UsersResponseItem{Email: k, Permissions: v})
 		}
 		c.JSON(http.StatusOK, result)
+	}
+}
+
+// HandleVaultsManageRemoveUser
+//
+//	@Summary	Remove user from vault
+//	@Tags		vault manage
+//	@Param		id		path	int															true	"Vault id"
+//	@Param		request	body	controllers.HandleVaultsManageRemoveUser.RemoveUserRequest	true	"ID of the user which will be removed"
+//	@Success	204
+//	@Failure	400	{object}	schemas.BadRequestResponse
+//	@Failure	401
+//	@Failure	403
+//	@Failure	422	{object}	bodybinder.validationErrorResponse
+//	@Failure	500
+//	@Router		/vaults/{id}/manage/users [delete]
+func HandleVaultsManageRemoveUser(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
+	type RemoveUserRequest struct {
+		UserId int `json:"user_id"`
+	}
+
+	return func(c *gin.Context) {
+		vaultId, err := strconv.Atoi(c.Param("id"))
+		if err != nil {
+			c.JSON(http.StatusBadRequest, schemas.BadRequestResponse{Error: "Id must be an integer."})
+			return
+		}
+
+		user, ok := middlewares.ExtractUserFromGinContext(c)
+		if !ok {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Msg("Extracting user from Gin context failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		canManageVault, err := vaultservice.CheckUserHasVaultPermission(db, int(user.ID), vaultId, models.VaultPermissionManageVault)
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Checking vault permissions of user failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+		if !canManageVault {
+			c.Status(http.StatusForbidden)
+			return
+		}
+
+		var requestData RemoveUserRequest
+		if ok = bodybinder.Bind(&requestData, c); !ok {
+			return
+		}
+
+		err = db.Where("vault_id = ? AND user_id = ?", vaultId, requestData.UserId).Delete(&models.VaultPermission{}).Error
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Removing user from vault failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		c.Status(http.StatusNoContent)
 	}
 }
