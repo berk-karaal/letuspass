@@ -7,6 +7,7 @@ import (
 
 	"github.com/berk-karaal/letuspass/backend/internal/common/bodybinder"
 	"github.com/berk-karaal/letuspass/backend/internal/common/logging"
+	"github.com/berk-karaal/letuspass/backend/internal/common/orderbyparam"
 	"github.com/berk-karaal/letuspass/backend/internal/common/pagination"
 	"github.com/berk-karaal/letuspass/backend/internal/middlewares"
 	"github.com/berk-karaal/letuspass/backend/internal/models"
@@ -81,8 +82,9 @@ func HandleVaultsCreate(logger *logging.Logger, db *gorm.DB) func(c *gin.Context
 //	@Summary	List vaults that user has read access to
 //	@Tags		vaults
 //	@Produce	json
-//	@Param		page		query		int	false	"Page number"			default(1)	minimum(1)
-//	@Param		page_size	query		int	false	"Item count per page"	default(10)
+//	@Param		page		query		int		false	"Page number"			default(1)	minimum(1)
+//	@Param		page_size	query		int		false	"Item count per page"	default(10)
+//	@Param		ordering	query		string	false	"Ordering"				Enums(name, -name, created_at, -created_at)
 //	@Success	200			{object}	pagination.StandardPaginationResponse[controllers.HandleVaultsList.VaultResponseItem]
 //	@Failure	401
 //	@Failure	500
@@ -103,12 +105,23 @@ func HandleVaultsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) 
 			return
 		}
 
+		ordering, err := orderbyparam.GenerateOrdering(c, map[string]string{
+			"name":       "vaults.name",
+			"created_at": "vaults.created_at",
+		}, "name")
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Generating query ordering from params failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
 		var results []VaultResponseItem
 		var count int64
 		db.Scopes(pagination.Paginate(c)).Select("vaults.id, vaults.name, vaults.created_at, vaults.updated_at").
 			Table("vault_permissions").
 			Joins("LEFT OUTER JOIN vaults ON vault_permissions.vault_id = vaults.id").
 			Where("vault_permissions.user_id = ? AND vault_permissions.permission = ?", user.ID, models.VaultPermissionRead).
+			Order(ordering).
 			Count(&count).
 			Scan(&results)
 
