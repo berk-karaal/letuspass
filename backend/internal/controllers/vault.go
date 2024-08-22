@@ -194,3 +194,63 @@ func HandleVaultsRetrieve(logger *logging.Logger, db *gorm.DB) func(c *gin.Conte
 		})
 	}
 }
+
+// HandleVaultDelete
+//
+//	@Summary	Delete vault by id
+//	@Tags		vaults
+//	@Success	204
+//	@Failure	401
+//	@Forbidden	403
+//	@Failure	404
+//	@Failure	500
+//	@Router		/vaults/{id} [delete]
+//	@Param		id	path	int	true	"Vault id"
+func HandleVaultDelete(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
+	return func(c *gin.Context) {
+		vaultId, err := strconv.Atoi(c.Param("id"))
+		if err != nil {
+			c.JSON(http.StatusBadRequest, schemas.BadRequestResponse{Error: "Id must be an integer."})
+			return
+		}
+
+		user, ok := middlewares.ExtractUserFromGinContext(c)
+		if !ok {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Msg("Extracting user from Gin context failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		canDelete, err := vaultservice.CheckUserHasVaultPermission(db, int(user.ID), vaultId, models.VaultPermissionDeleteVault)
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Checking vault permissions of user failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+		if !canDelete {
+			c.Status(http.StatusForbidden)
+			return
+		}
+
+		err = db.Delete(&models.Vault{}, vaultId).Error
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Deleting Vault failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		err = db.Where("vault_id = ?", vaultId).Delete(&models.VaultPermission{}).Error
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Deleting Vault Permissions failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		// TODO: delete vault related data
+		// Delete vault items
+		// Delete vault keys
+		// ...
+
+		c.Status(http.StatusNoContent)
+	}
+}
