@@ -1,7 +1,10 @@
 package controllers
 
 import (
+	"errors"
+	"fmt"
 	"net/http"
+	"slices"
 	"strconv"
 	"time"
 
@@ -258,5 +261,112 @@ func HandleVaultDelete(logger *logging.Logger, db *gorm.DB) func(c *gin.Context)
 		// ...
 
 		c.Status(http.StatusNoContent)
+	}
+}
+
+// HandleVaultsManageAddUser
+//
+//	@Summary	Add user to vault
+//	@Tags		vault manage
+//	@Param		id		path	int														true	"Vault id"
+//	@Param		request	body	controllers.HandleVaultsManageAddUser.AddUserRequest	true	"New user data"
+//	@Produce	json
+//	@Success	200
+//	@Failure	400
+//	@Failure	401
+//	@Failure	403
+//	@Failure	422	{object}	bodybinder.validationErrorResponse
+//	@Failure	500
+//	@Router		/vaults/{id}/manage/add-user [post]
+func HandleVaultsManageAddUser(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
+	type AddUserRequest struct {
+		Email       string   `json:"email" binding:"required"`
+		Permissions []string `json:"permissions" binding:"required"`
+	}
+
+	return func(c *gin.Context) {
+		vaultId, err := strconv.Atoi(c.Param("id"))
+		if err != nil {
+			c.JSON(http.StatusBadRequest, schemas.BadRequestResponse{Error: "Id must be an integer."})
+			return
+		}
+
+		user, ok := middlewares.ExtractUserFromGinContext(c)
+		if !ok {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Msg("Extracting user from Gin context failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		canManageVault, err := vaultservice.CheckUserHasVaultPermission(db, int(user.ID), vaultId, models.VaultPermissionManageVault)
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Checking vault permissions of user failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+		if !canManageVault {
+			c.Status(http.StatusForbidden)
+			return
+		}
+
+		var requestData AddUserRequest
+		if ok = bodybinder.Bind(&requestData, c); !ok {
+			return
+		}
+
+		var newUser models.User
+		err = db.First(&newUser, "email = ?", requestData.Email).Error
+		if err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				c.JSON(http.StatusBadRequest, schemas.BadRequestResponse{Error: "User with given email not found."})
+				return
+			}
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Querying users by email failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		var isAlreadyAdded bool
+		err = db.Model(&models.VaultPermission{}).Select("count(*) > 0").
+			Where("vault_id = ? AND user_id = ?", vaultId, newUser.ID).Scan(&isAlreadyAdded).Error
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Querying if user already added to vault failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+		if isAlreadyAdded {
+			c.JSON(http.StatusBadRequest, schemas.BadRequestResponse{Error: "User is already added to vault."})
+			return
+		}
+
+		// check if given permissions are valid
+		newUserVaultPermissions := make([]models.VaultPermission, len(requestData.Permissions))
+		for i, p := range requestData.Permissions {
+			if !slices.Contains([]string{
+				models.VaultPermissionManageVault,
+				models.VaultPermissionRead,
+				models.VaultPermissionDeleteVault,
+				models.VaultPermissionManageItems}, p) {
+				c.JSON(http.StatusBadRequest, schemas.BadRequestResponse{Error: fmt.Sprintf("Given permission '%s' is invalid.", p)})
+				return
+			}
+			newUserVaultPermissions[i] = models.VaultPermission{
+				VaultID:    uint(vaultId),
+				UserID:     newUser.ID,
+				Permission: p,
+			}
+		}
+
+		err = db.Create(&newUserVaultPermissions).Error
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Creating vault permissions for newly added user failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		// TODO: create user vault key
+		// TODO: create audit log
+
+		c.Status(http.StatusOK)
 	}
 }

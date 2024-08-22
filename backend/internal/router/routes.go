@@ -35,6 +35,11 @@ func SetupRoutes(engine *gin.Engine, apiConfig *config.RestapiConfig, logger *lo
 			vaultGroup.GET("", controllers.HandleVaultsList(logger, postgres))
 			vaultGroup.GET("/:id", controllers.HandleVaultsRetrieve(logger, postgres))
 			vaultGroup.DELETE("/:id", controllers.HandleVaultDelete(logger, postgres))
+
+			vaultManage := vaultGroup.Group("/:id/manage")
+			{
+				vaultManage.POST("/add-user", controllers.HandleVaultsManageAddUser(logger, postgres))
+			}
 		}
 	}
 }
