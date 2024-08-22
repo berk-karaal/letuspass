@@ -370,3 +370,77 @@ func HandleVaultsManageAddUser(logger *logging.Logger, db *gorm.DB) func(c *gin.
 		c.Status(http.StatusOK)
 	}
 }
+
+// HandleVaultsManageListUsers
+//
+//	@Summary	List users who have access to vault
+//	@Tags		vault manage
+//	@Param		id	path	int	true	"Vault id"
+//	@Produce	json
+//	@Success	200	{object}	[]controllers.HandleVaultsManageListUsers.UsersResponseItem
+//	@Failure	401
+//	@Failure	403
+//	@Failure	500
+//	@Router		/vaults/{id}/manage/users [get]
+func HandleVaultsManageListUsers(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
+	type UsersResponseItem struct {
+		Email       string   `json:"email"`
+		Permissions []string `json:"permissions"`
+	}
+
+	return func(c *gin.Context) {
+		vaultId, err := strconv.Atoi(c.Param("id"))
+		if err != nil {
+			c.JSON(http.StatusBadRequest, schemas.BadRequestResponse{Error: "Id must be an integer."})
+			return
+		}
+
+		user, ok := middlewares.ExtractUserFromGinContext(c)
+		if !ok {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Msg("Extracting user from Gin context failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		canManageVault, err := vaultservice.CheckUserHasVaultPermission(db, int(user.ID), vaultId, models.VaultPermissionManageVault)
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Checking vault permissions of user failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+		if !canManageVault {
+			c.Status(http.StatusForbidden)
+			return
+		}
+
+		var usersAndPermissions []struct {
+			Email      string `gorm:"column:email"`
+			Permission string `gorm:"column:permission"`
+		}
+		err = db.Select("users.email as email, vault_permissions.permission as permission").
+			Model(&models.VaultPermission{}).
+			Joins("LEFT OUTER JOIN users ON vault_permissions.user_id = users.id").
+			Where("vault_permissions.vault_id = ?", vaultId).
+			Scan(&usersAndPermissions).Error
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Querying users and permissions by vault failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		userAndPermissionsMap := make(map[string][]string)
+		for _, v := range usersAndPermissions {
+			_, ok := userAndPermissionsMap[v.Email]
+			if !ok {
+				userAndPermissionsMap[v.Email] = []string{}
+			}
+			userAndPermissionsMap[v.Email] = append(userAndPermissionsMap[v.Email], v.Permission)
+		}
+
+		var result []UsersResponseItem
+		for k, v := range userAndPermissionsMap {
+			result = append(result, UsersResponseItem{Email: k, Permissions: v})
+		}
+		c.JSON(http.StatusOK, result)
+	}
+}

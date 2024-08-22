@@ -38,6 +38,7 @@ func SetupRoutes(engine *gin.Engine, apiConfig *config.RestapiConfig, logger *lo
 
 			vaultManage := vaultGroup.Group("/:id/manage")
 			{
+				vaultManage.GET("/users", controllers.HandleVaultsManageListUsers(logger, postgres))
 				vaultManage.POST("/add-user", controllers.HandleVaultsManageAddUser(logger, postgres))
 			}
 		}
