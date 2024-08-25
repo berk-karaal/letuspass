@@ -161,10 +161,18 @@ func HandleVaultItemsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Conte
 		}
 
 		var count int64
+		err = db.Select("count(*)").Table("vault_items").
+			Where("deleted_at IS NULL AND vault_id = ?", vaultId).Scan(&count).Error
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Querying vault items count failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
 		var results []VaultItemResponseItem
 		err = db.Scopes(pagination.Paginate(c)).Select("id, title").Table("vault_items").
 			Where("deleted_at IS NULL AND vault_id = ?", vaultId).Order(ordering).
-			Count(&count).Scan(&results).Error
+			Scan(&results).Error
 		if err != nil {
 			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Querying vault items failed.")
 			c.Status(http.StatusInternalServerError)
