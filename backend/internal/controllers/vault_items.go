@@ -30,7 +30,8 @@ import (
 //	@Failure	403
 //	@Failure	422	{object}	bodybinder.validationErrorResponse
 //	@Failure	500
-//	@Router		/vaults/:id/items [post]
+//	@Router		/vaults/{id}/items [post]
+//	@Param		id	path	int	true	"Vault id"
 func HandleVaultItemsCreate(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	type VaultItemCreateRequest struct {
 		Title             string `json:"title" binding:"required"`
@@ -116,7 +117,8 @@ func HandleVaultItemsCreate(logger *logging.Logger, db *gorm.DB) func(c *gin.Con
 //	@Failure	401
 //	@Failure	403
 //	@Failure	500
-//	@Router		/vaults/:id/items [get]
+//	@Router		/vaults/{id}/items [get]
+//	@Param		id	path	int	true	"Vault id"
 func HandleVaultItemsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	type VaultItemResponseItem struct {
 		Id    uint   `json:"id"`
@@ -187,7 +189,9 @@ func HandleVaultItemsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Conte
 //	@Failure	404	{object}	schemas.NotFoundResponse
 //	@Failure	422	{object}	bodybinder.validationErrorResponse
 //	@Failure	500
-//	@Router		/vaults/:id/items/:itemId [get]
+//	@Router		/vaults/{id}/items/{itemId} [get]
+//	@Param		id		path	int	true	"Vault id"
+//	@Param		itemId	path	int	true	"Vault Item id"
 func HandleVaultItemsRetrieve(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	type VaultItemRetrieveResponse struct {
 		Id                uint   `json:"id"`
@@ -263,7 +267,9 @@ func HandleVaultItemsRetrieve(logger *logging.Logger, db *gorm.DB) func(c *gin.C
 //	@Failure	404	{object}	schemas.NotFoundResponse
 //	@Failure	422	{object}	bodybinder.validationErrorResponse
 //	@Failure	500
-//	@Router		/vaults/:id/items/:itemId [put]
+//	@Router		/vaults/{id}/items/{itemId} [put]
+//	@Param		id		path	int	true	"Vault id"
+//	@Param		itemId	path	int	true	"Vault Item id"
 func HandleVaultItemsUpdate(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	type VaultItemUpdateRequest struct {
 		Title             string `json:"title" binding:"required"`
@@ -366,7 +372,9 @@ func HandleVaultItemsUpdate(logger *logging.Logger, db *gorm.DB) func(c *gin.Con
 //	@Failure	404	{object}	schemas.NotFoundResponse
 //	@Failure	422	{object}	bodybinder.validationErrorResponse
 //	@Failure	500
-//	@Router		/vaults/:id/items/:itemId [delete]
+//	@Router		/vaults/{id}/items/{itemId} [delete]
+//	@Param		id		path	int	true	"Vault id"
+//	@Param		itemId	path	int	true	"Vault Item id"
 func HandleVaultItemsDelete(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	return func(c *gin.Context) {
 		vaultId, err := strconv.Atoi(c.Param("id"))
