@@ -6,6 +6,8 @@ import (
 
 	"github.com/berk-karaal/letuspass/backend/internal/common/bodybinder"
 	"github.com/berk-karaal/letuspass/backend/internal/common/logging"
+	"github.com/berk-karaal/letuspass/backend/internal/common/orderbyparam"
+	"github.com/berk-karaal/letuspass/backend/internal/common/pagination"
 	"github.com/berk-karaal/letuspass/backend/internal/middlewares"
 	"github.com/berk-karaal/letuspass/backend/internal/models"
 	"github.com/berk-karaal/letuspass/backend/internal/schemas"
@@ -96,6 +98,76 @@ func HandleVaultItemsCreate(logger *logging.Logger, db *gorm.DB) func(c *gin.Con
 			EncryptedUsername: vaultItem.EncryptedUsername,
 			EncryptedPassword: vaultItem.EncryptedPassword,
 			EncryptedNote:     vaultItem.EncryptedNote,
+		})
+	}
+}
+
+// HandleVaultItemsList
+//
+//	@Summary	List items of a vault
+//	@Tags		vault items
+//	@Produce	json
+//	@Success	200	{object}	pagination.StandardPaginationResponse[controllers.HandleVaultItemsList.VaultItemResponseItem]
+//	@Failure	400	{object}	schemas.BadRequestResponse
+//	@Failure	401
+//	@Failure	403
+//	@Failure	500
+//	@Router		/vaults/:id/items [get]
+func HandleVaultItemsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
+	type VaultItemResponseItem struct {
+		Id    uint   `json:"id"`
+		Title string `json:"title"`
+	}
+
+	return func(c *gin.Context) {
+		vaultId, err := strconv.Atoi(c.Param("id"))
+		if err != nil {
+			c.JSON(http.StatusBadRequest, schemas.BadRequestResponse{Error: "Id must be an integer."})
+			return
+		}
+
+		user, ok := middlewares.ExtractUserFromGinContext(c)
+		if !ok {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Msg("Extracting user from Gin context failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		canRead, err := vaultservice.CheckUserHasVaultPermission(db, int(user.ID), vaultId, models.VaultPermissionRead)
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Checking vault permissions of user failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+		if !canRead {
+			c.Status(http.StatusForbidden)
+			return
+		}
+
+		ordering, err := orderbyparam.GenerateOrdering(c, map[string]string{
+			"title":      "vault_items.title",
+			"created_at": "vault_items.created_at",
+		}, "title")
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Generating query ordering from params failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		var count int64
+		var results []VaultItemResponseItem
+		err = db.Scopes(pagination.Paginate(c)).Select("id, title").Table("vault_items").
+			Where("deleted_at IS NULL AND vault_id = ?", vaultId).Order(ordering).
+			Count(&count).Scan(&results).Error
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Querying vault items failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		c.JSON(http.StatusOK, pagination.StandardPaginationResponse[VaultItemResponseItem]{
+			Count:   int(count),
+			Results: results,
 		})
 	}
 }
