@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"errors"
 	"net/http"
 	"strconv"
 
@@ -168,6 +169,111 @@ func HandleVaultItemsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Conte
 		c.JSON(http.StatusOK, pagination.StandardPaginationResponse[VaultItemResponseItem]{
 			Count:   int(count),
 			Results: results,
+		})
+	}
+}
+
+// HandleVaultItemsUpdate
+//
+//	@Summary	Update a new vault item
+//	@Tags		vault items
+//	@Param		request	body	controllers.HandleVaultItemsUpdate.VaultItemUpdateRequest	true	"New vault item data"
+//	@Produce	json
+//	@Success	200	{object}	controllers.HandleVaultItemsUpdate.VaultItemUpdateResponse
+//	@Failure	400	{object}	schemas.BadRequestResponse
+//	@Failure	401
+//	@Failure	403
+//	@Failure	404 {object}	schemas.NotFoundResponse
+//	@Failure	422	{object}	bodybinder.validationErrorResponse
+//	@Failure	500
+//	@Router		/vaults/:id/items/:itemId [put]
+func HandleVaultItemsUpdate(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
+	type VaultItemUpdateRequest struct {
+		Title             string `json:"title" binding:"required"`
+		EncryptedUsername string `json:"encrypted_username"`
+		EncryptedPassword string `json:"encrypted_password"`
+		EncryptedNote     string `json:"encrypted_note"`
+	}
+
+	type VaultItemUpdateResponse struct {
+		Id                uint   `json:"id"`
+		Title             string `json:"title"`
+		EncryptedUsername string `json:"encrypted_username"`
+		EncryptedPassword string `json:"encrypted_password"`
+		EncryptedNote     string `json:"encrypted_note"`
+	}
+
+	return func(c *gin.Context) {
+		vaultId, err := strconv.Atoi(c.Param("id"))
+		if err != nil {
+			c.JSON(http.StatusBadRequest, schemas.BadRequestResponse{Error: "Id must be an integer."})
+			return
+		}
+
+		vaultItemId, err := strconv.Atoi(c.Param("itemId"))
+		if err != nil {
+			c.JSON(http.StatusBadRequest, schemas.BadRequestResponse{Error: "Id must be an integer."})
+			return
+		}
+
+		user, ok := middlewares.ExtractUserFromGinContext(c)
+		if !ok {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Msg("Extracting user from Gin context failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		canManageItems, err := vaultservice.CheckUserHasVaultPermission(db, int(user.ID), vaultId, models.VaultPermissionManageItems)
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Checking vault permissions of user failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+		if !canManageItems {
+			c.Status(http.StatusForbidden)
+			return
+		}
+
+		var vaultItem models.VaultItem
+		err = db.First(&vaultItem, vaultItemId).Error
+		if err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				c.JSON(http.StatusNotFound, schemas.NotFoundResponse{Error: "Vault item doesn't exist."})
+				return
+			}
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Getting vault item from database failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+		if int(vaultItem.VaultID) != vaultId {
+			c.JSON(http.StatusNotFound, schemas.NotFoundResponse{Error: "Vault item doesn't exist."})
+			return
+		}
+
+		var requestData VaultItemUpdateRequest
+		if ok = bodybinder.Bind(&requestData, c); !ok {
+			return
+		}
+
+		vaultItem.Title = requestData.Title
+		vaultItem.EncryptedUsername = requestData.EncryptedUsername
+		vaultItem.EncryptedPassword = requestData.EncryptedPassword
+		vaultItem.EncryptedNote = requestData.EncryptedNote
+		err = db.Save(&vaultItem).Error
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Updating vault item failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		// TODO: audit log
+
+		c.JSON(http.StatusCreated, VaultItemUpdateResponse{
+			Id:                vaultItem.ID,
+			Title:             vaultItem.Title,
+			EncryptedUsername: vaultItem.EncryptedUsername,
+			EncryptedPassword: vaultItem.EncryptedPassword,
+			EncryptedNote:     vaultItem.EncryptedNote,
 		})
 	}
 }
