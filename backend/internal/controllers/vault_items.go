@@ -351,3 +351,72 @@ func HandleVaultItemsUpdate(logger *logging.Logger, db *gorm.DB) func(c *gin.Con
 		})
 	}
 }
+
+// HandleVaultItemsDelete
+//
+//	@Summary	Delete a vault item
+//	@Tags		vault items
+//	@Success	204
+//	@Failure	400	{object}	schemas.BadRequestResponse
+//	@Failure	401
+//	@Failure	403
+//	@Failure	404 {object}	schemas.NotFoundResponse
+//	@Failure	422	{object}	bodybinder.validationErrorResponse
+//	@Failure	500
+//	@Router		/vaults/:id/items/:itemId [delete]
+func HandleVaultItemsDelete(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
+	return func(c *gin.Context) {
+		vaultId, err := strconv.Atoi(c.Param("id"))
+		if err != nil {
+			c.JSON(http.StatusBadRequest, schemas.BadRequestResponse{Error: "Id must be an integer."})
+			return
+		}
+
+		vaultItemId, err := strconv.Atoi(c.Param("itemId"))
+		if err != nil {
+			c.JSON(http.StatusBadRequest, schemas.BadRequestResponse{Error: "Id must be an integer."})
+			return
+		}
+
+		user, ok := middlewares.ExtractUserFromGinContext(c)
+		if !ok {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Msg("Extracting user from Gin context failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		canRead, err := vaultservice.CheckUserHasVaultPermission(db, int(user.ID), vaultId, models.VaultPermissionRead)
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Checking vault permissions of user failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+		if !canRead {
+			c.Status(http.StatusForbidden)
+			return
+		}
+
+		var vaultItem models.VaultItem
+		err = db.First(&vaultItem, "id = ? AND vault_id = ?", vaultItemId, vaultId).Error
+		if err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				c.JSON(http.StatusNotFound, schemas.NotFoundResponse{Error: "Vault item doesn't exist."})
+				return
+			}
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Getting vault item from database failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		err = db.Unscoped().Delete(&vaultItem).Error
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Deleting vault item failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		// TODO: audit log
+
+		c.Status(http.StatusNoContent)
+	}
+}
