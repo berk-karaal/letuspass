@@ -6,4 +6,5 @@ type Vault struct {
 	gorm.Model
 	Name             string
 	VaultPermissions []VaultPermission
+	VaultItems       []VaultItem
 }
