@@ -22,6 +22,7 @@ import (
 //	@Param		request	body	controllers.HandleVaultItemsCreate.VaultItemCreateRequest	true	"New vault item data"
 //	@Produce	json
 //	@Success	201	{object}	controllers.HandleVaultItemsCreate.VaultItemCreateResponse
+//	@Failure	400	{object}	schemas.BadRequestResponse
 //	@Failure	401
 //	@Failure	403
 //	@Failure	422	{object}	bodybinder.validationErrorResponse
