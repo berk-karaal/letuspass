@@ -49,6 +49,78 @@ definitions:
       name:
         type: string
     type: object
+  controllers.HandleVaultItemsCreate.VaultItemCreateRequest:
+    properties:
+      encrypted_note:
+        type: string
+      encrypted_password:
+        type: string
+      encrypted_username:
+        type: string
+      title:
+        type: string
+    required:
+    - title
+    type: object
+  controllers.HandleVaultItemsCreate.VaultItemCreateResponse:
+    properties:
+      encrypted_note:
+        type: string
+      encrypted_password:
+        type: string
+      encrypted_username:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
+  controllers.HandleVaultItemsList.VaultItemResponseItem:
+    properties:
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
+  controllers.HandleVaultItemsRetrieve.VaultItemRetrieveResponse:
+    properties:
+      encrypted_note:
+        type: string
+      encrypted_password:
+        type: string
+      encrypted_username:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
+  controllers.HandleVaultItemsUpdate.VaultItemUpdateRequest:
+    properties:
+      encrypted_note:
+        type: string
+      encrypted_password:
+        type: string
+      encrypted_username:
+        type: string
+      title:
+        type: string
+    required:
+    - title
+    type: object
+  controllers.HandleVaultItemsUpdate.VaultItemUpdateResponse:
+    properties:
+      encrypted_note:
+        type: string
+      encrypted_password:
+        type: string
+      encrypted_username:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
   controllers.HandleVaultsCreate.VaultCreateRequest:
     properties:
       name:
@@ -100,6 +172,15 @@ definitions:
       user_id:
         type: integer
     type: object
+  pagination.StandardPaginationResponse-controllers_HandleVaultItemsList_VaultItemResponseItem:
+    properties:
+      count:
+        type: integer
+      results:
+        items:
+          $ref: '#/definitions/controllers.HandleVaultItemsList.VaultItemResponseItem'
+        type: array
+    type: object
   pagination.StandardPaginationResponse-controllers_HandleVaultsList_VaultResponseItem:
     properties:
       count:
@@ -110,6 +191,11 @@ definitions:
         type: array
     type: object
   schemas.BadRequestResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  schemas.NotFoundResponse:
     properties:
       error:
         type: string
@@ -325,6 +411,212 @@ paths:
       summary: Retrieve vault by id
       tags:
       - vaults
+  /vaults/{id}/items:
+    get:
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        minimum: 1
+        name: page
+        type: integer
+      - default: 10
+        description: Item count per page
+        in: query
+        name: page_size
+        type: integer
+      - description: Ordering
+        enum:
+        - title
+        - -title
+        - created_at
+        - -created_at
+        in: query
+        name: ordering
+        type: string
+      - description: Vault id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pagination.StandardPaginationResponse-controllers_HandleVaultItemsList_VaultItemResponseItem'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.BadRequestResponse'
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "500":
+          description: Internal Server Error
+      summary: List items of a vault
+      tags:
+      - vault items
+    post:
+      parameters:
+      - description: New vault item data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.HandleVaultItemsCreate.VaultItemCreateRequest'
+      - description: Vault id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/controllers.HandleVaultItemsCreate.VaultItemCreateResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.BadRequestResponse'
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/bodybinder.validationErrorResponse'
+        "500":
+          description: Internal Server Error
+      summary: Create a new vault item
+      tags:
+      - vault items
+  /vaults/{id}/items/{itemId}:
+    delete:
+      parameters:
+      - description: Vault id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Vault Item id
+        in: path
+        name: itemId
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.BadRequestResponse'
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemas.NotFoundResponse'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/bodybinder.validationErrorResponse'
+        "500":
+          description: Internal Server Error
+      summary: Delete a vault item
+      tags:
+      - vault items
+    get:
+      parameters:
+      - description: Vault id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Vault Item id
+        in: path
+        name: itemId
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.HandleVaultItemsRetrieve.VaultItemRetrieveResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.BadRequestResponse'
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemas.NotFoundResponse'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/bodybinder.validationErrorResponse'
+        "500":
+          description: Internal Server Error
+      summary: Retrieve a new vault item
+      tags:
+      - vault items
+    put:
+      parameters:
+      - description: New vault item data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.HandleVaultItemsUpdate.VaultItemUpdateRequest'
+      - description: Vault id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Vault Item id
+        in: path
+        name: itemId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.HandleVaultItemsUpdate.VaultItemUpdateResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.BadRequestResponse'
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemas.NotFoundResponse'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/bodybinder.validationErrorResponse'
+        "500":
+          description: Internal Server Error
+      summary: Update a new vault item
+      tags:
+      - vault items
   /vaults/{id}/manage/add-user:
     post:
       parameters:

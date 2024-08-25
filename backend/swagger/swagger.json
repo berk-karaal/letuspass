@@ -322,6 +322,314 @@
                 }
             }
         },
+        "/vaults/{id}/items": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "vault items"
+                ],
+                "summary": "List items of a vault",
+                "parameters": [
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 10,
+                        "description": "Item count per page",
+                        "name": "page_size",
+                        "in": "query"
+                    },
+                    {
+                        "enum": [
+                            "title",
+                            "-title",
+                            "created_at",
+                            "-created_at"
+                        ],
+                        "type": "string",
+                        "description": "Ordering",
+                        "name": "ordering",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Vault id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/pagination.StandardPaginationResponse-controllers_HandleVaultItemsList_VaultItemResponseItem"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.BadRequestResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "vault items"
+                ],
+                "summary": "Create a new vault item",
+                "parameters": [
+                    {
+                        "description": "New vault item data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HandleVaultItemsCreate.VaultItemCreateRequest"
+                        }
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Vault id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HandleVaultItemsCreate.VaultItemCreateResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.BadRequestResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/bodybinder.validationErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/vaults/{id}/items/{itemId}": {
+            "get": {
+                "tags": [
+                    "vault items"
+                ],
+                "summary": "Retrieve a new vault item",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Vault id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Vault Item id",
+                        "name": "itemId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HandleVaultItemsRetrieve.VaultItemRetrieveResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.BadRequestResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.NotFoundResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/bodybinder.validationErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
+            "put": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "vault items"
+                ],
+                "summary": "Update a new vault item",
+                "parameters": [
+                    {
+                        "description": "New vault item data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HandleVaultItemsUpdate.VaultItemUpdateRequest"
+                        }
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Vault id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Vault Item id",
+                        "name": "itemId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HandleVaultItemsUpdate.VaultItemUpdateResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.BadRequestResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.NotFoundResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/bodybinder.validationErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "vault items"
+                ],
+                "summary": "Delete a vault item",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Vault id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Vault Item id",
+                        "name": "itemId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.BadRequestResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.NotFoundResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/bodybinder.validationErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
         "/vaults/{id}/manage/add-user": {
             "post": {
                 "produces": [
@@ -544,6 +852,117 @@
                 }
             }
         },
+        "controllers.HandleVaultItemsCreate.VaultItemCreateRequest": {
+            "type": "object",
+            "required": [
+                "title"
+            ],
+            "properties": {
+                "encrypted_note": {
+                    "type": "string"
+                },
+                "encrypted_password": {
+                    "type": "string"
+                },
+                "encrypted_username": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "controllers.HandleVaultItemsCreate.VaultItemCreateResponse": {
+            "type": "object",
+            "properties": {
+                "encrypted_note": {
+                    "type": "string"
+                },
+                "encrypted_password": {
+                    "type": "string"
+                },
+                "encrypted_username": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "controllers.HandleVaultItemsList.VaultItemResponseItem": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "controllers.HandleVaultItemsRetrieve.VaultItemRetrieveResponse": {
+            "type": "object",
+            "properties": {
+                "encrypted_note": {
+                    "type": "string"
+                },
+                "encrypted_password": {
+                    "type": "string"
+                },
+                "encrypted_username": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "controllers.HandleVaultItemsUpdate.VaultItemUpdateRequest": {
+            "type": "object",
+            "required": [
+                "title"
+            ],
+            "properties": {
+                "encrypted_note": {
+                    "type": "string"
+                },
+                "encrypted_password": {
+                    "type": "string"
+                },
+                "encrypted_username": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "controllers.HandleVaultItemsUpdate.VaultItemUpdateResponse": {
+            "type": "object",
+            "properties": {
+                "encrypted_note": {
+                    "type": "string"
+                },
+                "encrypted_password": {
+                    "type": "string"
+                },
+                "encrypted_username": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
         "controllers.HandleVaultsCreate.VaultCreateRequest": {
             "type": "object",
             "required": [
@@ -623,6 +1042,20 @@
                 }
             }
         },
+        "pagination.StandardPaginationResponse-controllers_HandleVaultItemsList_VaultItemResponseItem": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer"
+                },
+                "results": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/controllers.HandleVaultItemsList.VaultItemResponseItem"
+                    }
+                }
+            }
+        },
         "pagination.StandardPaginationResponse-controllers_HandleVaultsList_VaultResponseItem": {
             "type": "object",
             "properties": {
@@ -638,6 +1071,14 @@
             }
         },
         "schemas.BadRequestResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "schemas.NotFoundResponse": {
             "type": "object",
             "properties": {
                 "error": {
