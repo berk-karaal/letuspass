@@ -107,6 +107,9 @@ func HandleVaultItemsCreate(logger *logging.Logger, db *gorm.DB) func(c *gin.Con
 //
 //	@Summary	List items of a vault
 //	@Tags		vault items
+//	@Param		page		query	int		false	"Page number"			default(1)	minimum(1)
+//	@Param		page_size	query	int		false	"Item count per page"	default(10)
+//	@Param		ordering	query	string	false	"Ordering"				Enums(title, -title, created_at, -created_at)
 //	@Produce	json
 //	@Success	200	{object}	pagination.StandardPaginationResponse[controllers.HandleVaultItemsList.VaultItemResponseItem]
 //	@Failure	400	{object}	schemas.BadRequestResponse
@@ -181,7 +184,7 @@ func HandleVaultItemsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Conte
 //	@Failure	400	{object}	schemas.BadRequestResponse
 //	@Failure	401
 //	@Failure	403
-//	@Failure	404 {object}	schemas.NotFoundResponse
+//	@Failure	404	{object}	schemas.NotFoundResponse
 //	@Failure	422	{object}	bodybinder.validationErrorResponse
 //	@Failure	500
 //	@Router		/vaults/:id/items/:itemId [get]
@@ -257,7 +260,7 @@ func HandleVaultItemsRetrieve(logger *logging.Logger, db *gorm.DB) func(c *gin.C
 //	@Failure	400	{object}	schemas.BadRequestResponse
 //	@Failure	401
 //	@Failure	403
-//	@Failure	404 {object}	schemas.NotFoundResponse
+//	@Failure	404	{object}	schemas.NotFoundResponse
 //	@Failure	422	{object}	bodybinder.validationErrorResponse
 //	@Failure	500
 //	@Router		/vaults/:id/items/:itemId [put]
@@ -360,7 +363,7 @@ func HandleVaultItemsUpdate(logger *logging.Logger, db *gorm.DB) func(c *gin.Con
 //	@Failure	400	{object}	schemas.BadRequestResponse
 //	@Failure	401
 //	@Failure	403
-//	@Failure	404 {object}	schemas.NotFoundResponse
+//	@Failure	404	{object}	schemas.NotFoundResponse
 //	@Failure	422	{object}	bodybinder.validationErrorResponse
 //	@Failure	500
 //	@Router		/vaults/:id/items/:itemId [delete]
