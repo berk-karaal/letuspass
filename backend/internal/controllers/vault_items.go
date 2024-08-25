@@ -69,14 +69,6 @@ func HandleVaultItemsCreate(logger *logging.Logger, db *gorm.DB) func(c *gin.Con
 			return
 		}
 
-		var vault models.Vault
-		err = db.First(&vault, vaultId).Error
-		if err != nil {
-			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Retrieving vault from db failed.")
-			c.Status(http.StatusInternalServerError)
-			return
-		}
-
 		var requestData VaultItemCreateRequest
 		if ok = bodybinder.Bind(&requestData, c); !ok {
 			return
