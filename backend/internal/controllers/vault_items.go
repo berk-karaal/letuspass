@@ -342,7 +342,7 @@ func HandleVaultItemsUpdate(logger *logging.Logger, db *gorm.DB) func(c *gin.Con
 
 		// TODO: audit log
 
-		c.JSON(http.StatusCreated, VaultItemUpdateResponse{
+		c.JSON(http.StatusOK, VaultItemUpdateResponse{
 			Id:                vaultItem.ID,
 			Title:             vaultItem.Title,
 			EncryptedUsername: vaultItem.EncryptedUsername,
