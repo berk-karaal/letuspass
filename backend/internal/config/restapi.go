@@ -8,8 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// use https://github.com/joho/godotenv
-
 type RestapiConfig struct {
 	GinMode string
 	LogFile string
