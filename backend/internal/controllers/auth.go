@@ -22,6 +22,7 @@ import (
 //
 //	@Summary	Login user
 //	@Tags		auth
+//	@Id			authLogin
 //	@Param		request	body	controllers.HandleAuthLogin.LoginRequest	true	"Login credentials"
 //	@Produce	json
 //	@Success	200
@@ -109,6 +110,7 @@ func HandleAuthLogin(apiConfig *config.RestapiConfig, logger *logging.Logger, db
 //
 //	@Summary	Register user
 //	@Tags		auth
+//	@Id			authRegister
 //	@Param		request	body	controllers.HandleAuthRegister.RegisterRequest	true	"User Registration Data"
 //	@Produce	json
 //	@Success	201
@@ -169,6 +171,7 @@ func HandleAuthRegister(logger *logging.Logger, db *gorm.DB) func(c *gin.Context
 //
 //	@Summary	Logout user
 //	@Tags		auth
+//	@Id			authLogout
 //	@Produce	json
 //	@Success	204
 //	@Failure	401

@@ -25,6 +25,7 @@ import (
 //
 //	@Summary	Create a new vault
 //	@Tags		vaults
+//	@Id			createVault
 //	@Param		request	body	controllers.HandleVaultsCreate.VaultCreateRequest	true	"New vault data"
 //	@Produce	json
 //	@Success	201	{object}	controllers.HandleVaultsCreate.VaultCreateResponse
@@ -84,6 +85,7 @@ func HandleVaultsCreate(logger *logging.Logger, db *gorm.DB) func(c *gin.Context
 //
 //	@Summary	List vaults that user has read access to
 //	@Tags		vaults
+//	@Id			listVaults
 //	@Produce	json
 //	@Param		page		query		int		false	"Page number"			default(1)	minimum(1)
 //	@Param		page_size	query		int		false	"Item count per page"	default(10)
@@ -145,6 +147,7 @@ func HandleVaultsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) 
 //
 //	@Summary	Retrieve vault by id
 //	@Tags		vaults
+//	@Id			retrieveVault
 //	@Produce	json
 //	@Success	200	{object}	controllers.HandleVaultsCreate.VaultCreateResponse
 //	@Failure	400	{object}	schemas.BadRequestResponse
@@ -208,6 +211,7 @@ func HandleVaultsRetrieve(logger *logging.Logger, db *gorm.DB) func(c *gin.Conte
 //
 //	@Summary	Delete vault by id
 //	@Tags		vaults
+//	@Id			deleteVault
 //	@Success	204
 //	@Failure	401
 //	@Forbidden	403
@@ -268,6 +272,7 @@ func HandleVaultDelete(logger *logging.Logger, db *gorm.DB) func(c *gin.Context)
 //
 //	@Summary	Add user to vault
 //	@Tags		vault manage
+//	@Id			addUserToVault
 //	@Param		id		path	int														true	"Vault id"
 //	@Param		request	body	controllers.HandleVaultsManageAddUser.AddUserRequest	true	"New user data"
 //	@Produce	json
@@ -375,6 +380,7 @@ func HandleVaultsManageAddUser(logger *logging.Logger, db *gorm.DB) func(c *gin.
 //
 //	@Summary	List users who have access to vault
 //	@Tags		vault manage
+//	@Id			listVaultUsers
 //	@Param		id	path	int	true	"Vault id"
 //	@Produce	json
 //	@Success	200	{object}	[]controllers.HandleVaultsManageListUsers.UsersResponseItem
@@ -449,6 +455,7 @@ func HandleVaultsManageListUsers(logger *logging.Logger, db *gorm.DB) func(c *gi
 //
 //	@Summary	Remove user from vault
 //	@Tags		vault manage
+//	@Id			removeUserFromVault
 //	@Param		id		path	int															true	"Vault id"
 //	@Param		request	body	controllers.HandleVaultsManageRemoveUser.RemoveUserRequest	true	"ID of the user which will be removed"
 //	@Success	204

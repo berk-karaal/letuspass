@@ -13,6 +13,7 @@ import (
 //
 //	@Summary	Get currently logged-in user
 //	@Tags		users
+//	@Id			getCurrentUser
 //	@Produce	json
 //	@Success	200	{object}	controllers.HandleUsersMe.MeResponse
 //	@Failure	401

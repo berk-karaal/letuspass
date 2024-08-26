@@ -22,6 +22,7 @@ import (
 //
 //	@Summary	Create a new vault item
 //	@Tags		vault items
+//	@Id			createVaultItem
 //	@Param		request	body	controllers.HandleVaultItemsCreate.VaultItemCreateRequest	true	"New vault item data"
 //	@Produce	json
 //	@Success	201	{object}	controllers.HandleVaultItemsCreate.VaultItemCreateResponse
@@ -108,6 +109,7 @@ func HandleVaultItemsCreate(logger *logging.Logger, db *gorm.DB) func(c *gin.Con
 //
 //	@Summary	List items of a vault
 //	@Tags		vault items
+//	@Id			listVaultItems
 //	@Param		page		query	int		false	"Page number"			default(1)	minimum(1)
 //	@Param		page_size	query	int		false	"Item count per page"	default(10)
 //	@Param		ordering	query	string	false	"Ordering"				Enums(title, -title, created_at, -created_at)
@@ -190,6 +192,7 @@ func HandleVaultItemsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Conte
 //
 //	@Summary	Retrieve a new vault item
 //	@Tags		vault items
+//	@Id			retrieveVaultItem
 //	@Success	200	{object}	controllers.HandleVaultItemsRetrieve.VaultItemRetrieveResponse
 //	@Failure	400	{object}	schemas.BadRequestResponse
 //	@Failure	401
@@ -266,6 +269,7 @@ func HandleVaultItemsRetrieve(logger *logging.Logger, db *gorm.DB) func(c *gin.C
 //
 //	@Summary	Update a new vault item
 //	@Tags		vault items
+//	@Id			updateVaultItem
 //	@Param		request	body	controllers.HandleVaultItemsUpdate.VaultItemUpdateRequest	true	"New vault item data"
 //	@Produce	json
 //	@Success	200	{object}	controllers.HandleVaultItemsUpdate.VaultItemUpdateResponse
@@ -373,6 +377,7 @@ func HandleVaultItemsUpdate(logger *logging.Logger, db *gorm.DB) func(c *gin.Con
 //
 //	@Summary	Delete a vault item
 //	@Tags		vault items
+//	@Id			deleteVaultItem
 //	@Success	204
 //	@Failure	400	{object}	schemas.BadRequestResponse
 //	@Failure	401

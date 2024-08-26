@@ -12,6 +12,7 @@ import (
 //
 //	@Summary	Get status of the server
 //	@Tags		metrics
+//	@Id			getServerStatus
 //	@Produce	json
 //	@Success	200	{object}	controllers.HandleMetricsStatus.MetricsStatusResponse
 //	@Router		/metrics/status [get]
