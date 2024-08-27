@@ -171,7 +171,7 @@ func HandleVaultItemsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Conte
 			return
 		}
 
-		var results []VaultItemResponseItem
+		results := []VaultItemResponseItem{}
 		err = db.Scopes(pagination.Paginate(c)).Select("id, title").Table("vault_items").
 			Where("deleted_at IS NULL AND vault_id = ?", vaultId).Order(ordering).
 			Scan(&results).Error

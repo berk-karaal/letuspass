@@ -120,7 +120,7 @@ func HandleVaultsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) 
 			return
 		}
 
-		var results []VaultResponseItem
+		results := []VaultResponseItem{}
 		var count int64
 		err = db.Scopes(pagination.Paginate(c)).Select("vaults.id, vaults.name, vaults.created_at, vaults.updated_at").
 			Table("vault_permissions").
@@ -443,7 +443,7 @@ func HandleVaultsManageListUsers(logger *logging.Logger, db *gorm.DB) func(c *gi
 			userAndPermissionsMap[v.Email] = append(userAndPermissionsMap[v.Email], v.Permission)
 		}
 
-		var result []UsersResponseItem
+		result := []UsersResponseItem{}
 		for k, v := range userAndPermissionsMap {
 			result = append(result, UsersResponseItem{Email: k, Permissions: v})
 		}
