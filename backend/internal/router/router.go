@@ -5,6 +5,7 @@ import (
 	golog "log"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/berk-karaal/letuspass/backend/internal/common/logging"
 	"github.com/berk-karaal/letuspass/backend/internal/config"
@@ -12,6 +13,7 @@ import (
 	"github.com/berk-karaal/letuspass/backend/internal/middlewares"
 	"github.com/berk-karaal/letuspass/backend/internal/models"
 	_ "github.com/berk-karaal/letuspass/backend/swagger"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/requestid"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
@@ -44,6 +46,13 @@ func SetupRouter(apiConfig config.RestapiConfig) *gin.Engine {
 	router.Use(gin.Recovery())
 	router.Use(requestid.New())
 	router.Use(middlewares.LogHandler(logger))
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:5173"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "User-Agent", "Cache-Control"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
+
 	SetupRoutes(router, &apiConfig, logger, postgresDb)
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
