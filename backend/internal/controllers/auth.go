@@ -25,7 +25,7 @@ import (
 //	@Id			authLogin
 //	@Param		request	body	controllers.HandleAuthLogin.LoginRequest	true	"Login credentials"
 //	@Produce	json
-//	@Success	200
+//	@Success	200	{object}	controllers.HandleAuthLogin.LoginResponse
 //	@Failure	400	{object}	schemas.BadRequestResponse
 //	@Failure	422	{object}	bodybinder.validationErrorResponse
 //	@Failure	500
