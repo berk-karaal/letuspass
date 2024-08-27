@@ -24,6 +24,7 @@ const docTemplate = `{
                     "auth"
                 ],
                 "summary": "Login user",
+                "operationId": "authLogin",
                 "parameters": [
                     {
                         "description": "Login credentials",
@@ -37,7 +38,10 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HandleAuthLogin.LoginResponse"
+                        }
                     },
                     "400": {
                         "description": "Bad Request",
@@ -66,6 +70,7 @@ const docTemplate = `{
                     "auth"
                 ],
                 "summary": "Logout user",
+                "operationId": "authLogout",
                 "responses": {
                     "204": {
                         "description": "No Content"
@@ -88,6 +93,7 @@ const docTemplate = `{
                     "auth"
                 ],
                 "summary": "Register user",
+                "operationId": "authRegister",
                 "parameters": [
                     {
                         "description": "User Registration Data",
@@ -130,6 +136,7 @@ const docTemplate = `{
                     "metrics"
                 ],
                 "summary": "Get status of the server",
+                "operationId": "getServerStatus",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -149,6 +156,7 @@ const docTemplate = `{
                     "users"
                 ],
                 "summary": "Get currently logged-in user",
+                "operationId": "getCurrentUser",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -174,6 +182,7 @@ const docTemplate = `{
                     "vaults"
                 ],
                 "summary": "List vaults that user has read access to",
+                "operationId": "listVaults",
                 "parameters": [
                     {
                         "minimum": 1,
@@ -226,6 +235,7 @@ const docTemplate = `{
                     "vaults"
                 ],
                 "summary": "Create a new vault",
+                "operationId": "createVault",
                 "parameters": [
                     {
                         "description": "New vault data",
@@ -268,6 +278,7 @@ const docTemplate = `{
                     "vaults"
                 ],
                 "summary": "Retrieve vault by id",
+                "operationId": "retrieveVault",
                 "parameters": [
                     {
                         "type": "integer",
@@ -303,6 +314,7 @@ const docTemplate = `{
                     "vaults"
                 ],
                 "summary": "Delete vault by id",
+                "operationId": "deleteVault",
                 "parameters": [
                     {
                         "type": "integer",
@@ -337,6 +349,7 @@ const docTemplate = `{
                     "vault items"
                 ],
                 "summary": "List items of a vault",
+                "operationId": "listVaultItems",
                 "parameters": [
                     {
                         "minimum": 1,
@@ -405,6 +418,7 @@ const docTemplate = `{
                     "vault items"
                 ],
                 "summary": "Create a new vault item",
+                "operationId": "createVaultItem",
                 "parameters": [
                     {
                         "description": "New vault item data",
@@ -460,6 +474,7 @@ const docTemplate = `{
                     "vault items"
                 ],
                 "summary": "Retrieve a new vault item",
+                "operationId": "retrieveVaultItem",
                 "parameters": [
                     {
                         "type": "integer",
@@ -520,6 +535,7 @@ const docTemplate = `{
                     "vault items"
                 ],
                 "summary": "Update a new vault item",
+                "operationId": "updateVaultItem",
                 "parameters": [
                     {
                         "description": "New vault item data",
@@ -586,6 +602,7 @@ const docTemplate = `{
                     "vault items"
                 ],
                 "summary": "Delete a vault item",
+                "operationId": "deleteVaultItem",
                 "parameters": [
                     {
                         "type": "integer",
@@ -645,6 +662,7 @@ const docTemplate = `{
                     "vault manage"
                 ],
                 "summary": "Add user to vault",
+                "operationId": "addUserToVault",
                 "parameters": [
                     {
                         "type": "integer",
@@ -700,6 +718,7 @@ const docTemplate = `{
                     "vault manage"
                 ],
                 "summary": "List users who have access to vault",
+                "operationId": "listVaultUsers",
                 "parameters": [
                     {
                         "type": "integer",
@@ -735,6 +754,7 @@ const docTemplate = `{
                     "vault manage"
                 ],
                 "summary": "Remove user from vault",
+                "operationId": "removeUserFromVault",
                 "parameters": [
                     {
                         "type": "integer",
@@ -785,6 +805,9 @@ const docTemplate = `{
     "definitions": {
         "bodybinder.validationErrorResponse": {
             "type": "object",
+            "required": [
+                "errors"
+            ],
             "properties": {
                 "errors": {
                     "type": "array",
@@ -796,6 +819,10 @@ const docTemplate = `{
         },
         "bodybinder.validationErrorResponseItem": {
             "type": "object",
+            "required": [
+                "field",
+                "reason"
+            ],
             "properties": {
                 "field": {
                     "type": "string"
@@ -816,6 +843,21 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "controllers.HandleAuthLogin.LoginResponse": {
+            "type": "object",
+            "required": [
+                "email",
+                "name"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "name": {
                     "type": "string"
                 }
             }
@@ -841,6 +883,9 @@ const docTemplate = `{
         },
         "controllers.HandleMetricsStatus.MetricsStatusResponse": {
             "type": "object",
+            "required": [
+                "status"
+            ],
             "properties": {
                 "status": {
                     "type": "string"
@@ -849,6 +894,10 @@ const docTemplate = `{
         },
         "controllers.HandleUsersMe.MeResponse": {
             "type": "object",
+            "required": [
+                "email",
+                "name"
+            ],
             "properties": {
                 "email": {
                     "type": "string"
@@ -880,6 +929,13 @@ const docTemplate = `{
         },
         "controllers.HandleVaultItemsCreate.VaultItemCreateResponse": {
             "type": "object",
+            "required": [
+                "encrypted_note",
+                "encrypted_password",
+                "encrypted_username",
+                "id",
+                "title"
+            ],
             "properties": {
                 "encrypted_note": {
                     "type": "string"
@@ -900,6 +956,10 @@ const docTemplate = `{
         },
         "controllers.HandleVaultItemsList.VaultItemResponseItem": {
             "type": "object",
+            "required": [
+                "id",
+                "title"
+            ],
             "properties": {
                 "id": {
                     "type": "integer"
@@ -911,6 +971,13 @@ const docTemplate = `{
         },
         "controllers.HandleVaultItemsRetrieve.VaultItemRetrieveResponse": {
             "type": "object",
+            "required": [
+                "encrypted_note",
+                "encrypted_password",
+                "encrypted_username",
+                "id",
+                "title"
+            ],
             "properties": {
                 "encrypted_note": {
                     "type": "string"
@@ -951,6 +1018,13 @@ const docTemplate = `{
         },
         "controllers.HandleVaultItemsUpdate.VaultItemUpdateResponse": {
             "type": "object",
+            "required": [
+                "encrypted_note",
+                "encrypted_password",
+                "encrypted_username",
+                "id",
+                "title"
+            ],
             "properties": {
                 "encrypted_note": {
                     "type": "string"
@@ -982,6 +1056,10 @@ const docTemplate = `{
         },
         "controllers.HandleVaultsCreate.VaultCreateResponse": {
             "type": "object",
+            "required": [
+                "id",
+                "name"
+            ],
             "properties": {
                 "id": {
                     "type": "integer"
@@ -993,6 +1071,12 @@ const docTemplate = `{
         },
         "controllers.HandleVaultsList.VaultResponseItem": {
             "type": "object",
+            "required": [
+                "created_at",
+                "id",
+                "name",
+                "updated_at"
+            ],
             "properties": {
                 "created_at": {
                     "type": "string"
@@ -1028,6 +1112,10 @@ const docTemplate = `{
         },
         "controllers.HandleVaultsManageListUsers.UsersResponseItem": {
             "type": "object",
+            "required": [
+                "email",
+                "permissions"
+            ],
             "properties": {
                 "email": {
                     "type": "string"
@@ -1042,6 +1130,9 @@ const docTemplate = `{
         },
         "controllers.HandleVaultsManageRemoveUser.RemoveUserRequest": {
             "type": "object",
+            "required": [
+                "user_id"
+            ],
             "properties": {
                 "user_id": {
                     "type": "integer"
@@ -1050,6 +1141,10 @@ const docTemplate = `{
         },
         "pagination.StandardPaginationResponse-controllers_HandleVaultItemsList_VaultItemResponseItem": {
             "type": "object",
+            "required": [
+                "count",
+                "results"
+            ],
             "properties": {
                 "count": {
                     "type": "integer"
@@ -1064,6 +1159,10 @@ const docTemplate = `{
         },
         "pagination.StandardPaginationResponse-controllers_HandleVaultsList_VaultResponseItem": {
             "type": "object",
+            "required": [
+                "count",
+                "results"
+            ],
             "properties": {
                 "count": {
                     "type": "integer"
@@ -1078,6 +1177,9 @@ const docTemplate = `{
         },
         "schemas.BadRequestResponse": {
             "type": "object",
+            "required": [
+                "error"
+            ],
             "properties": {
                 "error": {
                     "type": "string"
@@ -1086,6 +1188,9 @@ const docTemplate = `{
         },
         "schemas.NotFoundResponse": {
             "type": "object",
+            "required": [
+                "error"
+            ],
             "properties": {
                 "error": {
                     "type": "string"

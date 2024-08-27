@@ -18,6 +18,7 @@
                     "auth"
                 ],
                 "summary": "Login user",
+                "operationId": "authLogin",
                 "parameters": [
                     {
                         "description": "Login credentials",
@@ -31,7 +32,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HandleAuthLogin.LoginResponse"
+                        }
                     },
                     "400": {
                         "description": "Bad Request",
@@ -60,6 +64,7 @@
                     "auth"
                 ],
                 "summary": "Logout user",
+                "operationId": "authLogout",
                 "responses": {
                     "204": {
                         "description": "No Content"
@@ -82,6 +87,7 @@
                     "auth"
                 ],
                 "summary": "Register user",
+                "operationId": "authRegister",
                 "parameters": [
                     {
                         "description": "User Registration Data",
@@ -124,6 +130,7 @@
                     "metrics"
                 ],
                 "summary": "Get status of the server",
+                "operationId": "getServerStatus",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -143,6 +150,7 @@
                     "users"
                 ],
                 "summary": "Get currently logged-in user",
+                "operationId": "getCurrentUser",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -168,6 +176,7 @@
                     "vaults"
                 ],
                 "summary": "List vaults that user has read access to",
+                "operationId": "listVaults",
                 "parameters": [
                     {
                         "minimum": 1,
@@ -220,6 +229,7 @@
                     "vaults"
                 ],
                 "summary": "Create a new vault",
+                "operationId": "createVault",
                 "parameters": [
                     {
                         "description": "New vault data",
@@ -262,6 +272,7 @@
                     "vaults"
                 ],
                 "summary": "Retrieve vault by id",
+                "operationId": "retrieveVault",
                 "parameters": [
                     {
                         "type": "integer",
@@ -297,6 +308,7 @@
                     "vaults"
                 ],
                 "summary": "Delete vault by id",
+                "operationId": "deleteVault",
                 "parameters": [
                     {
                         "type": "integer",
@@ -331,6 +343,7 @@
                     "vault items"
                 ],
                 "summary": "List items of a vault",
+                "operationId": "listVaultItems",
                 "parameters": [
                     {
                         "minimum": 1,
@@ -399,6 +412,7 @@
                     "vault items"
                 ],
                 "summary": "Create a new vault item",
+                "operationId": "createVaultItem",
                 "parameters": [
                     {
                         "description": "New vault item data",
@@ -454,6 +468,7 @@
                     "vault items"
                 ],
                 "summary": "Retrieve a new vault item",
+                "operationId": "retrieveVaultItem",
                 "parameters": [
                     {
                         "type": "integer",
@@ -514,6 +529,7 @@
                     "vault items"
                 ],
                 "summary": "Update a new vault item",
+                "operationId": "updateVaultItem",
                 "parameters": [
                     {
                         "description": "New vault item data",
@@ -580,6 +596,7 @@
                     "vault items"
                 ],
                 "summary": "Delete a vault item",
+                "operationId": "deleteVaultItem",
                 "parameters": [
                     {
                         "type": "integer",
@@ -639,6 +656,7 @@
                     "vault manage"
                 ],
                 "summary": "Add user to vault",
+                "operationId": "addUserToVault",
                 "parameters": [
                     {
                         "type": "integer",
@@ -694,6 +712,7 @@
                     "vault manage"
                 ],
                 "summary": "List users who have access to vault",
+                "operationId": "listVaultUsers",
                 "parameters": [
                     {
                         "type": "integer",
@@ -729,6 +748,7 @@
                     "vault manage"
                 ],
                 "summary": "Remove user from vault",
+                "operationId": "removeUserFromVault",
                 "parameters": [
                     {
                         "type": "integer",
@@ -779,6 +799,9 @@
     "definitions": {
         "bodybinder.validationErrorResponse": {
             "type": "object",
+            "required": [
+                "errors"
+            ],
             "properties": {
                 "errors": {
                     "type": "array",
@@ -790,6 +813,10 @@
         },
         "bodybinder.validationErrorResponseItem": {
             "type": "object",
+            "required": [
+                "field",
+                "reason"
+            ],
             "properties": {
                 "field": {
                     "type": "string"
@@ -810,6 +837,21 @@
                     "type": "string"
                 },
                 "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "controllers.HandleAuthLogin.LoginResponse": {
+            "type": "object",
+            "required": [
+                "email",
+                "name"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "name": {
                     "type": "string"
                 }
             }
@@ -835,6 +877,9 @@
         },
         "controllers.HandleMetricsStatus.MetricsStatusResponse": {
             "type": "object",
+            "required": [
+                "status"
+            ],
             "properties": {
                 "status": {
                     "type": "string"
@@ -843,6 +888,10 @@
         },
         "controllers.HandleUsersMe.MeResponse": {
             "type": "object",
+            "required": [
+                "email",
+                "name"
+            ],
             "properties": {
                 "email": {
                     "type": "string"
@@ -874,6 +923,13 @@
         },
         "controllers.HandleVaultItemsCreate.VaultItemCreateResponse": {
             "type": "object",
+            "required": [
+                "encrypted_note",
+                "encrypted_password",
+                "encrypted_username",
+                "id",
+                "title"
+            ],
             "properties": {
                 "encrypted_note": {
                     "type": "string"
@@ -894,6 +950,10 @@
         },
         "controllers.HandleVaultItemsList.VaultItemResponseItem": {
             "type": "object",
+            "required": [
+                "id",
+                "title"
+            ],
             "properties": {
                 "id": {
                     "type": "integer"
@@ -905,6 +965,13 @@
         },
         "controllers.HandleVaultItemsRetrieve.VaultItemRetrieveResponse": {
             "type": "object",
+            "required": [
+                "encrypted_note",
+                "encrypted_password",
+                "encrypted_username",
+                "id",
+                "title"
+            ],
             "properties": {
                 "encrypted_note": {
                     "type": "string"
@@ -945,6 +1012,13 @@
         },
         "controllers.HandleVaultItemsUpdate.VaultItemUpdateResponse": {
             "type": "object",
+            "required": [
+                "encrypted_note",
+                "encrypted_password",
+                "encrypted_username",
+                "id",
+                "title"
+            ],
             "properties": {
                 "encrypted_note": {
                     "type": "string"
@@ -976,6 +1050,10 @@
         },
         "controllers.HandleVaultsCreate.VaultCreateResponse": {
             "type": "object",
+            "required": [
+                "id",
+                "name"
+            ],
             "properties": {
                 "id": {
                     "type": "integer"
@@ -987,6 +1065,12 @@
         },
         "controllers.HandleVaultsList.VaultResponseItem": {
             "type": "object",
+            "required": [
+                "created_at",
+                "id",
+                "name",
+                "updated_at"
+            ],
             "properties": {
                 "created_at": {
                     "type": "string"
@@ -1022,6 +1106,10 @@
         },
         "controllers.HandleVaultsManageListUsers.UsersResponseItem": {
             "type": "object",
+            "required": [
+                "email",
+                "permissions"
+            ],
             "properties": {
                 "email": {
                     "type": "string"
@@ -1036,6 +1124,9 @@
         },
         "controllers.HandleVaultsManageRemoveUser.RemoveUserRequest": {
             "type": "object",
+            "required": [
+                "user_id"
+            ],
             "properties": {
                 "user_id": {
                     "type": "integer"
@@ -1044,6 +1135,10 @@
         },
         "pagination.StandardPaginationResponse-controllers_HandleVaultItemsList_VaultItemResponseItem": {
             "type": "object",
+            "required": [
+                "count",
+                "results"
+            ],
             "properties": {
                 "count": {
                     "type": "integer"
@@ -1058,6 +1153,10 @@
         },
         "pagination.StandardPaginationResponse-controllers_HandleVaultsList_VaultResponseItem": {
             "type": "object",
+            "required": [
+                "count",
+                "results"
+            ],
             "properties": {
                 "count": {
                     "type": "integer"
@@ -1072,6 +1171,9 @@
         },
         "schemas.BadRequestResponse": {
             "type": "object",
+            "required": [
+                "error"
+            ],
             "properties": {
                 "error": {
                     "type": "string"
@@ -1080,6 +1182,9 @@
         },
         "schemas.NotFoundResponse": {
             "type": "object",
+            "required": [
+                "error"
+            ],
             "properties": {
                 "error": {
                     "type": "string"

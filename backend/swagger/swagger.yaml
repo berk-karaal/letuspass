@@ -6,6 +6,8 @@ definitions:
         items:
           $ref: '#/definitions/bodybinder.validationErrorResponseItem'
         type: array
+    required:
+    - errors
     type: object
   bodybinder.validationErrorResponseItem:
     properties:
@@ -13,6 +15,9 @@ definitions:
         type: string
       reason:
         type: string
+    required:
+    - field
+    - reason
     type: object
   controllers.HandleAuthLogin.LoginRequest:
     properties:
@@ -23,6 +28,16 @@ definitions:
     required:
     - email
     - password
+    type: object
+  controllers.HandleAuthLogin.LoginResponse:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+    required:
+    - email
+    - name
     type: object
   controllers.HandleAuthRegister.RegisterRequest:
     properties:
@@ -41,6 +56,8 @@ definitions:
     properties:
       status:
         type: string
+    required:
+    - status
     type: object
   controllers.HandleUsersMe.MeResponse:
     properties:
@@ -48,6 +65,9 @@ definitions:
         type: string
       name:
         type: string
+    required:
+    - email
+    - name
     type: object
   controllers.HandleVaultItemsCreate.VaultItemCreateRequest:
     properties:
@@ -74,6 +94,12 @@ definitions:
         type: integer
       title:
         type: string
+    required:
+    - encrypted_note
+    - encrypted_password
+    - encrypted_username
+    - id
+    - title
     type: object
   controllers.HandleVaultItemsList.VaultItemResponseItem:
     properties:
@@ -81,6 +107,9 @@ definitions:
         type: integer
       title:
         type: string
+    required:
+    - id
+    - title
     type: object
   controllers.HandleVaultItemsRetrieve.VaultItemRetrieveResponse:
     properties:
@@ -94,6 +123,12 @@ definitions:
         type: integer
       title:
         type: string
+    required:
+    - encrypted_note
+    - encrypted_password
+    - encrypted_username
+    - id
+    - title
     type: object
   controllers.HandleVaultItemsUpdate.VaultItemUpdateRequest:
     properties:
@@ -120,6 +155,12 @@ definitions:
         type: integer
       title:
         type: string
+    required:
+    - encrypted_note
+    - encrypted_password
+    - encrypted_username
+    - id
+    - title
     type: object
   controllers.HandleVaultsCreate.VaultCreateRequest:
     properties:
@@ -134,6 +175,9 @@ definitions:
         type: integer
       name:
         type: string
+    required:
+    - id
+    - name
     type: object
   controllers.HandleVaultsList.VaultResponseItem:
     properties:
@@ -145,6 +189,11 @@ definitions:
         type: string
       updated_at:
         type: string
+    required:
+    - created_at
+    - id
+    - name
+    - updated_at
     type: object
   controllers.HandleVaultsManageAddUser.AddUserRequest:
     properties:
@@ -166,11 +215,16 @@ definitions:
         items:
           type: string
         type: array
+    required:
+    - email
+    - permissions
     type: object
   controllers.HandleVaultsManageRemoveUser.RemoveUserRequest:
     properties:
       user_id:
         type: integer
+    required:
+    - user_id
     type: object
   pagination.StandardPaginationResponse-controllers_HandleVaultItemsList_VaultItemResponseItem:
     properties:
@@ -180,6 +234,9 @@ definitions:
         items:
           $ref: '#/definitions/controllers.HandleVaultItemsList.VaultItemResponseItem'
         type: array
+    required:
+    - count
+    - results
     type: object
   pagination.StandardPaginationResponse-controllers_HandleVaultsList_VaultResponseItem:
     properties:
@@ -189,16 +246,23 @@ definitions:
         items:
           $ref: '#/definitions/controllers.HandleVaultsList.VaultResponseItem'
         type: array
+    required:
+    - count
+    - results
     type: object
   schemas.BadRequestResponse:
     properties:
       error:
         type: string
+    required:
+    - error
     type: object
   schemas.NotFoundResponse:
     properties:
       error:
         type: string
+    required:
+    - error
     type: object
 host: localhost:8080
 info:
@@ -209,6 +273,7 @@ info:
 paths:
   /auth/login:
     post:
+      operationId: authLogin
       parameters:
       - description: Login credentials
         in: body
@@ -221,6 +286,8 @@ paths:
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/controllers.HandleAuthLogin.LoginResponse'
         "400":
           description: Bad Request
           schema:
@@ -236,6 +303,7 @@ paths:
       - auth
   /auth/logout:
     post:
+      operationId: authLogout
       produces:
       - application/json
       responses:
@@ -250,6 +318,7 @@ paths:
       - auth
   /auth/register:
     post:
+      operationId: authRegister
       parameters:
       - description: User Registration Data
         in: body
@@ -277,6 +346,7 @@ paths:
       - auth
   /metrics/status:
     get:
+      operationId: getServerStatus
       produces:
       - application/json
       responses:
@@ -289,6 +359,7 @@ paths:
       - metrics
   /users/me:
     get:
+      operationId: getCurrentUser
       produces:
       - application/json
       responses:
@@ -305,6 +376,7 @@ paths:
       - users
   /vaults:
     get:
+      operationId: listVaults
       parameters:
       - default: 1
         description: Page number
@@ -341,6 +413,7 @@ paths:
       tags:
       - vaults
     post:
+      operationId: createVault
       parameters:
       - description: New vault data
         in: body
@@ -368,6 +441,7 @@ paths:
       - vaults
   /vaults/{id}:
     delete:
+      operationId: deleteVault
       parameters:
       - description: Vault id
         in: path
@@ -387,6 +461,7 @@ paths:
       tags:
       - vaults
     get:
+      operationId: retrieveVault
       parameters:
       - description: Vault id
         in: path
@@ -413,6 +488,7 @@ paths:
       - vaults
   /vaults/{id}/items:
     get:
+      operationId: listVaultItems
       parameters:
       - default: 1
         description: Page number
@@ -460,6 +536,7 @@ paths:
       tags:
       - vault items
     post:
+      operationId: createVaultItem
       parameters:
       - description: New vault item data
         in: body
@@ -498,6 +575,7 @@ paths:
       - vault items
   /vaults/{id}/items/{itemId}:
     delete:
+      operationId: deleteVaultItem
       parameters:
       - description: Vault id
         in: path
@@ -534,6 +612,7 @@ paths:
       tags:
       - vault items
     get:
+      operationId: retrieveVaultItem
       parameters:
       - description: Vault id
         in: path
@@ -572,6 +651,7 @@ paths:
       tags:
       - vault items
     put:
+      operationId: updateVaultItem
       parameters:
       - description: New vault item data
         in: body
@@ -619,6 +699,7 @@ paths:
       - vault items
   /vaults/{id}/manage/add-user:
     post:
+      operationId: addUserToVault
       parameters:
       - description: Vault id
         in: path
@@ -655,6 +736,7 @@ paths:
       - vault manage
   /vaults/{id}/manage/users:
     delete:
+      operationId: removeUserFromVault
       parameters:
       - description: Vault id
         in: path
@@ -688,6 +770,7 @@ paths:
       tags:
       - vault manage
     get:
+      operationId: listVaultUsers
       parameters:
       - description: Vault id
         in: path
