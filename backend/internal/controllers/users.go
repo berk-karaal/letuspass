@@ -21,8 +21,8 @@ import (
 //	@Router		/users/me [get]
 func HandleUsersMe(logger *logging.Logger) func(c *gin.Context) {
 	type MeResponse struct {
-		Email string `json:"email"`
-		Name  string `json:"name"`
+		Email string `json:"email" binding:"required"`
+		Name  string `json:"name" binding:"required"`
 	}
 
 	return func(c *gin.Context) {

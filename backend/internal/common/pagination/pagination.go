@@ -30,6 +30,6 @@ func Paginate(c *gin.Context) func(db *gorm.DB) *gorm.DB {
 }
 
 type StandardPaginationResponse[T any] struct {
-	Results []T `json:"results"`
-	Count   int `json:"count"`
+	Results []T `json:"results" binding:"required"`
+	Count   int `json:"count" binding:"required"`
 }

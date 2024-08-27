@@ -42,11 +42,11 @@ func HandleVaultItemsCreate(logger *logging.Logger, db *gorm.DB) func(c *gin.Con
 	}
 
 	type VaultItemCreateResponse struct {
-		Id                uint   `json:"id"`
-		Title             string `json:"title"`
-		EncryptedUsername string `json:"encrypted_username"`
-		EncryptedPassword string `json:"encrypted_password"`
-		EncryptedNote     string `json:"encrypted_note"`
+		Id                uint   `json:"id" binding:"required"`
+		Title             string `json:"title" binding:"required"`
+		EncryptedUsername string `json:"encrypted_username" binding:"required"`
+		EncryptedPassword string `json:"encrypted_password" binding:"required"`
+		EncryptedNote     string `json:"encrypted_note" binding:"required"`
 	}
 
 	return func(c *gin.Context) {
@@ -123,8 +123,8 @@ func HandleVaultItemsCreate(logger *logging.Logger, db *gorm.DB) func(c *gin.Con
 //	@Param		id	path	int	true	"Vault id"
 func HandleVaultItemsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	type VaultItemResponseItem struct {
-		Id    uint   `json:"id"`
-		Title string `json:"title"`
+		Id    uint   `json:"id" binding:"required"`
+		Title string `json:"title" binding:"required"`
 	}
 
 	return func(c *gin.Context) {
@@ -205,11 +205,11 @@ func HandleVaultItemsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Conte
 //	@Param		itemId	path	int	true	"Vault Item id"
 func HandleVaultItemsRetrieve(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	type VaultItemRetrieveResponse struct {
-		Id                uint   `json:"id"`
-		Title             string `json:"title"`
-		EncryptedUsername string `json:"encrypted_username"`
-		EncryptedPassword string `json:"encrypted_password"`
-		EncryptedNote     string `json:"encrypted_note"`
+		Id                uint   `json:"id" binding:"required"`
+		Title             string `json:"title" binding:"required"`
+		EncryptedUsername string `json:"encrypted_username" binding:"required"`
+		EncryptedPassword string `json:"encrypted_password" binding:"required"`
+		EncryptedNote     string `json:"encrypted_note" binding:"required"`
 	}
 
 	return func(c *gin.Context) {
@@ -291,11 +291,11 @@ func HandleVaultItemsUpdate(logger *logging.Logger, db *gorm.DB) func(c *gin.Con
 	}
 
 	type VaultItemUpdateResponse struct {
-		Id                uint   `json:"id"`
-		Title             string `json:"title"`
-		EncryptedUsername string `json:"encrypted_username"`
-		EncryptedPassword string `json:"encrypted_password"`
-		EncryptedNote     string `json:"encrypted_note"`
+		Id                uint   `json:"id" binding:"required"`
+		Title             string `json:"title" binding:"required"`
+		EncryptedUsername string `json:"encrypted_username" binding:"required"`
+		EncryptedPassword string `json:"encrypted_password" binding:"required"`
+		EncryptedNote     string `json:"encrypted_note" binding:"required"`
 	}
 
 	return func(c *gin.Context) {

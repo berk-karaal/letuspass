@@ -37,8 +37,8 @@ func HandleAuthLogin(apiConfig *config.RestapiConfig, logger *logging.Logger, db
 	}
 
 	type LoginResponse struct {
-		Email string `json:"email"`
-		Name  string `json:"name"`
+		Email string `json:"email" binding:"required"`
+		Name  string `json:"name" binding:"required"`
 	}
 
 	return func(c *gin.Context) {

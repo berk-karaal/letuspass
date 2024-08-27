@@ -18,7 +18,7 @@ import (
 //	@Router		/metrics/status [get]
 func HandleMetricsStatus(logger *logging.Logger) func(c *gin.Context) {
 	type MetricsStatusResponse struct {
-		Status string `json:"status"`
+		Status string `json:"status" binding:"required"`
 	}
 
 	return func(c *gin.Context) {

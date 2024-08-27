@@ -39,8 +39,8 @@ func HandleVaultsCreate(logger *logging.Logger, db *gorm.DB) func(c *gin.Context
 	}
 
 	type VaultCreateResponse struct {
-		Id   uint   `json:"id"`
-		Name string `json:"name"`
+		Id   uint   `json:"id" binding:"required"`
+		Name string `json:"name" binding:"required"`
 	}
 
 	return func(c *gin.Context) {
@@ -96,10 +96,10 @@ func HandleVaultsCreate(logger *logging.Logger, db *gorm.DB) func(c *gin.Context
 //	@Router		/vaults [get]
 func HandleVaultsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	type VaultResponseItem struct {
-		Id        uint      `json:"id"`
-		Name      string    `json:"name"`
-		CreatedAt time.Time `json:"created_at"`
-		UpdatedAt time.Time `json:"updated_at"`
+		Id        uint      `json:"id" binding:"required"`
+		Name      string    `json:"name" binding:"required"`
+		CreatedAt time.Time `json:"created_at" binding:"required"`
+		UpdatedAt time.Time `json:"updated_at" binding:"required"`
 	}
 
 	return func(c *gin.Context) {
@@ -159,9 +159,9 @@ func HandleVaultsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) 
 func HandleVaultsRetrieve(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 
 	type VaultRetrieveResponse struct {
-		Id        uint      `json:"id"`
-		Name      string    `json:"name"`
-		CreatedAt time.Time `json:"created_at"`
+		Id        uint      `json:"id" binding:"required"`
+		Name      string    `json:"name" binding:"required"`
+		CreatedAt time.Time `json:"created_at" binding:"required"`
 	}
 
 	return func(c *gin.Context) {
@@ -390,8 +390,8 @@ func HandleVaultsManageAddUser(logger *logging.Logger, db *gorm.DB) func(c *gin.
 //	@Router		/vaults/{id}/manage/users [get]
 func HandleVaultsManageListUsers(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	type UsersResponseItem struct {
-		Email       string   `json:"email"`
-		Permissions []string `json:"permissions"`
+		Email       string   `json:"email" binding:"required"`
+		Permissions []string `json:"permissions" binding:"required"`
 	}
 
 	return func(c *gin.Context) {
@@ -467,7 +467,7 @@ func HandleVaultsManageListUsers(logger *logging.Logger, db *gorm.DB) func(c *gi
 //	@Router		/vaults/{id}/manage/users [delete]
 func HandleVaultsManageRemoveUser(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	type RemoveUserRequest struct {
-		UserId int `json:"user_id"`
+		UserId int `json:"user_id" binding:"required"`
 	}
 
 	return func(c *gin.Context) {

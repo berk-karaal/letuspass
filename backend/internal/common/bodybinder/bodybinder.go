@@ -11,12 +11,12 @@ import (
 )
 
 type validationErrorResponse struct {
-	Errors []validationErrorResponseItem `json:"errors"`
+	Errors []validationErrorResponseItem `json:"errors" binding:"required"`
 }
 
 type validationErrorResponseItem struct {
-	Field  string `json:"field"`
-	Reason string `json:"reason"`
+	Field  string `json:"field" binding:"required"`
+	Reason string `json:"reason" binding:"required"`
 }
 
 // Bind runs gin.Context.ShouldBind() function underneath, returns true if binding is successful. If binding
