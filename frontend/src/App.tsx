@@ -1,7 +1,12 @@
+import { Button, Container, Title } from "@mantine/core";
+
 function App() {
   return (
     <>
-      <h1>Hello World</h1>
+      <Container>
+        <Title>Hello World</Title>
+        <Button>Demo</Button>
+      </Container>
     </>
   );
 }
