@@ -1,5 +1,7 @@
 import { authLogin } from "@/api/letuspass";
 import { SchemasBadRequestResponse } from "@/api/letuspass.schemas";
+import { useAppDispatch } from "@/store/hooks";
+import { userLoggedIn } from "@/store/slices/user";
 import {
   Button,
   Group,
@@ -10,13 +12,19 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
+import { notifications } from "@mantine/notifications";
+import { IconCheck } from "@tabler/icons-react";
 import { useMutation } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginButtonAndModal() {
-  const [errorText, setErrorText] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [opened, { open, close }] = useDisclosure(false);
+
+  const [errorText, setErrorText] = useState<string | null>(null);
 
   const form = useForm({
     mode: "uncontrolled",
@@ -39,7 +47,14 @@ export default function LoginButtonAndModal() {
   const mutation = useMutation({
     mutationFn: authLogin,
     onSuccess: (data) => {
-      console.log("Login success", data);
+      notifications.show({
+        title: "Login Successful",
+        message: "You have successfully logged in.",
+        color: "green",
+        icon: <IconCheck />,
+      });
+      dispatch(userLoggedIn({ email: data.email, name: data.name }));
+      navigate("/app");
     },
     onError: (error) => {
       if (isAxiosError(error)) {
