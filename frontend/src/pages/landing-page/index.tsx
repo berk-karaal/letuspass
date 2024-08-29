@@ -4,7 +4,7 @@ import { Container, Group, Text } from "@mantine/core";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginButtonAndModal from "./LoginButtonAndModal";
-import RegisterButtonAndModal from "./RegsiterButtonAndModal";
+import RegisterButtonAndModal from "./RegisterButtonAndModal";
 import classes from "./styles.module.css";
 
 function LandingPage() {
