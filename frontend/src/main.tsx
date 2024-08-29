@@ -1,10 +1,12 @@
 import App from "@/App.tsx";
+import { store } from "@/store/store";
 import { createTheme, MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { Provider as ReduxProvider } from "react-redux";
 
 const theme = createTheme({});
 
@@ -14,8 +16,10 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <MantineProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <App />
-        <ReactQueryDevtools initialIsOpen={false} />
+        <ReduxProvider store={store}>
+          <App />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </ReduxProvider>
       </QueryClientProvider>
     </MantineProvider>
   </StrictMode>
