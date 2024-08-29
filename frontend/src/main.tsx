@@ -2,6 +2,8 @@ import App from "@/App.tsx";
 import { store } from "@/store/store";
 import { createTheme, MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
+import { Notifications } from "@mantine/notifications";
+import "@mantine/notifications/styles.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { StrictMode } from "react";
@@ -17,6 +19,7 @@ createRoot(document.getElementById("root")!).render(
     <MantineProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <ReduxProvider store={store}>
+          <Notifications />
           <App />
           <ReactQueryDevtools initialIsOpen={false} />
         </ReduxProvider>
