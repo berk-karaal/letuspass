@@ -1,12 +1,11 @@
-import { Button, Container, Title } from "@mantine/core";
+import { RouterProvider } from "react-router-dom";
+
+import router from "@/routes";
 
 function App() {
   return (
     <>
-      <Container>
-        <Title>Hello World</Title>
-        <Button>Demo</Button>
-      </Container>
+      <RouterProvider router={router} />
     </>
   );
 }
