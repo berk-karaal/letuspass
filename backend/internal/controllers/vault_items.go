@@ -113,6 +113,7 @@ func HandleVaultItemsCreate(logger *logging.Logger, db *gorm.DB) func(c *gin.Con
 //	@Param		page		query	int		false	"Page number"			default(1)	minimum(1)
 //	@Param		page_size	query	int		false	"Item count per page"	default(10)
 //	@Param		ordering	query	string	false	"Ordering"				Enums(title, -title, created_at, -created_at)
+//	@Param		title		query	string	false	"Search by title"
 //	@Produce	json
 //	@Success	200	{object}	pagination.StandardPaginationResponse[controllers.HandleVaultItemsList.VaultItemResponseItem]
 //	@Failure	400	{object}	schemas.BadRequestResponse
@@ -162,9 +163,15 @@ func HandleVaultItemsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Conte
 			return
 		}
 
+		titleSearchParam := c.Query("title")
+
 		var count int64
-		err = db.Select("count(*)").Table("vault_items").
-			Where("deleted_at IS NULL AND vault_id = ?", vaultId).Scan(&count).Error
+		countStmt := db.Select("count(*)").Table("vault_items").
+			Where("deleted_at IS NULL AND vault_id = ?", vaultId)
+		if titleSearchParam != "" {
+			countStmt = countStmt.Where("title LIKE ?", "%"+titleSearchParam+"%")
+		}
+		err = countStmt.Scan(&count).Error
 		if err != nil {
 			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Querying vault items count failed.")
 			c.Status(http.StatusInternalServerError)
@@ -172,8 +179,12 @@ func HandleVaultItemsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Conte
 		}
 
 		results := []VaultItemResponseItem{}
-		err = db.Scopes(pagination.Paginate(c)).Select("id, title").Table("vault_items").
-			Where("deleted_at IS NULL AND vault_id = ?", vaultId).Order(ordering).
+		queryStmt := db.Scopes(pagination.Paginate(c)).Select("id, title").Table("vault_items").
+			Where("deleted_at IS NULL AND vault_id = ?", vaultId).Order(ordering)
+		if titleSearchParam != "" {
+			queryStmt = queryStmt.Where("title LIKE ?", "%"+titleSearchParam+"%")
+		}
+		err = queryStmt.
 			Scan(&results).Error
 		if err != nil {
 			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Querying vault items failed.")
