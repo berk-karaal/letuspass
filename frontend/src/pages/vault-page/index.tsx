@@ -9,6 +9,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import VaultItemList from "./VaultItemList";
 
 function VaultPage() {
   const { vaultId } = useParams();
@@ -62,7 +63,7 @@ function VaultPage() {
           </ActionIcon>
         </Box>
       </Group>
-      <p>Vault Id: {vaultId}</p>
+      <VaultItemList vaultId={Number(vaultId)} />
     </>
   );
 }
