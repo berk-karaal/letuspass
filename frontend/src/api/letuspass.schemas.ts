@@ -29,6 +29,10 @@ export type ListVaultItemsParams = {
    * Ordering
    */
   ordering?: ListVaultItemsOrdering;
+  /**
+   * Search by title
+   */
+  title?: string;
 };
 
 export type ListVaultsOrdering =
