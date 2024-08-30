@@ -1,5 +1,5 @@
-import { Button, Group, Title } from "@mantine/core";
-import { IconPlus } from "@tabler/icons-react";
+import { Group, Title } from "@mantine/core";
+import CreateVaultButtonAndModal from "./CreateVaultButtonAndModal";
 import VaultList from "./VaultList";
 
 function AppPage() {
@@ -7,7 +7,7 @@ function AppPage() {
     <>
       <Group mb={"sm"} justify={"space-between"}>
         <Title fw={"lighter"}>Vaults</Title>
-        <Button leftSection={<IconPlus size={"20px"} />}>New Vault</Button>
+        <CreateVaultButtonAndModal />
       </Group>
       <VaultList />
     </>
