@@ -510,6 +510,10 @@ paths:
         in: query
         name: ordering
         type: string
+      - description: Search by title
+        in: query
+        name: title
+        type: string
       - description: Vault id
         in: path
         name: id

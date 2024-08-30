@@ -379,6 +379,12 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
+                        "type": "string",
+                        "description": "Search by title",
+                        "name": "title",
+                        "in": "query"
+                    },
+                    {
                         "type": "integer",
                         "description": "Vault id",
                         "name": "id",
