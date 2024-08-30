@@ -1,26 +1,12 @@
-import { Anchor, Container, Group, Title } from "@mantine/core";
-import { Link, Outlet } from "react-router-dom";
+import { Container } from "@mantine/core";
+import { Outlet } from "react-router-dom";
+import { AppShellNavbar } from "./Navbar";
 
 function AppShell() {
   return (
     <>
+      <AppShellNavbar />
       <Container>
-        <Group justify="space-between">
-          <Title>LetusPass</Title>
-          <Group>
-            <Anchor component={Link} to={"/"}>
-              Landing
-            </Anchor>
-            <Anchor component={Link} to={"/app"}>
-              Home
-            </Anchor>
-            <Anchor component={Link} to={"#"}>
-              User
-            </Anchor>
-            <Anchor onClick={() => null}>Logout</Anchor>
-          </Group>
-        </Group>
-        <hr />
         <Outlet />
       </Container>
     </>
