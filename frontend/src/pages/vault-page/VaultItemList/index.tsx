@@ -1,6 +1,26 @@
 import { listVaultItems } from "@/api/letuspass";
-import { Box, Group, LoadingOverlay, Pagination, Text } from "@mantine/core";
-import { IconKey } from "@tabler/icons-react";
+import {
+  ListVaultItemsOrdering,
+  ListVaultItemsParams,
+} from "@/api/letuspass.schemas";
+import {
+  Box,
+  Button,
+  CloseButton,
+  Group,
+  LoadingOverlay,
+  Pagination,
+  Select,
+  Text,
+  TextInput,
+} from "@mantine/core";
+import { useDebouncedValue } from "@mantine/hooks";
+import {
+  IconArrowsSort,
+  IconKey,
+  IconPlus,
+  IconSearch,
+} from "@tabler/icons-react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -36,35 +56,102 @@ function VaultItemBox({
 
 export default function VaultItemList({ vaultId }: { vaultId: number }) {
   const PAGE_SIZE = 5;
-  const [activePage, setPage] = useState(1);
+  const [activePage, setActivePage] = useState(1);
   const [totalItemCount, setTotalItemCount] = useState(0);
+  const [ordering, setOrdering] = useState("title");
+  const orderingValues = [
+    { value: "title", label: "Title" },
+    { value: "created_at", label: "Created at" },
+  ];
+  const [searchValue, setSearchValue] = useState("");
+  const [searchValueDebounced] = useDebouncedValue(searchValue, 200);
 
+  const [queryValues, setQueryValues] = useState({
+    pageNumber: activePage,
+    pageSize: PAGE_SIZE,
+    ordering: ordering as ListVaultItemsOrdering,
+    title: searchValueDebounced,
+  });
   const vaultsQuery = useQuery({
-    queryKey: ["vault", vaultId, "items", activePage],
-    queryFn: () =>
-      listVaultItems(vaultId, {
-        page: activePage,
-        page_size: PAGE_SIZE,
-        ordering: "title",
-      }),
+    queryKey: ["vault", vaultId, "items", queryValues],
+    queryFn: () => {
+      let params: ListVaultItemsParams = {
+        page: queryValues.pageNumber,
+        page_size: queryValues.pageSize,
+        ordering: queryValues.ordering,
+      };
+      if (queryValues.title) {
+        params = {
+          ...params,
+          title: queryValues.title,
+        };
+      }
+      return listVaultItems(vaultId, params);
+    },
     placeholderData: keepPreviousData,
     gcTime: 0,
   });
 
+  // Everytime vaultsQuery is fetched, update totalItemCount according to the response.
+  // This is used to calculate the total number of pages in the pagination.
   useEffect(() => {
-    if (vaultsQuery.isSuccess && vaultsQuery.data?.count > 0) {
+    if (vaultsQuery.isSuccess && vaultsQuery.data?.count >= 0) {
       setTotalItemCount(vaultsQuery.data?.count);
     }
   }, [vaultsQuery]);
 
+  useEffect(() => {
+    setActivePage(1);
+    setQueryValues((prev) => ({
+      ...prev,
+      pageNumber: 1,
+      title: searchValueDebounced,
+    }));
+  }, [searchValueDebounced]);
+
   return (
     <>
-      {vaultsQuery.isSuccess && vaultsQuery.data?.count === 0 && (
-        <Text ta={"center"} my={"lg"}>
-          This vault is empty.
-        </Text>
-      )}
-      <Group></Group>
+      <Group
+        justify="space-between"
+        mt={"md"}
+        mb={"xs"}
+        gap={"xs"}
+        wrap="nowrap"
+      >
+        <Select
+          rightSection={<IconArrowsSort />}
+          checkIconPosition="right"
+          data={orderingValues}
+          value={ordering}
+          onChange={(_value, option) => {
+            setOrdering(option.value);
+            setActivePage(1);
+            setQueryValues((prev) => ({
+              ...prev,
+              pageNumber: 1,
+              ordering: option.value as ListVaultItemsOrdering,
+            }));
+          }}
+        />
+        <Button
+          onClick={() => null}
+          leftSection={<IconPlus size={"1.25rem"} />}
+        >
+          New Item
+        </Button>
+      </Group>
+      <TextInput
+        placeholder="Search"
+        leftSection={<IconSearch size={"1rem"} />}
+        rightSection={
+          <CloseButton
+            onClick={() => setSearchValue("")}
+            style={{ display: searchValue ? undefined : "none" }}
+          />
+        }
+        value={searchValue}
+        onChange={(event) => setSearchValue(event.currentTarget.value)}
+      />
       <Box pos={"relative"}>
         <LoadingOverlay
           visible={vaultsQuery.isFetching}
@@ -79,11 +166,22 @@ export default function VaultItemList({ vaultId }: { vaultId: number }) {
             vaultId={vaultId}
           />
         ))}
+        {vaultsQuery.isSuccess && vaultsQuery.data?.count === 0 && (
+          <Text ta={"center"} my={"lg"}>
+            {searchValueDebounced ? "No item found." : "This vault is empty."}
+          </Text>
+        )}
       </Box>
       <Group mt={"lg"} justify={"center"}>
         <Pagination
           value={activePage}
-          onChange={setPage}
+          onChange={(value) => {
+            setActivePage(value);
+            setQueryValues((prev) => ({
+              ...prev,
+              pageNumber: value,
+            }));
+          }}
           total={Math.ceil(totalItemCount / PAGE_SIZE)}
         />
       </Group>
