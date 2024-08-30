@@ -5,7 +5,6 @@ import {
 } from "@/api/letuspass.schemas";
 import {
   Box,
-  Button,
   CloseButton,
   Group,
   LoadingOverlay,
@@ -15,15 +14,11 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useDebouncedValue } from "@mantine/hooks";
-import {
-  IconArrowsSort,
-  IconKey,
-  IconPlus,
-  IconSearch,
-} from "@tabler/icons-react";
+import { IconArrowsSort, IconKey, IconSearch } from "@tabler/icons-react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import CreateVaultItemButtonAndModal from "../CreateVaultItemButtonAndModal";
 import classes from "./styles.module.css";
 
 function VaultItemBox({
@@ -133,12 +128,7 @@ export default function VaultItemList({ vaultId }: { vaultId: number }) {
             }));
           }}
         />
-        <Button
-          onClick={() => null}
-          leftSection={<IconPlus size={"1.25rem"} />}
-        >
-          New Item
-        </Button>
+        <CreateVaultItemButtonAndModal vaultId={vaultId} />
       </Group>
       <TextInput
         placeholder="Search"
