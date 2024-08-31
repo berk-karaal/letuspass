@@ -18,7 +18,6 @@ function VaultPage() {
   const vaultQuery = useQuery({
     queryKey: ["vault", vaultId],
     queryFn: () => retrieveVault(Number(vaultId)),
-    gcTime: 0,
     retry: (failureCount: number, error: Error) => {
       if (failureCount > 2) {
         return false;
