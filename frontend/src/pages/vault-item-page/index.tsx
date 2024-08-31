@@ -20,7 +20,6 @@ import {
   IconArrowLeft,
   IconBriefcase2,
   IconDotsVertical,
-  IconEdit,
   IconEye,
   IconEyeOff,
   IconFileTime,
@@ -31,6 +30,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import strftime from "strftime";
+import EditItemButtonAndModal from "./EditItemButtonAndModal";
 import ThreeDotMenu from "./ThreeDotMenu";
 
 function VaultItemPage() {
@@ -63,7 +63,7 @@ function VaultItemPage() {
   const vaultPermissionsQuery = useVaultPermissionsQuery(Number(vaultId));
 
   const vaultItemQuery = useQuery({
-    queryKey: ["vaultItem", vaultItemId],
+    queryKey: ["vaultItem", Number(vaultItemId)],
     queryFn: () => retrieveVaultItem(Number(vaultId), Number(vaultItemId)),
     retry: (failureCount: number, error: Error) => {
       if (failureCount > 2) {
@@ -140,14 +140,18 @@ function VaultItemPage() {
           {vaultPermissionsQuery.isSuccess &&
             vaultPermissionsQuery.data.includes("manage_items") && (
               <>
-                <ActionIcon
-                  variant="transparent"
-                  color="dark"
-                  onClick={() => null}
-                  mx={"0.35rem"}
-                >
-                  <IconEdit size={"1.5rem"} />
-                </ActionIcon>
+                {vaultItemQuery.isSuccess && (
+                  <EditItemButtonAndModal
+                    vaultId={Number(vaultId)}
+                    vaultItemId={Number(vaultItemId)}
+                    currentPlainValues={{
+                      title: vaultItemQuery.data.title,
+                      username: vaultItemQuery.data.encrypted_username,
+                      password: vaultItemQuery.data.encrypted_password,
+                      notes: vaultItemQuery.data.encrypted_note,
+                    }}
+                  />
+                )}
                 <ThreeDotMenu
                   vaultId={Number(vaultId)}
                   vaultItemId={Number(vaultItemId)}
