@@ -169,7 +169,7 @@ func HandleVaultItemsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Conte
 		countStmt := db.Select("count(*)").Table("vault_items").
 			Where("deleted_at IS NULL AND vault_id = ?", vaultId)
 		if titleSearchParam != "" {
-			countStmt = countStmt.Where("title LIKE ?", "%"+titleSearchParam+"%")
+			countStmt = countStmt.Where("title ILIKE ?", "%"+titleSearchParam+"%")
 		}
 		err = countStmt.Scan(&count).Error
 		if err != nil {
@@ -182,7 +182,7 @@ func HandleVaultItemsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Conte
 		queryStmt := db.Scopes(pagination.Paginate(c)).Select("id, title").Table("vault_items").
 			Where("deleted_at IS NULL AND vault_id = ?", vaultId).Order(ordering)
 		if titleSearchParam != "" {
-			queryStmt = queryStmt.Where("title LIKE ?", "%"+titleSearchParam+"%")
+			queryStmt = queryStmt.Where("title ILIKE ?", "%"+titleSearchParam+"%")
 		}
 		err = queryStmt.
 			Scan(&results).Error
