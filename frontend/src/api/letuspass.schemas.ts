@@ -130,6 +130,7 @@ export interface ControllersHandleVaultItemsRetrieveVaultItemRetrieveResponse {
   encrypted_username: string;
   id: number;
   title: string;
+  updated_at: string;
 }
 
 export interface ControllersHandleVaultItemsListVaultItemResponseItem {
