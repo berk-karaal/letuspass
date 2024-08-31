@@ -279,6 +279,46 @@ func HandleVaultDelete(logger *logging.Logger, db *gorm.DB) func(c *gin.Context)
 	}
 }
 
+// HandleVaultsMyPermissions
+//
+//	@Summary	List current user's permission on vault
+//	@Tags		vaults
+//	@Id			listMyVaultPermissions
+//	@Produce	json
+//	@Success	200	{object}	[]string
+//	@Failure	400	{object}	schemas.BadRequestResponse
+//	@Failure	401
+//	@Failure	500
+//	@Router		/vaults/{id}/my-permissions [get]
+//	@Param		id	path	int	true	"Vault id"
+func HandleVaultsMyPermissions(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
+	return func(c *gin.Context) {
+		vaultId, err := strconv.Atoi(c.Param("id"))
+		if err != nil {
+			c.JSON(http.StatusBadRequest, schemas.BadRequestResponse{Error: "Id must be an integer."})
+			return
+		}
+
+		user, ok := middlewares.ExtractUserFromGinContext(c)
+		if !ok {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Msg("Extracting user from Gin context failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		permissions := []string{}
+		err = db.Model(&models.VaultPermission{}).Select("permission").
+			Where("vault_id = ? AND user_id = ?", vaultId, user.ID).Scan(&permissions).Error
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Querying vault permissions failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		c.JSON(http.StatusOK, permissions)
+	}
+}
+
 // HandleVaultsManageAddUser
 //
 //	@Summary	Add user to vault
