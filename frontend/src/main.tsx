@@ -4,13 +4,27 @@ import { createTheme, MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { Notifications } from "@mantine/notifications";
 import "@mantine/notifications/styles.css";
+import { IconEye, IconEyeOff } from "@tabler/icons-react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider as ReduxProvider } from "react-redux";
 
-const theme = createTheme({});
+const theme = createTheme({
+  components: {
+    PasswordInput: {
+      defaultProps: {
+        visibilityToggleIcon: ({ reveal }: { reveal: boolean }) =>
+          reveal ? (
+            <IconEyeOff stroke={1.25} size={"1em"} />
+          ) : (
+            <IconEye stroke={1.25} size={"1em"} />
+          ),
+      },
+    },
+  },
+});
 
 const queryClient = new QueryClient();
 
