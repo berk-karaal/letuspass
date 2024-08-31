@@ -3,6 +3,7 @@ import {
   ListVaultItemsOrdering,
   ListVaultItemsParams,
 } from "@/api/letuspass.schemas";
+import { useVaultPermissionsQuery } from "@/hooks/useVaultPermissionsQuery";
 import {
   Box,
   CloseButton,
@@ -87,6 +88,8 @@ export default function VaultItemList({ vaultId }: { vaultId: number }) {
     gcTime: 0,
   });
 
+  const vaultPermissionsQuery = useVaultPermissionsQuery(Number(vaultId));
+
   // Everytime vaultsQuery is fetched, update totalItemCount according to the response.
   // This is used to calculate the total number of pages in the pagination.
   useEffect(() => {
@@ -128,7 +131,10 @@ export default function VaultItemList({ vaultId }: { vaultId: number }) {
             }));
           }}
         />
-        <CreateVaultItemButtonAndModal vaultId={vaultId} />
+        {vaultPermissionsQuery.isSuccess &&
+          vaultPermissionsQuery.data.includes("manage_items") && (
+            <CreateVaultItemButtonAndModal vaultId={vaultId} />
+          )}
       </Group>
       <TextInput
         placeholder="Search"
