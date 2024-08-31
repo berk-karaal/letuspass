@@ -288,6 +288,19 @@ export const removeUserFromVault = (
   );
 };
 
+/**
+ * @summary List current user's permission on vault
+ */
+export const listMyVaultPermissions = (
+  id: number,
+  options?: SecondParameter<typeof customInstance>,
+) => {
+  return customInstance<string[]>(
+    { url: `/vaults/${id}/my-permissions`, method: "GET" },
+    options,
+  );
+};
+
 export type AuthLoginResult = NonNullable<
   Awaited<ReturnType<typeof authLogin>>
 >;
@@ -338,4 +351,7 @@ export type ListVaultUsersResult = NonNullable<
 >;
 export type RemoveUserFromVaultResult = NonNullable<
   Awaited<ReturnType<typeof removeUserFromVault>>
+>;
+export type ListMyVaultPermissionsResult = NonNullable<
+  Awaited<ReturnType<typeof listMyVaultPermissions>>
 >;
