@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/berk-karaal/letuspass/backend/internal/common/bodybinder"
 	"github.com/berk-karaal/letuspass/backend/internal/common/logging"
@@ -216,11 +217,12 @@ func HandleVaultItemsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Conte
 //	@Param		itemId	path	int	true	"Vault Item id"
 func HandleVaultItemsRetrieve(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	type VaultItemRetrieveResponse struct {
-		Id                uint   `json:"id" binding:"required"`
-		Title             string `json:"title" binding:"required"`
-		EncryptedUsername string `json:"encrypted_username" binding:"required"`
-		EncryptedPassword string `json:"encrypted_password" binding:"required"`
-		EncryptedNote     string `json:"encrypted_note" binding:"required"`
+		Id                uint      `json:"id" binding:"required"`
+		Title             string    `json:"title" binding:"required"`
+		EncryptedUsername string    `json:"encrypted_username" binding:"required"`
+		EncryptedPassword string    `json:"encrypted_password" binding:"required"`
+		EncryptedNote     string    `json:"encrypted_note" binding:"required"`
+		UpdatedAt         time.Time `json:"updated_at" binding:"required"`
 	}
 
 	return func(c *gin.Context) {
@@ -272,6 +274,7 @@ func HandleVaultItemsRetrieve(logger *logging.Logger, db *gorm.DB) func(c *gin.C
 			EncryptedUsername: vaultItem.EncryptedUsername,
 			EncryptedPassword: vaultItem.EncryptedPassword,
 			EncryptedNote:     vaultItem.EncryptedNote,
+			UpdatedAt:         vaultItem.UpdatedAt,
 		})
 	}
 }
