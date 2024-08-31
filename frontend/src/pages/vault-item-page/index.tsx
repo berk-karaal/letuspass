@@ -31,6 +31,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import strftime from "strftime";
+import ThreeDotMenu from "./ThreeDotMenu";
 
 function VaultItemPage() {
   const { vaultId, vaultItemId } = useParams();
@@ -147,14 +148,20 @@ function VaultItemPage() {
                 >
                   <IconEdit size={"1.5rem"} />
                 </ActionIcon>
-                <ActionIcon
-                  variant="transparent"
-                  color="dark"
-                  onClick={() => null}
-                  mx={"0.35rem"}
-                >
-                  <IconDotsVertical size={"1.5rem"} />
-                </ActionIcon>
+                <ThreeDotMenu
+                  vaultId={Number(vaultId)}
+                  vaultItemId={Number(vaultItemId)}
+                  target={
+                    <ActionIcon
+                      variant="transparent"
+                      color="dark"
+                      onClick={() => null}
+                      mx={"0.35rem"}
+                    >
+                      <IconDotsVertical size={"1.5rem"} />
+                    </ActionIcon>
+                  }
+                />
               </>
             )}
         </Box>
