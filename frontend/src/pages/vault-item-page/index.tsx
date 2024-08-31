@@ -1,4 +1,5 @@
 import { retrieveVault, retrieveVaultItem } from "@/api/letuspass";
+import { useVaultPermissionsQuery } from "@/hooks/useVaultPermissionsQuery";
 import {
   ActionIcon,
   Box,
@@ -57,6 +58,8 @@ function VaultItemPage() {
       return true;
     },
   });
+
+  const vaultPermissionsQuery = useVaultPermissionsQuery(Number(vaultId));
 
   const vaultItemQuery = useQuery({
     queryKey: ["vaultItem", vaultItemId],
@@ -133,22 +136,27 @@ function VaultItemPage() {
           >
             <IconFileTime size={"1.5rem"} />
           </ActionIcon>
-          <ActionIcon
-            variant="transparent"
-            color="dark"
-            onClick={() => null}
-            mx={"0.35rem"}
-          >
-            <IconEdit size={"1.5rem"} />
-          </ActionIcon>
-          <ActionIcon
-            variant="transparent"
-            color="dark"
-            onClick={() => null}
-            mx={"0.35rem"}
-          >
-            <IconDotsVertical size={"1.5rem"} />
-          </ActionIcon>
+          {vaultPermissionsQuery.isSuccess &&
+            vaultPermissionsQuery.data.includes("manage_items") && (
+              <>
+                <ActionIcon
+                  variant="transparent"
+                  color="dark"
+                  onClick={() => null}
+                  mx={"0.35rem"}
+                >
+                  <IconEdit size={"1.5rem"} />
+                </ActionIcon>
+                <ActionIcon
+                  variant="transparent"
+                  color="dark"
+                  onClick={() => null}
+                  mx={"0.35rem"}
+                >
+                  <IconDotsVertical size={"1.5rem"} />
+                </ActionIcon>
+              </>
+            )}
         </Box>
       </Group>
 
