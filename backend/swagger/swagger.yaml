@@ -123,12 +123,15 @@ definitions:
         type: integer
       title:
         type: string
+      updated_at:
+        type: string
     required:
     - encrypted_note
     - encrypted_password
     - encrypted_username
     - id
     - title
+    - updated_at
     type: object
   controllers.HandleVaultItemsUpdate.VaultItemUpdateRequest:
     properties:
