@@ -83,9 +83,9 @@ export default function CreateVaultItemButtonAndModal({
     // TODO: make encryption
     createVaultMutation.mutate({
       title: values.title,
-      encrypted_note: values.username,
+      encrypted_username: values.username,
       encrypted_password: values.password,
-      encrypted_username: values.note,
+      encrypted_note: values.note,
     });
   };
 
