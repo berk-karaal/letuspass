@@ -267,7 +267,7 @@ definitions:
     required:
     - error
     type: object
-host: localhost:8080
+host: 192.168.1.107:8080
 info:
   contact: {}
   description: Project description at https://github.com/berk-karaal/letuspass
@@ -802,4 +802,33 @@ paths:
       summary: List users who have access to vault
       tags:
       - vault manage
+  /vaults/{id}/my-permissions:
+    get:
+      operationId: listMyVaultPermissions
+      parameters:
+      - description: Vault id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.BadRequestResponse'
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      summary: List current user's permission on vault
+      tags:
+      - vaults
 swagger: "2.0"
