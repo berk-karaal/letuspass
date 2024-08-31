@@ -100,7 +100,8 @@ func HandleAuthLogin(apiConfig *config.RestapiConfig, logger *logging.Logger, db
 			return
 		}
 
-		c.SetCookie(apiConfig.SessionTokenCookieName, session.Token, apiConfig.SessionTokenExpireSeconds, "/", "localhost", true, true)
+		c.SetSameSite(http.SameSiteLaxMode)
+		c.SetCookie(apiConfig.SessionTokenCookieName, session.Token, apiConfig.SessionTokenExpireSeconds, "/", "192.168.1.107", false, true)
 
 		c.JSON(http.StatusOK, LoginResponse{Email: user.Email, Name: user.Name})
 	}
