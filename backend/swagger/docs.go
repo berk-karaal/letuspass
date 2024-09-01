@@ -1089,6 +1089,7 @@ const docTemplate = `{
                 "encrypted_note",
                 "encrypted_password",
                 "encrypted_username",
+                "encryption_iv",
                 "id",
                 "title",
                 "updated_at"
@@ -1101,6 +1102,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "encrypted_username": {
+                    "type": "string"
+                },
+                "encryption_iv": {
                     "type": "string"
                 },
                 "id": {
