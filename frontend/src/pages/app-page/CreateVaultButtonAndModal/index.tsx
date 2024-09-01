@@ -1,5 +1,7 @@
 import { createVault } from "@/api/letuspass";
 import { SchemasBadRequestResponse } from "@/api/letuspass.schemas";
+import { AESService } from "@/services/letuscrypto";
+import { useAppSelector } from "@/store/hooks";
 import { Button, Group, Modal, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
@@ -10,6 +12,8 @@ import axios from "axios";
 import { useState } from "react";
 
 export default function CreateVaultButtonAndModal() {
+  const user = useAppSelector((state) => state.user);
+
   const queryClient = useQueryClient();
   const [opened, { open, close }] = useDisclosure(false);
 
@@ -55,9 +59,20 @@ export default function CreateVaultButtonAndModal() {
     },
   });
 
-  const handleSubmit = (values: typeof form.values) => {
+  const handleSubmit = async (values: typeof form.values) => {
     setErrorText(null);
-    createVaultMutation.mutate({ name: values.name });
+    const vaultKey = await AESService.generateRandomKey();
+    const vaultKeyEncryptionIV = AESService.generateRandomIV();
+    const encryptedVaultKey = await AESService.encrypt(
+      user.privateKey,
+      vaultKeyEncryptionIV,
+      vaultKey
+    );
+    createVaultMutation.mutate({
+      name: values.name,
+      encryption_iv: vaultKeyEncryptionIV,
+      encrypted_vault_key: encryptedVaultKey,
+    });
   };
 
   return (
