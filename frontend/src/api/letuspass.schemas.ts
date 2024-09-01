@@ -79,6 +79,14 @@ export interface PaginationStandardPaginationResponseControllersHandleVaultItems
   results: ControllersHandleVaultItemsListVaultItemResponseItem[];
 }
 
+export interface ControllersHandleVaultsMyKeyVaultKeyResponse {
+  encrypted_vault_key: string;
+  encryption_iv: string;
+  inviter_user_id: number;
+  inviter_user_public_key: string;
+  key_owner_user_id: number;
+}
+
 export interface ControllersHandleVaultsManageRemoveUserRemoveUserRequest {
   user_id: number;
 }
@@ -144,6 +152,7 @@ export interface ControllersHandleVaultItemsCreateVaultItemCreateResponse {
   encrypted_note: string;
   encrypted_password: string;
   encrypted_username: string;
+  encryption_iv: string;
   id: number;
   title: string;
 }
@@ -152,6 +161,7 @@ export interface ControllersHandleVaultItemsCreateVaultItemCreateRequest {
   encrypted_note?: string;
   encrypted_password?: string;
   encrypted_username?: string;
+  encryption_iv: string;
   title: string;
 }
 

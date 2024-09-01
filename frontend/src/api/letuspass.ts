@@ -21,6 +21,7 @@ import type {
   ControllersHandleVaultsManageAddUserAddUserRequest,
   ControllersHandleVaultsManageListUsersUsersResponseItem,
   ControllersHandleVaultsManageRemoveUserRemoveUserRequest,
+  ControllersHandleVaultsMyKeyVaultKeyResponse,
   ListVaultItemsParams,
   ListVaultsParams,
   PaginationStandardPaginationResponseControllersHandleVaultItemsListVaultItemResponseItem,
@@ -239,6 +240,19 @@ export const deleteVaultItem = (
 };
 
 /**
+ * @summary Retrieve current user's vault key record for the vault
+ */
+export const retrieveMyVaultKey = (
+  id: number,
+  options?: SecondParameter<typeof customInstance>,
+) => {
+  return customInstance<ControllersHandleVaultsMyKeyVaultKeyResponse>(
+    { url: `/vaults/${id}/key`, method: "GET" },
+    options,
+  );
+};
+
+/**
  * @summary Add user to vault
  */
 export const addUserToVault = (
@@ -342,6 +356,9 @@ export type UpdateVaultItemResult = NonNullable<
 >;
 export type DeleteVaultItemResult = NonNullable<
   Awaited<ReturnType<typeof deleteVaultItem>>
+>;
+export type RetrieveMyVaultKeyResult = NonNullable<
+  Awaited<ReturnType<typeof retrieveMyVaultKey>>
 >;
 export type AddUserToVaultResult = NonNullable<
   Awaited<ReturnType<typeof addUserToVault>>
