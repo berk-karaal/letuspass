@@ -106,6 +106,8 @@ export interface ControllersHandleVaultsCreateVaultCreateResponse {
 }
 
 export interface ControllersHandleVaultsCreateVaultCreateRequest {
+  encrypted_vault_key: string;
+  encryption_iv: string;
   name: string;
 }
 
