@@ -164,12 +164,15 @@ export interface ControllersHandleMetricsStatusMetricsStatusResponse {
 
 export interface ControllersHandleAuthRegisterRegisterRequest {
   email: string;
+  key_derivation_salt: string;
   name: string;
   password: string;
+  public_key: string;
 }
 
 export interface ControllersHandleAuthLoginLoginResponse {
   email: string;
+  key_derivation_salt: string;
   name: string;
 }
 
