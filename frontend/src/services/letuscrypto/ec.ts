@@ -46,9 +46,9 @@ async function _deriveKeyFromPassword(
 }
 
 /**
- * Returns a deterministically generated Elliptic Curve key pair from a password and salt.
+ * Returns a deterministically derived Elliptic Curve key pair from a password and salt.
  */
-export async function generateECKeyPairFromPassword(
+export async function deriveECKeyPairFromPassword(
   password: string,
   salt: string
 ): Promise<{
