@@ -44,13 +44,25 @@ function App() {
         });
       }
     } else if (currentUserQuery.data) {
-      dispatch(startupComplete());
+      let savedPrivateKey = localStorage.getItem("privateKey");
+      if (!savedPrivateKey) {
+        savedPrivateKey = "";
+        notifications.show({
+          title: "Private key not found",
+          message: "Please log-out and log-in again.",
+          color: "red",
+          autoClose: false,
+        });
+      }
+
       dispatch(
         userLoggedIn({
           email: currentUserQuery.data.email,
           name: currentUserQuery.data.name,
+          privateKey: savedPrivateKey,
         })
       );
+      dispatch(startupComplete());
     }
   }, [currentUserQuery, dispatch]);
 
