@@ -1016,6 +1016,7 @@ const docTemplate = `{
         "controllers.HandleVaultItemsCreate.VaultItemCreateRequest": {
             "type": "object",
             "required": [
+                "encryption_iv",
                 "title"
             ],
             "properties": {
@@ -1026,6 +1027,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "encrypted_username": {
+                    "type": "string"
+                },
+                "encryption_iv": {
                     "type": "string"
                 },
                 "title": {
@@ -1039,6 +1043,7 @@ const docTemplate = `{
                 "encrypted_note",
                 "encrypted_password",
                 "encrypted_username",
+                "encryption_iv",
                 "id",
                 "title"
             ],
@@ -1050,6 +1055,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "encrypted_username": {
+                    "type": "string"
+                },
+                "encryption_iv": {
                     "type": "string"
                 },
                 "id": {

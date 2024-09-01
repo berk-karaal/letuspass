@@ -1010,6 +1010,7 @@
         "controllers.HandleVaultItemsCreate.VaultItemCreateRequest": {
             "type": "object",
             "required": [
+                "encryption_iv",
                 "title"
             ],
             "properties": {
@@ -1020,6 +1021,9 @@
                     "type": "string"
                 },
                 "encrypted_username": {
+                    "type": "string"
+                },
+                "encryption_iv": {
                     "type": "string"
                 },
                 "title": {
@@ -1033,6 +1037,7 @@
                 "encrypted_note",
                 "encrypted_password",
                 "encrypted_username",
+                "encryption_iv",
                 "id",
                 "title"
             ],
@@ -1044,6 +1049,9 @@
                     "type": "string"
                 },
                 "encrypted_username": {
+                    "type": "string"
+                },
+                "encryption_iv": {
                     "type": "string"
                 },
                 "id": {
