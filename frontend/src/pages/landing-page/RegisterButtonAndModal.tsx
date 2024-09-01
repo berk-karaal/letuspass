@@ -1,5 +1,6 @@
 import { authRegister } from "@/api/letuspass";
 import { SchemasBadRequestResponse } from "@/api/letuspass.schemas";
+import { ECService } from "@/services/letuscrypto";
 import {
   Button,
   Group,
@@ -60,18 +61,29 @@ export default function RegisterButtonAndModal() {
     validate: {
       email: (value) => (value.length > 0 ? null : "Email is required"),
       name: (value) => (value.length > 0 ? null : "Name is required"),
-      password: (value) => (value.length > 0 ? null : "Password is required"),
+      password: (value) =>
+        value.length >= 10
+          ? null
+          : "Password must be at least 10 characters long",
       passwordConfirmation: (value, formValues) =>
         value === formValues.password ? null : "Passwords should match",
     },
   });
 
-  const handleSubmit = (values: typeof form.values) => {
+  const handleSubmit = async (values: typeof form.values) => {
     setErrorText(null);
+
+    let keyDerivationSalt = ECService.generateRandomSalt();
+    let keyPair = await ECService.deriveECKeyPairFromPassword(
+      values.password,
+      keyDerivationSalt
+    );
     registerMutation.mutate({
       email: values.email,
       name: values.name,
       password: values.password,
+      key_derivation_salt: keyDerivationSalt,
+      public_key: keyPair.publicKey,
     });
   };
 
