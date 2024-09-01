@@ -25,12 +25,12 @@ const userSlice = createSlice({
     },
     userLoggedIn(
       state,
-      action: PayloadAction<{ email: string; name: string }>
+      action: PayloadAction<{ email: string; name: string; privateKey: string }>
     ) {
       state.isAuthenticated = true;
       state.email = action.payload.email;
       state.name = action.payload.name;
-      state.privateKey = "hebele hübele";
+      state.privateKey = action.payload.privateKey;
     },
     userLoggedOut(state) {
       state.isAuthenticated = false;
