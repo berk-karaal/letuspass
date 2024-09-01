@@ -33,24 +33,33 @@ definitions:
     properties:
       email:
         type: string
+      key_derivation_salt:
+        type: string
       name:
         type: string
     required:
     - email
+    - key_derivation_salt
     - name
     type: object
   controllers.HandleAuthRegister.RegisterRequest:
     properties:
       email:
         type: string
+      key_derivation_salt:
+        type: string
       name:
         type: string
       password:
         type: string
+      public_key:
+        type: string
     required:
     - email
+    - key_derivation_salt
     - name
     - password
+    - public_key
     type: object
   controllers.HandleMetricsStatus.MetricsStatusResponse:
     properties:
@@ -267,7 +276,7 @@ definitions:
     required:
     - error
     type: object
-host: 192.168.1.107:8080
+host: localhost:8080
 info:
   contact: {}
   description: Project description at https://github.com/berk-karaal/letuspass

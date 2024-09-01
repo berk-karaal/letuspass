@@ -901,10 +901,14 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "email",
+                "key_derivation_salt",
                 "name"
             ],
             "properties": {
                 "email": {
+                    "type": "string"
+                },
+                "key_derivation_salt": {
                     "type": "string"
                 },
                 "name": {
@@ -916,17 +920,25 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "email",
+                "key_derivation_salt",
                 "name",
-                "password"
+                "password",
+                "public_key"
             ],
             "properties": {
                 "email": {
+                    "type": "string"
+                },
+                "key_derivation_salt": {
                     "type": "string"
                 },
                 "name": {
                     "type": "string"
                 },
                 "password": {
+                    "type": "string"
+                },
+                "public_key": {
                     "type": "string"
                 }
             }
@@ -1257,7 +1269,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "0.0.1",
-	Host:             "192.168.1.107:8080",
+	Host:             "localhost:8080",
 	BasePath:         "/api/v1",
 	Schemes:          []string{},
 	Title:            "LetusPass REST API",

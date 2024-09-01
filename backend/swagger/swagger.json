@@ -6,7 +6,7 @@
         "contact": {},
         "version": "0.0.1"
     },
-    "host": "192.168.1.107:8080",
+    "host": "localhost:8080",
     "basePath": "/api/v1",
     "paths": {
         "/auth/login": {
@@ -895,10 +895,14 @@
             "type": "object",
             "required": [
                 "email",
+                "key_derivation_salt",
                 "name"
             ],
             "properties": {
                 "email": {
+                    "type": "string"
+                },
+                "key_derivation_salt": {
                     "type": "string"
                 },
                 "name": {
@@ -910,17 +914,25 @@
             "type": "object",
             "required": [
                 "email",
+                "key_derivation_salt",
                 "name",
-                "password"
+                "password",
+                "public_key"
             ],
             "properties": {
                 "email": {
+                    "type": "string"
+                },
+                "key_derivation_salt": {
                     "type": "string"
                 },
                 "name": {
                     "type": "string"
                 },
                 "password": {
+                    "type": "string"
+                },
+                "public_key": {
                     "type": "string"
                 }
             }
