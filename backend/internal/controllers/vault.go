@@ -334,6 +334,64 @@ func HandleVaultsMyPermissions(logger *logging.Logger, db *gorm.DB) func(c *gin.
 	}
 }
 
+// HandleVaultsMyKey
+//
+//	@Summary	Retrieve current user's vault key record for the vault
+//	@Tags		vaults
+//	@Id			retrieveMyVaultKey
+//	@Produce	json
+//	@Success	200	{object}	controllers.HandleVaultsMyKey.VaultKeyResponse
+//	@Failure	400	{object}	schemas.BadRequestResponse
+//	@Failure	401
+//	@Failure	404
+//	@Failure	500
+//	@Router		/vaults/{id}/key [get]
+//	@Param		id	path	int	true	"Vault id"
+func HandleVaultsMyKey(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
+	type VaultKeyResponse struct {
+		KeyOwnerUserID       int    `json:"key_owner_user_id" binding:"required"`
+		InviterUserID        int    `json:"inviter_user_id" binding:"required"`
+		EncryptionIV         string `json:"encryption_iv" binding:"required"`
+		EncryptedVaultKey    string `json:"encrypted_vault_key" binding:"required"`
+		InviterUserPublicKey string `json:"inviter_user_public_key" binding:"required"`
+	}
+
+	return func(c *gin.Context) {
+		vaultId, err := strconv.Atoi(c.Param("id"))
+		if err != nil {
+			c.JSON(http.StatusBadRequest, schemas.BadRequestResponse{Error: "Id must be an integer."})
+			return
+		}
+
+		user, ok := middlewares.ExtractUserFromGinContext(c)
+		if !ok {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Msg("Extracting user from Gin context failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		vaultKey := models.VaultKey{}
+		err = db.Preload("InviterUser").First(&vaultKey, "vault_id = ? AND key_owner_user_id = ?", vaultId, user.ID).Error
+		if err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				c.Status(http.StatusNotFound)
+				return
+			}
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Querying vault key of user failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		c.JSON(http.StatusOK, VaultKeyResponse{
+			KeyOwnerUserID:       int(vaultKey.KeyOwnerUserID),
+			InviterUserID:        int(vaultKey.InviterUserID),
+			EncryptionIV:         vaultKey.EncryptionIV,
+			EncryptedVaultKey:    vaultKey.EncryptedVaultKey,
+			InviterUserPublicKey: vaultKey.InviterUser.PublicKey,
+		})
+	}
+}
+
 // HandleVaultsManageAddUser
 //
 //	@Summary	Add user to vault
