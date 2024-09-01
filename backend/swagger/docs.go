@@ -659,6 +659,50 @@ const docTemplate = `{
                 }
             }
         },
+        "/vaults/{id}/key": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "vaults"
+                ],
+                "summary": "Retrieve current user's vault key record for the vault",
+                "operationId": "retrieveMyVaultKey",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Vault id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.HandleVaultsMyKey.VaultKeyResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.BadRequestResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
         "/vaults/{id}/manage/add-user": {
             "post": {
                 "produces": [
@@ -1209,6 +1253,33 @@ const docTemplate = `{
             ],
             "properties": {
                 "user_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "controllers.HandleVaultsMyKey.VaultKeyResponse": {
+            "type": "object",
+            "required": [
+                "encrypted_vault_key",
+                "encryption_iv",
+                "inviter_user_id",
+                "inviter_user_public_key",
+                "key_owner_user_id"
+            ],
+            "properties": {
+                "encrypted_vault_key": {
+                    "type": "string"
+                },
+                "encryption_iv": {
+                    "type": "string"
+                },
+                "inviter_user_id": {
+                    "type": "integer"
+                },
+                "inviter_user_public_key": {
+                    "type": "string"
+                },
+                "key_owner_user_id": {
                     "type": "integer"
                 }
             }
