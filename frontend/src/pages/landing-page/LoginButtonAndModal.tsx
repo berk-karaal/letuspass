@@ -1,5 +1,6 @@
 import { authLogin } from "@/api/letuspass";
 import { SchemasBadRequestResponse } from "@/api/letuspass.schemas";
+import { ECService } from "@/services/letuscrypto";
 import { useAppDispatch } from "@/store/hooks";
 import { userLoggedIn } from "@/store/slices/user";
 import {
@@ -16,7 +17,7 @@ import { notifications } from "@mantine/notifications";
 import { IconCheck } from "@tabler/icons-react";
 import { useMutation } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginButtonAndModal() {
@@ -25,6 +26,8 @@ export default function LoginButtonAndModal() {
   const [opened, { open, close }] = useDisclosure(false);
 
   const [errorText, setErrorText] = useState<string | null>(null);
+
+  const userPasswordRef = useRef<string>("");
 
   const form = useForm({
     mode: "uncontrolled",
@@ -41,19 +44,31 @@ export default function LoginButtonAndModal() {
 
   const handleSubmit = (values: typeof form.values) => {
     setErrorText(null);
+    userPasswordRef.current = values.password;
     mutation.mutate({ email: values.email, password: values.password });
   };
 
   const mutation = useMutation({
     mutationFn: authLogin,
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       notifications.show({
         title: "Login Successful",
-        message: "You have successfully logged in.",
+        message: "",
         color: "green",
         icon: <IconCheck />,
       });
-      dispatch(userLoggedIn({ email: data.email, name: data.name }));
+      let userKeyPair = await ECService.deriveECKeyPairFromPassword(
+        userPasswordRef.current,
+        data.key_derivation_salt
+      );
+      localStorage.setItem("privateKey", userKeyPair.privateKey);
+      dispatch(
+        userLoggedIn({
+          email: data.email,
+          name: data.name,
+          privateKey: userKeyPair.privateKey,
+        })
+      );
       navigate("/app");
     },
     onError: (error) => {
