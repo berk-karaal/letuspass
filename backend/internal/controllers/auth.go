@@ -121,9 +121,11 @@ func HandleAuthLogin(apiConfig *config.RestapiConfig, logger *logging.Logger, db
 //	@Router		/auth/register [post]
 func HandleAuthRegister(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	type RegisterRequest struct {
-		Email    string `json:"email" binding:"required,email"`
-		Password string `json:"password" binding:"required"`
-		Name     string `json:"name" binding:"required"`
+		Email             string `json:"email" binding:"required,email"`
+		Password          string `json:"password" binding:"required"`
+		Name              string `json:"name" binding:"required"`
+		KeyDerivationSalt string `json:"key_derivation_salt" binding:"required"`
+		PublicKey         string `json:"public_key" binding:"required"`
 	}
 
 	return func(c *gin.Context) {
@@ -152,10 +154,12 @@ func HandleAuthRegister(logger *logging.Logger, db *gorm.DB) func(c *gin.Context
 		}
 
 		newUser := models.User{
-			Email:    requestData.Email,
-			Password: hashedPassword,
-			Name:     requestData.Name,
-			IsActive: true,
+			Email:             requestData.Email,
+			Password:          hashedPassword,
+			Name:              requestData.Name,
+			IsActive:          true,
+			KeyDerivationSalt: requestData.KeyDerivationSalt,
+			PublicKey:         requestData.PublicKey,
 		}
 		err = db.Create(&newUser).Error
 		if err != nil {
