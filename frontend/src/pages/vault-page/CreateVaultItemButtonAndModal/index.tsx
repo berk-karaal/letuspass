@@ -1,8 +1,11 @@
-import { createVaultItem } from "@/api/letuspass";
+import { createVaultItem, retrieveMyVaultKey } from "@/api/letuspass";
 import {
   ControllersHandleVaultItemsCreateVaultItemCreateRequest,
   SchemasBadRequestResponse,
 } from "@/api/letuspass.schemas";
+import { decryptVaultKey } from "@/common/vaultkey";
+import { AESService } from "@/services/letuscrypto";
+import { useAppSelector } from "@/store/hooks";
 import {
   Button,
   Group,
@@ -16,7 +19,7 @@ import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { IconPlus } from "@tabler/icons-react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 
@@ -26,11 +29,12 @@ export default function CreateVaultItemButtonAndModal({
   vaultId: number;
 }) {
   const queryClient = useQueryClient();
+  const user = useAppSelector((state) => state.user);
   const [opened, { open, close }] = useDisclosure(false);
 
   const [errorText, setErrorText] = useState<string | null>(null);
 
-  const createVaultMutation = useMutation({
+  const createVaultItemMutation = useMutation({
     mutationFn: (
       newVaultItem: ControllersHandleVaultItemsCreateVaultItemCreateRequest
     ) => createVaultItem(vaultId, newVaultItem),
@@ -63,6 +67,25 @@ export default function CreateVaultItemButtonAndModal({
     },
   });
 
+  const vaultKeyQuery = useQuery({
+    queryKey: ["vaultKey", vaultId],
+    queryFn: () => retrieveMyVaultKey(Number(vaultId)),
+    retry: (failureCount: number, error: Error) => {
+      if (failureCount > 2) {
+        return false;
+      }
+      if (axios.isAxiosError(error)) {
+        if (
+          (error.response?.status ?? 500 >= 400) &&
+          (error.response?.status ?? 500 < 500)
+        ) {
+          return false;
+        }
+      }
+      return true;
+    },
+  });
+
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
@@ -77,15 +100,32 @@ export default function CreateVaultItemButtonAndModal({
     },
   });
 
-  const handleSubmit = (values: typeof form.values) => {
+  const handleSubmit = async (values: typeof form.values) => {
+    if (!vaultKeyQuery.isSuccess) {
+      setErrorText("Vault key couldn't received, please try again.");
+      return;
+    }
     setErrorText(null);
-
-    // TODO: make encryption
-    createVaultMutation.mutate({
+    const vaultKey = await decryptVaultKey(vaultKeyQuery.data, user.privateKey);
+    const encryptionIV = AESService.generateRandomIV();
+    createVaultItemMutation.mutate({
       title: values.title,
-      encrypted_username: values.username,
-      encrypted_password: values.password,
-      encrypted_note: values.note,
+      encryption_iv: encryptionIV,
+      encrypted_username: await AESService.encrypt(
+        vaultKey,
+        encryptionIV,
+        values.username
+      ),
+      encrypted_password: await AESService.encrypt(
+        vaultKey,
+        encryptionIV,
+        values.password
+      ),
+      encrypted_note: await AESService.encrypt(
+        vaultKey,
+        encryptionIV,
+        values.note
+      ),
     });
   };
 
@@ -99,28 +139,28 @@ export default function CreateVaultItemButtonAndModal({
             placeholder="Item Title"
             key={form.key("title")}
             {...form.getInputProps("title")}
-            disabled={createVaultMutation.isPending}
+            disabled={createVaultItemMutation.isPending}
           />
           <TextInput
             label="Username"
             placeholder=""
             key={form.key("username")}
             {...form.getInputProps("username")}
-            disabled={createVaultMutation.isPending}
+            disabled={createVaultItemMutation.isPending}
           />
           <PasswordInput
             label="Password"
             placeholder=""
             key={form.key("password")}
             {...form.getInputProps("password")}
-            disabled={createVaultMutation.isPending}
+            disabled={createVaultItemMutation.isPending}
           />
           <Textarea
             label="Note"
             placeholder=""
             key={form.key("note")}
             {...form.getInputProps("note")}
-            disabled={createVaultMutation.isPending}
+            disabled={createVaultItemMutation.isPending}
             autosize
             minRows={3}
             maxRows={5}
@@ -131,7 +171,11 @@ export default function CreateVaultItemButtonAndModal({
           </Text>
 
           <Group justify="flex-end" mt="md">
-            <Button type="submit" loading={createVaultMutation.isPending}>
+            <Button
+              type="submit"
+              disabled={!vaultKeyQuery.isSuccess}
+              loading={createVaultItemMutation.isPending}
+            >
               Create Vault
             </Button>
           </Group>
