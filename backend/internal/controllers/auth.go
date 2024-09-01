@@ -37,8 +37,9 @@ func HandleAuthLogin(apiConfig *config.RestapiConfig, logger *logging.Logger, db
 	}
 
 	type LoginResponse struct {
-		Email string `json:"email" binding:"required"`
-		Name  string `json:"name" binding:"required"`
+		Email             string `json:"email" binding:"required"`
+		Name              string `json:"name" binding:"required"`
+		KeyDerivationSalt string `json:"key_derivation_salt" binding:"required"`
 	}
 
 	return func(c *gin.Context) {
@@ -103,7 +104,7 @@ func HandleAuthLogin(apiConfig *config.RestapiConfig, logger *logging.Logger, db
 		c.SetSameSite(http.SameSiteLaxMode)
 		c.SetCookie(apiConfig.SessionTokenCookieName, session.Token, apiConfig.SessionTokenExpireSeconds, "/", "localhost", false, true)
 
-		c.JSON(http.StatusOK, LoginResponse{Email: user.Email, Name: user.Name})
+		c.JSON(http.StatusOK, LoginResponse{Email: user.Email, Name: user.Name, KeyDerivationSalt: user.KeyDerivationSalt})
 	}
 }
 
