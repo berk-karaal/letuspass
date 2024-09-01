@@ -138,6 +138,7 @@ export interface ControllersHandleVaultItemsRetrieveVaultItemRetrieveResponse {
   encrypted_note: string;
   encrypted_password: string;
   encrypted_username: string;
+  encryption_iv: string;
   id: number;
   title: string;
   updated_at: string;
