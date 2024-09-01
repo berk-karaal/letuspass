@@ -17,6 +17,18 @@ export function generateRandomIV(): string {
   return generateRandomString(12);
 }
 
+export async function generateRandomKey(): Promise<string> {
+  const key = await window.crypto.subtle.generateKey(
+    {
+      name: "AES-GCM",
+      length: 256,
+    },
+    true,
+    ["encrypt", "decrypt"]
+  );
+  return arrayBufferToHex(await window.crypto.subtle.exportKey("raw", key));
+}
+
 /**
  * Internal function to convert hex encoded aes key to CryptoKey
  * @param hex hex encoded AES-GCM key
