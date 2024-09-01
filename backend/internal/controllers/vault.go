@@ -35,7 +35,9 @@ import (
 //	@Router		/vaults [post]
 func HandleVaultsCreate(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	type VaultCreateRequest struct {
-		Name string `json:"name" binding:"required"`
+		Name              string `json:"name" binding:"required"`
+		EncryptionIV      string `json:"encryption_iv" binding:"required"`
+		EncryptedVaultKey string `json:"encrypted_vault_key" binding:"required"`
 	}
 
 	type VaultCreateResponse struct {
@@ -59,6 +61,19 @@ func HandleVaultsCreate(logger *logging.Logger, db *gorm.DB) func(c *gin.Context
 		vault := models.Vault{Name: requestData.Name}
 		if err := db.Create(&vault).Error; err != nil {
 			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Creating vault failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		vaultKey := models.VaultKey{
+			VaultID:           vault.ID,
+			KeyOwnerUserID:    user.ID,
+			InviterUserID:     user.ID,
+			EncryptionIV:      requestData.EncryptionIV,
+			EncryptedVaultKey: requestData.EncryptedVaultKey,
+		}
+		if err := db.Create(&vaultKey).Error; err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Creating vault key failed.")
 			c.Status(http.StatusInternalServerError)
 			return
 		}
