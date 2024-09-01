@@ -37,6 +37,7 @@ import (
 func HandleVaultItemsCreate(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	type VaultItemCreateRequest struct {
 		Title             string `json:"title" binding:"required"`
+		EncryptionIV      string `json:"encryption_iv" binding:"required"`
 		EncryptedUsername string `json:"encrypted_username"`
 		EncryptedPassword string `json:"encrypted_password"`
 		EncryptedNote     string `json:"encrypted_note"`
@@ -45,6 +46,7 @@ func HandleVaultItemsCreate(logger *logging.Logger, db *gorm.DB) func(c *gin.Con
 	type VaultItemCreateResponse struct {
 		Id                uint   `json:"id" binding:"required"`
 		Title             string `json:"title" binding:"required"`
+		EncryptionIV      string `json:"encryption_iv" binding:"required"`
 		EncryptedUsername string `json:"encrypted_username" binding:"required"`
 		EncryptedPassword string `json:"encrypted_password" binding:"required"`
 		EncryptedNote     string `json:"encrypted_note" binding:"required"`
@@ -83,6 +85,7 @@ func HandleVaultItemsCreate(logger *logging.Logger, db *gorm.DB) func(c *gin.Con
 		vaultItem := models.VaultItem{
 			VaultID:           uint(vaultId),
 			Title:             requestData.Title,
+			EncryptionIV:      requestData.EncryptionIV,
 			EncryptedUsername: requestData.EncryptedUsername,
 			EncryptedPassword: requestData.EncryptedPassword,
 			EncryptedNote:     requestData.EncryptedNote,
@@ -99,6 +102,7 @@ func HandleVaultItemsCreate(logger *logging.Logger, db *gorm.DB) func(c *gin.Con
 		c.JSON(http.StatusCreated, VaultItemCreateResponse{
 			Id:                vaultItem.ID,
 			Title:             vaultItem.Title,
+			EncryptionIV:      vaultItem.EncryptionIV,
 			EncryptedUsername: vaultItem.EncryptedUsername,
 			EncryptedPassword: vaultItem.EncryptedPassword,
 			EncryptedNote:     vaultItem.EncryptedNote,
