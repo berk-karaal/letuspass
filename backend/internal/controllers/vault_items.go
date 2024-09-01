@@ -223,6 +223,7 @@ func HandleVaultItemsRetrieve(logger *logging.Logger, db *gorm.DB) func(c *gin.C
 	type VaultItemRetrieveResponse struct {
 		Id                uint      `json:"id" binding:"required"`
 		Title             string    `json:"title" binding:"required"`
+		EncryptionIV      string    `json:"encryption_iv" binding:"required"`
 		EncryptedUsername string    `json:"encrypted_username" binding:"required"`
 		EncryptedPassword string    `json:"encrypted_password" binding:"required"`
 		EncryptedNote     string    `json:"encrypted_note" binding:"required"`
@@ -275,6 +276,7 @@ func HandleVaultItemsRetrieve(logger *logging.Logger, db *gorm.DB) func(c *gin.C
 		c.JSON(http.StatusOK, VaultItemRetrieveResponse{
 			Id:                vaultItem.ID,
 			Title:             vaultItem.Title,
+			EncryptionIV:      vaultItem.EncryptionIV,
 			EncryptedUsername: vaultItem.EncryptedUsername,
 			EncryptedPassword: vaultItem.EncryptedPassword,
 			EncryptedNote:     vaultItem.EncryptedNote,
