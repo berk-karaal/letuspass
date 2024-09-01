@@ -1,4 +1,8 @@
-import { retrieveVault, retrieveVaultItem } from "@/api/letuspass";
+import {
+  retrieveMyVaultKey,
+  retrieveVault,
+  retrieveVaultItem,
+} from "@/api/letuspass";
 import { useVaultPermissionsQuery } from "@/hooks/useVaultPermissionsQuery";
 import {
   ActionIcon,
@@ -16,6 +20,9 @@ import {
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 
+import { decryptVaultKey } from "@/common/vaultkey";
+import { AESService } from "@/services/letuscrypto";
+import { useAppSelector } from "@/store/hooks";
 import {
   IconArrowLeft,
   IconBriefcase2,
@@ -38,6 +45,17 @@ function VaultItemPage() {
   const navigate = useNavigate();
   const { colorScheme } = useMantineColorScheme();
   const theme = useMantineTheme();
+  const user = useAppSelector((state) => state.user);
+
+  const [vaultItemFieldsDecrypted, setVaultItemFieldsDecrypted] = useState<{
+    username: string;
+    password: string;
+    note: string;
+  }>({
+    username: "",
+    password: "",
+    note: "",
+  });
 
   const [isOverlayActive, setIsOverlayActive] = useState(true);
 
@@ -81,6 +99,25 @@ function VaultItemPage() {
     },
   });
 
+  const vaultKeyQuery = useQuery({
+    queryKey: ["vaultKey", vaultId],
+    queryFn: () => retrieveMyVaultKey(Number(vaultId)),
+    retry: (failureCount: number, error: Error) => {
+      if (failureCount > 2) {
+        return false;
+      }
+      if (axios.isAxiosError(error)) {
+        if (
+          (error.response?.status ?? 500 >= 400) &&
+          (error.response?.status ?? 500 < 500)
+        ) {
+          return false;
+        }
+      }
+      return true;
+    },
+  });
+
   useEffect(() => {
     if (vaultItemQuery.isError) {
       let errorText = "Failed to retrieve vault. Please try again later.";
@@ -94,8 +131,45 @@ function VaultItemPage() {
         message: "",
         color: "red",
       });
+      return;
     }
-  }, [vaultItemQuery]);
+
+    if (vaultItemQuery.isSuccess && vaultKeyQuery.isSuccess) {
+      const decryptFields = async () => {
+        setVaultItemFieldsDecrypted({
+          username: await decryptVaultItemField(
+            vaultItemQuery.data.encrypted_username
+          ),
+          password: await decryptVaultItemField(
+            vaultItemQuery.data.encrypted_password
+          ),
+          note: await decryptVaultItemField(vaultItemQuery.data.encrypted_note),
+        });
+      };
+
+      decryptFields();
+    }
+  }, [vaultItemQuery, vaultKeyQuery]);
+
+  const decryptVaultItemField = async (
+    encryptedData: string
+  ): Promise<string> => {
+    if (!vaultKeyQuery.isSuccess) {
+      console.error("Vault key query is not successful");
+      return "";
+    }
+    if (!vaultItemQuery.isSuccess) {
+      console.error("Vault item query is not successful");
+      return "";
+    }
+
+    const vaultKey = await decryptVaultKey(vaultKeyQuery.data, user.privateKey);
+    return await AESService.decrypt(
+      vaultKey,
+      vaultItemQuery.data.encryption_iv,
+      encryptedData
+    );
+  };
 
   return (
     <>
@@ -175,9 +249,7 @@ function VaultItemPage() {
       <TextInput
         readOnly
         label="Username"
-        value={
-          vaultItemQuery.isSuccess ? vaultItemQuery.data.encrypted_username : ""
-        }
+        value={vaultItemFieldsDecrypted.username}
         placeholder={
           vaultItemQuery.isSuccess &&
           vaultItemQuery.data.encrypted_username == ""
@@ -191,9 +263,7 @@ function VaultItemPage() {
       <PasswordInput
         readOnly
         label="Password"
-        value={
-          vaultItemQuery.isSuccess ? vaultItemQuery.data.encrypted_password : ""
-        }
+        value={vaultItemFieldsDecrypted.password}
         placeholder={
           vaultItemQuery.isSuccess &&
           vaultItemQuery.data.encrypted_password == ""
@@ -230,9 +300,7 @@ function VaultItemPage() {
         <Box pos={"relative"}>
           <Textarea
             readOnly
-            value={
-              vaultItemQuery.isSuccess ? vaultItemQuery.data.encrypted_note : ""
-            }
+            value={vaultItemFieldsDecrypted.note}
             placeholder={
               vaultItemQuery.isSuccess &&
               vaultItemQuery.data.encrypted_note == ""
