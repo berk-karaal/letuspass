@@ -176,9 +176,15 @@ definitions:
     type: object
   controllers.HandleVaultsCreate.VaultCreateRequest:
     properties:
+      encrypted_vault_key:
+        type: string
+      encryption_iv:
+        type: string
       name:
         type: string
     required:
+    - encrypted_vault_key
+    - encryption_iv
     - name
     type: object
   controllers.HandleVaultsCreate.VaultCreateResponse:

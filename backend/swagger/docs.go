@@ -1112,9 +1112,17 @@ const docTemplate = `{
         "controllers.HandleVaultsCreate.VaultCreateRequest": {
             "type": "object",
             "required": [
+                "encrypted_vault_key",
+                "encryption_iv",
                 "name"
             ],
             "properties": {
+                "encrypted_vault_key": {
+                    "type": "string"
+                },
+                "encryption_iv": {
+                    "type": "string"
+                },
                 "name": {
                     "type": "string"
                 }
