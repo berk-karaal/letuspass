@@ -15,7 +15,7 @@ import {
 import { notifications } from "@mantine/notifications";
 import { IconLogout2, IconMoon, IconSun, IconUser } from "@tabler/icons-react";
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import classes from "./styles.module.css";
 
 export function AppShellNavbar() {
@@ -57,7 +57,16 @@ export function AppShellNavbar() {
     <Box className={classes.header} py={"xs"} mb={"sm"}>
       <Container>
         <Group justify="space-between">
-          <Title>LetusPass</Title>
+          <Box
+            component={Link}
+            to={"/app"}
+            style={{
+              textDecoration: "none",
+              color: "inherit",
+            }}
+          >
+            <Title>LetusPass</Title>
+          </Box>
           <Menu shadow="md" width={rem(200)} withArrow offset={3}>
             <Menu.Target>
               <Button
