@@ -61,6 +61,13 @@ export type ListVaultsParams = {
   ordering?: ListVaultsOrdering;
 };
 
+export type GetUserByEmailParams = {
+  /**
+   * Email of the user
+   */
+  email: string;
+};
+
 export interface SchemasNotFoundResponse {
   error: string;
 }
@@ -98,7 +105,9 @@ export interface ControllersHandleVaultsManageListUsersUsersResponseItem {
 
 export interface ControllersHandleVaultsManageAddUserAddUserRequest {
   email: string;
+  encrypted_vault_key: string;
   permissions: string[];
+  vault_key_encryption_iv: string;
 }
 
 export interface ControllersHandleVaultsListVaultResponseItem {
@@ -173,6 +182,12 @@ export interface ControllersHandleUsersMeMeResponse {
 
 export interface ControllersHandleMetricsStatusMetricsStatusResponse {
   status: string;
+}
+
+export interface ControllersHandleGetUserByEmailUserResponse {
+  email: string;
+  name: string;
+  public_key: string;
 }
 
 export interface ControllersHandleAuthRegisterRegisterRequest {

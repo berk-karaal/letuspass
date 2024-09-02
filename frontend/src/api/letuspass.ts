@@ -9,6 +9,7 @@ import type {
   ControllersHandleAuthLoginLoginRequest,
   ControllersHandleAuthLoginLoginResponse,
   ControllersHandleAuthRegisterRegisterRequest,
+  ControllersHandleGetUserByEmailUserResponse,
   ControllersHandleMetricsStatusMetricsStatusResponse,
   ControllersHandleUsersMeMeResponse,
   ControllersHandleVaultItemsCreateVaultItemCreateRequest,
@@ -22,6 +23,7 @@ import type {
   ControllersHandleVaultsManageListUsersUsersResponseItem,
   ControllersHandleVaultsManageRemoveUserRemoveUserRequest,
   ControllersHandleVaultsMyKeyVaultKeyResponse,
+  GetUserByEmailParams,
   ListVaultItemsParams,
   ListVaultsParams,
   PaginationStandardPaginationResponseControllersHandleVaultItemsListVaultItemResponseItem,
@@ -85,6 +87,19 @@ export const getServerStatus = (
 ) => {
   return customInstance<ControllersHandleMetricsStatusMetricsStatusResponse>(
     { url: `/metrics/status`, method: "GET" },
+    options,
+  );
+};
+
+/**
+ * @summary Get user by email
+ */
+export const getUserByEmail = (
+  params: GetUserByEmailParams,
+  options?: SecondParameter<typeof customInstance>,
+) => {
+  return customInstance<ControllersHandleGetUserByEmailUserResponse>(
+    { url: `/users/by-email`, method: "GET", params },
     options,
   );
 };
@@ -326,6 +341,9 @@ export type AuthRegisterResult = NonNullable<
 >;
 export type GetServerStatusResult = NonNullable<
   Awaited<ReturnType<typeof getServerStatus>>
+>;
+export type GetUserByEmailResult = NonNullable<
+  Awaited<ReturnType<typeof getUserByEmail>>
 >;
 export type GetCurrentUserResult = NonNullable<
   Awaited<ReturnType<typeof getCurrentUser>>
