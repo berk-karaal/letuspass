@@ -470,23 +470,28 @@ func HandleVaultsManageAddUser(logger *logging.Logger, db *gorm.DB) func(c *gin.
 			return
 		}
 
-		// check if given permissions are valid
-		newUserVaultPermissions := make([]models.VaultPermission, len(requestData.Permissions))
-		for i, p := range requestData.Permissions {
+		// check and prepare vault permission record
+		newUserVaultPermissions := []models.VaultPermission{}
+		for _, p := range requestData.Permissions {
 			if !slices.Contains([]string{
 				models.VaultPermissionManageVault,
-				models.VaultPermissionRead,
 				models.VaultPermissionDeleteVault,
 				models.VaultPermissionManageItems}, p) {
 				c.JSON(http.StatusBadRequest, schemas.BadRequestResponse{Error: fmt.Sprintf("Given permission '%s' is invalid.", p)})
 				return
 			}
-			newUserVaultPermissions[i] = models.VaultPermission{
+			newUserVaultPermissions = append(newUserVaultPermissions, models.VaultPermission{
 				VaultID:    uint(vaultId),
 				UserID:     newUser.ID,
 				Permission: p,
-			}
+			})
 		}
+		// append the read permission since it's mandatory
+		newUserVaultPermissions = append(newUserVaultPermissions, models.VaultPermission{
+			VaultID:    uint(vaultId),
+			UserID:     newUser.ID,
+			Permission: models.VaultPermissionRead,
+		})
 
 		err = db.Create(&newUserVaultPermissions).Error
 		if err != nil {
