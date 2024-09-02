@@ -226,6 +226,7 @@ function VaultItemPage() {
                       vaultId={Number(vaultId)}
                       vaultItemId={Number(vaultItemId)}
                       vaultKey={vaultKey.current ?? ""}
+                      vaultItemEncryptionIV={vaultItemQuery.data.encryption_iv}
                       currentPlainValues={{
                         title: vaultItemQuery.data.title,
                         username: vaultItemFieldsDecrypted.username ?? "",

@@ -3,6 +3,7 @@ import {
   ControllersHandleVaultItemsUpdateVaultItemUpdateRequest,
   SchemasBadRequestResponse,
 } from "@/api/letuspass.schemas";
+import { AESService } from "@/services/letuscrypto";
 import {
   ActionIcon,
   Button,
@@ -25,11 +26,13 @@ export default function EditItemButtonAndModal({
   vaultId,
   vaultItemId,
   vaultKey,
+  vaultItemEncryptionIV,
   currentPlainValues,
 }: {
   vaultId: number;
   vaultItemId: number;
   vaultKey: string;
+  vaultItemEncryptionIV: string;
   currentPlainValues: {
     title: string;
     username: string;
@@ -87,12 +90,24 @@ export default function EditItemButtonAndModal({
     },
   });
 
-  const handleSubmit = (values: typeof form.values) => {
+  const handleSubmit = async (values: typeof form.values) => {
     updateVaultItemMutation.mutate({
       title: values.title,
-      encrypted_username: values.username,
-      encrypted_password: values.password,
-      encrypted_note: values.notes,
+      encrypted_username: await AESService.encrypt(
+        vaultKey,
+        vaultItemEncryptionIV,
+        values.username
+      ),
+      encrypted_password: await AESService.encrypt(
+        vaultKey,
+        vaultItemEncryptionIV,
+        values.password
+      ),
+      encrypted_note: await AESService.encrypt(
+        vaultKey,
+        vaultItemEncryptionIV,
+        values.notes
+      ),
     });
   };
 
