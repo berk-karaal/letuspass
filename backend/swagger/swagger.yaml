@@ -61,6 +61,19 @@ definitions:
     - password
     - public_key
     type: object
+  controllers.HandleGetUserByEmail.UserResponse:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      public_key:
+        type: string
+    required:
+    - email
+    - name
+    - public_key
+    type: object
   controllers.HandleMetricsStatus.MetricsStatusResponse:
     properties:
       status:
@@ -403,6 +416,31 @@ paths:
       summary: Get status of the server
       tags:
       - metrics
+  /users/by-email:
+    get:
+      operationId: getUserByEmail
+      parameters:
+      - description: Email of the user
+        in: query
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.HandleGetUserByEmail.UserResponse'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Get user by email
+      tags:
+      - users
   /users/me:
     get:
       operationId: getCurrentUser
