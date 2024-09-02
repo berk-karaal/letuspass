@@ -1,0 +1,18 @@
+.permissionCard {
+  position: relative;
+  transition: border-color 150ms ease;
+
+  &[data-checked] {
+    border-color: var(--mantine-primary-color-filled);
+  }
+
+  @mixin hover {
+    @mixin light {
+      background-color: var(--mantine-color-gray-1);
+    }
+
+    @mixin dark {
+      background-color: var(--mantine-color-dark-6);
+    }
+  }
+}

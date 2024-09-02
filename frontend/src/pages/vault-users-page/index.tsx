@@ -3,12 +3,12 @@ import { ActionIcon, Box, Group, Loader, Text, Title } from "@mantine/core";
 import {
   IconArrowLeft,
   IconBriefcase2,
-  IconUserPlus,
   IconUsersGroup,
 } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import AddUserButtonAndModal from "./AddUserButtonAndModal";
 import VaultUsersList from "./VaultUsersList";
 
 function VaultUsersPage() {
@@ -60,9 +60,7 @@ function VaultUsersPage() {
           Vault Users
         </Text>
         <Box ml={"auto"} mr={"xs"}>
-          <ActionIcon variant="transparent" color="dark" onClick={() => null}>
-            <IconUserPlus size={"1.5rem"} />
-          </ActionIcon>
+          <AddUserButtonAndModal vaultId={Number(vaultId)} />
         </Box>
       </Group>
 
