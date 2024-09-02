@@ -135,7 +135,9 @@ function VaultItemPage() {
       });
       return;
     }
+  }, [vaultItemQuery.isError]);
 
+  useEffect(() => {
     if (vaultItemQuery.isSuccess && vaultKeyQuery.isSuccess) {
       const decryptFields = async () => {
         setVaultItemFieldsDecrypted({
@@ -148,10 +150,9 @@ function VaultItemPage() {
           note: await decryptVaultItemField(vaultItemQuery.data.encrypted_note),
         });
       };
-
       decryptFields();
     }
-  }, [vaultItemQuery, vaultKeyQuery]);
+  }, [vaultItemQuery.isFetching, vaultKeyQuery.isFetching]);
 
   const decryptVaultItemField = async (
     encryptedData: string
