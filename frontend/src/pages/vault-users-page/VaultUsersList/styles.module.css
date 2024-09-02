@@ -1,0 +1,23 @@
+.VaultUserBox {
+  background-color: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-dark-6)
+  );
+  border-width: 1px;
+  border-style: solid;
+  border-color: light-dark(
+    var(--mantine-color-gray-3),
+    var(--mantine-color-dark-4)
+  );
+  border-radius: var(--mantine-radius-md);
+  transition: background-color 0.2s;
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    background-color: light-dark(
+      var(--mantine-color-gray-1),
+      var(--mantine-color-dark-5)
+    );
+  }
+}
