@@ -1,6 +1,6 @@
 import { Title } from "@mantine/core";
 
-function VaultPage() {
+function VaultUsersPage() {
   return (
     <>
       <Title>Vault Manage Users Page</Title>
@@ -8,4 +8,4 @@ function VaultPage() {
   );
 }
 
-export default VaultPage;
+export default VaultUsersPage;

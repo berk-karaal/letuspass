@@ -9,6 +9,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import ThreeDotMenu from "./ThreeDotMenu";
 import VaultItemList from "./VaultItemList";
 
 function VaultPage() {
@@ -57,9 +58,18 @@ function VaultPage() {
           <ActionIcon variant="transparent" color="dark" onClick={() => null}>
             <IconFileTime size={"1.5rem"} />
           </ActionIcon>
-          <ActionIcon variant="transparent" color="dark" onClick={() => null}>
-            <IconDotsVertical size={"1.5rem"} />
-          </ActionIcon>
+          <ThreeDotMenu
+            vaultId={Number(vaultId)}
+            target={
+              <ActionIcon
+                variant="transparent"
+                color="dark"
+                onClick={() => null}
+              >
+                <IconDotsVertical size={"1.5rem"} />
+              </ActionIcon>
+            }
+          />
         </Box>
       </Group>
       <VaultItemList vaultId={Number(vaultId)} />
