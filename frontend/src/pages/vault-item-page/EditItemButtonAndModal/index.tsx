@@ -93,21 +93,27 @@ export default function EditItemButtonAndModal({
   const handleSubmit = async (values: typeof form.values) => {
     updateVaultItemMutation.mutate({
       title: values.title,
-      encrypted_username: await AESService.encrypt(
-        vaultKey,
-        vaultItemEncryptionIV,
-        values.username
-      ),
-      encrypted_password: await AESService.encrypt(
-        vaultKey,
-        vaultItemEncryptionIV,
-        values.password
-      ),
-      encrypted_note: await AESService.encrypt(
-        vaultKey,
-        vaultItemEncryptionIV,
-        values.notes
-      ),
+      encrypted_username:
+        values.username &&
+        (await AESService.encrypt(
+          vaultKey,
+          vaultItemEncryptionIV,
+          values.username
+        )),
+      encrypted_password:
+        values.password &&
+        (await AESService.encrypt(
+          vaultKey,
+          vaultItemEncryptionIV,
+          values.password
+        )),
+      encrypted_note:
+        values.notes &&
+        (await AESService.encrypt(
+          vaultKey,
+          vaultItemEncryptionIV,
+          values.notes
+        )),
     });
   };
 

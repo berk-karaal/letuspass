@@ -138,7 +138,12 @@ function VaultItemPage() {
   }, [vaultItemQuery.isError]);
 
   useEffect(() => {
-    if (vaultItemQuery.isSuccess && vaultKeyQuery.isSuccess) {
+    if (
+      !vaultItemQuery.isFetching &&
+      !vaultKeyQuery.isFetching &&
+      vaultItemQuery.isSuccess &&
+      vaultKeyQuery.isSuccess
+    ) {
       const decryptFields = async () => {
         setVaultItemFieldsDecrypted({
           username: await decryptVaultItemField(
@@ -170,6 +175,11 @@ function VaultItemPage() {
       vaultKeyQuery.data,
       user.privateKey
     );
+
+    if (encryptedData === "") {
+      return "";
+    }
+
     return await AESService.decrypt(
       vaultKey.current,
       vaultItemQuery.data.encryption_iv,

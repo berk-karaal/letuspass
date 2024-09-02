@@ -111,21 +111,15 @@ export default function CreateVaultItemButtonAndModal({
     createVaultItemMutation.mutate({
       title: values.title,
       encryption_iv: encryptionIV,
-      encrypted_username: await AESService.encrypt(
-        vaultKey,
-        encryptionIV,
-        values.username
-      ),
-      encrypted_password: await AESService.encrypt(
-        vaultKey,
-        encryptionIV,
-        values.password
-      ),
-      encrypted_note: await AESService.encrypt(
-        vaultKey,
-        encryptionIV,
-        values.note
-      ),
+      encrypted_username:
+        values.username &&
+        (await AESService.encrypt(vaultKey, encryptionIV, values.username)),
+      encrypted_password:
+        values.password &&
+        (await AESService.encrypt(vaultKey, encryptionIV, values.password)),
+      encrypted_note:
+        values.note &&
+        (await AESService.encrypt(vaultKey, encryptionIV, values.note)),
     });
   };
 
