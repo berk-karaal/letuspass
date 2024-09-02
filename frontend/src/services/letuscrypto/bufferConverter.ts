@@ -16,7 +16,8 @@ export function arrayBufferToString(buffer: ArrayBuffer): string {
 
 export function hexToArrayBuffer(hex: string): ArrayBuffer {
   if (hex.length % 2 !== 0) {
-    throw new Error("Invalid hex string length. hex: " + hex);
+    // throw new Error("Invalid hex string length. hex: " + hex);
+    hex = "0" + hex;
   }
 
   // Create a Uint8Array to hold the bytes
