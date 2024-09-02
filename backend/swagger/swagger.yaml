@@ -239,13 +239,19 @@ definitions:
     properties:
       email:
         type: string
+      encrypted_vault_key:
+        type: string
       permissions:
         items:
           type: string
         type: array
+      vault_key_encryption_iv:
+        type: string
     required:
     - email
+    - encrypted_vault_key
     - permissions
+    - vault_key_encryption_iv
     type: object
   controllers.HandleVaultsManageListUsers.UsersResponseItem:
     properties:

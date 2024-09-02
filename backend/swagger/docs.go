@@ -1283,10 +1283,15 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "email",
-                "permissions"
+                "encrypted_vault_key",
+                "permissions",
+                "vault_key_encryption_iv"
             ],
             "properties": {
                 "email": {
+                    "type": "string"
+                },
+                "encrypted_vault_key": {
                     "type": "string"
                 },
                 "permissions": {
@@ -1294,6 +1299,9 @@ const docTemplate = `{
                     "items": {
                         "type": "string"
                     }
+                },
+                "vault_key_encryption_iv": {
+                    "type": "string"
                 }
             }
         },
