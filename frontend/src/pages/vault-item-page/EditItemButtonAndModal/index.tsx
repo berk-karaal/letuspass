@@ -24,10 +24,12 @@ import { useState } from "react";
 export default function EditItemButtonAndModal({
   vaultId,
   vaultItemId,
+  vaultKey,
   currentPlainValues,
 }: {
   vaultId: number;
   vaultItemId: number;
+  vaultKey: string;
   currentPlainValues: {
     title: string;
     username: string;

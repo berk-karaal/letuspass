@@ -34,7 +34,7 @@ import {
 } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import strftime from "strftime";
 import EditItemButtonAndModal from "./EditItemButtonAndModal";
@@ -56,6 +56,8 @@ function VaultItemPage() {
     password: null,
     note: null,
   });
+
+  const vaultKey = useRef<string | null>(null);
 
   const [isOverlayActive, setIsOverlayActive] = useState(true);
 
@@ -163,9 +165,12 @@ function VaultItemPage() {
       return "";
     }
 
-    const vaultKey = await decryptVaultKey(vaultKeyQuery.data, user.privateKey);
+    vaultKey.current = await decryptVaultKey(
+      vaultKeyQuery.data,
+      user.privateKey
+    );
     return await AESService.decrypt(
-      vaultKey,
+      vaultKey.current,
       vaultItemQuery.data.encryption_iv,
       encryptedData
     );
@@ -214,18 +219,21 @@ function VaultItemPage() {
           {vaultPermissionsQuery.isSuccess &&
             vaultPermissionsQuery.data.includes("manage_items") && (
               <>
-                {vaultItemQuery.isSuccess && (
-                  <EditItemButtonAndModal
-                    vaultId={Number(vaultId)}
-                    vaultItemId={Number(vaultItemId)}
-                    currentPlainValues={{
-                      title: vaultItemQuery.data.title,
-                      username: vaultItemQuery.data.encrypted_username,
-                      password: vaultItemQuery.data.encrypted_password,
-                      notes: vaultItemQuery.data.encrypted_note,
-                    }}
-                  />
-                )}
+                {vaultItemQuery.isSuccess &&
+                  vaultKeyQuery.isSuccess &&
+                  vaultItemFieldsDecrypted.username !== null && (
+                    <EditItemButtonAndModal
+                      vaultId={Number(vaultId)}
+                      vaultItemId={Number(vaultItemId)}
+                      vaultKey={vaultKey.current ?? ""}
+                      currentPlainValues={{
+                        title: vaultItemQuery.data.title,
+                        username: vaultItemFieldsDecrypted.username ?? "",
+                        password: vaultItemFieldsDecrypted.password ?? "",
+                        notes: vaultItemFieldsDecrypted.note ?? "",
+                      }}
+                    />
+                  )}
                 <ThreeDotMenu
                   vaultId={Number(vaultId)}
                   vaultItemId={Number(vaultItemId)}
