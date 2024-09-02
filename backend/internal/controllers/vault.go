@@ -409,8 +409,10 @@ func HandleVaultsMyKey(logger *logging.Logger, db *gorm.DB) func(c *gin.Context)
 //	@Router		/vaults/{id}/manage/add-user [post]
 func HandleVaultsManageAddUser(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	type AddUserRequest struct {
-		Email       string   `json:"email" binding:"required"`
-		Permissions []string `json:"permissions" binding:"required"`
+		Email                string   `json:"email" binding:"required"`
+		Permissions          []string `json:"permissions" binding:"required"`
+		VaultKeyEncryptionIV string   `json:"vault_key_encryption_iv" binding:"required"`
+		EncryptedVaultKey    string   `json:"encrypted_vault_key" binding:"required"`
 	}
 
 	return func(c *gin.Context) {
@@ -493,7 +495,20 @@ func HandleVaultsManageAddUser(logger *logging.Logger, db *gorm.DB) func(c *gin.
 			return
 		}
 
-		// TODO: create user vault key
+		vaultKeyRecord := models.VaultKey{
+			VaultID:           uint(vaultId),
+			KeyOwnerUserID:    newUser.ID,
+			InviterUserID:     user.ID,
+			EncryptionIV:      requestData.VaultKeyEncryptionIV,
+			EncryptedVaultKey: requestData.EncryptedVaultKey,
+		}
+		err = db.Create(&vaultKeyRecord).Error
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Creating vault key record for newly added user failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
 		// TODO: create audit log
 
 		c.Status(http.StatusOK)
