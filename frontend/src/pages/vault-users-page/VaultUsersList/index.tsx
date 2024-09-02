@@ -28,7 +28,7 @@ function VaultUserBox({
   const user = useAppSelector((state) => state.user);
 
   return (
-    <Box py={"sm"} px={"xs"} className={classes.VaultUserBox}>
+    <Box py={"sm"} px={"xs"} my={"sm"} className={classes.VaultUserBox}>
       <Group gap={"xs"}>
         <IconUserFilled size={"1.75rem"} />
         <Text size="lg">{userEmail}</Text>
