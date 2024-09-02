@@ -48,13 +48,13 @@ function VaultItemPage() {
   const user = useAppSelector((state) => state.user);
 
   const [vaultItemFieldsDecrypted, setVaultItemFieldsDecrypted] = useState<{
-    username: string;
-    password: string;
-    note: string;
+    username: string | null;
+    password: string | null;
+    note: string | null;
   }>({
-    username: "",
-    password: "",
-    note: "",
+    username: null,
+    password: null,
+    note: null,
   });
 
   const [isOverlayActive, setIsOverlayActive] = useState(true);
@@ -249,13 +249,8 @@ function VaultItemPage() {
       <TextInput
         readOnly
         label="Username"
-        value={vaultItemFieldsDecrypted.username}
-        placeholder={
-          vaultItemQuery.isSuccess &&
-          vaultItemQuery.data.encrypted_username == ""
-            ? "No data"
-            : ""
-        }
+        value={vaultItemFieldsDecrypted.username ?? ""}
+        placeholder={vaultItemFieldsDecrypted.username === "" ? "No data" : ""}
         mt={"sm"}
       />
 
@@ -263,13 +258,8 @@ function VaultItemPage() {
       <PasswordInput
         readOnly
         label="Password"
-        value={vaultItemFieldsDecrypted.password}
-        placeholder={
-          vaultItemQuery.isSuccess &&
-          vaultItemQuery.data.encrypted_password == ""
-            ? "No data"
-            : ""
-        }
+        value={vaultItemFieldsDecrypted.password ?? ""}
+        placeholder={vaultItemFieldsDecrypted.password === "" ? "No data" : ""}
         mt={"xs"}
       />
 
@@ -300,34 +290,26 @@ function VaultItemPage() {
         <Box pos={"relative"}>
           <Textarea
             readOnly
-            value={vaultItemFieldsDecrypted.note}
-            placeholder={
-              vaultItemQuery.isSuccess &&
-              vaultItemQuery.data.encrypted_note == ""
-                ? "No data"
-                : ""
-            }
+            value={vaultItemFieldsDecrypted.note ?? ""}
+            placeholder={vaultItemFieldsDecrypted.note === "" ? "No data" : ""}
             autosize
             minRows={5}
             maxRows={8}
             style={{ border: "none" }}
           />
 
-          {/* The first 2 conditions disable the overlay if there is no saved note. */}
-          {vaultItemQuery.isSuccess &&
-            vaultItemQuery.data.encrypted_note != "" &&
-            isOverlayActive && (
-              <Overlay
-                m={"1px"}
-                color={
-                  colorScheme == "light"
-                    ? theme.colors.gray[0]
-                    : theme.colors.dark[6]
-                }
-                blur={2}
-                backgroundOpacity={0.85}
-              />
-            )}
+          {vaultItemFieldsDecrypted.note !== "" && isOverlayActive && (
+            <Overlay
+              m={"1px"}
+              color={
+                colorScheme == "light"
+                  ? theme.colors.gray[0]
+                  : theme.colors.dark[6]
+              }
+              blur={2}
+              backgroundOpacity={0.85}
+            />
+          )}
         </Box>
       </>
 
