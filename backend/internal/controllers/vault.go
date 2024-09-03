@@ -668,3 +668,83 @@ func HandleVaultsManageRemoveUser(logger *logging.Logger, db *gorm.DB) func(c *g
 		c.Status(http.StatusNoContent)
 	}
 }
+
+// HandleVaultsManageRename
+//
+//	@Summary	Rename vault
+//	@Tags		vault manage
+//	@Id			renameVault
+//	@Param		id		path		int														true	"Vault id"
+//	@Param		request	body		controllers.HandleVaultsManageRename.RenameVaultRequest	true	"New name of the vault"
+//	@Success	200		{object}	controllers.HandleVaultsManageRename.RenameVaultResponse
+//	@Failure	400		{object}	schemas.BadRequestResponse
+//	@Failure	401
+//	@Failure	403
+//	@Failure	404
+//	@Failure	422	{object}	bodybinder.validationErrorResponse
+//	@Failure	500
+//	@Router		/vaults/{id}/manage/rename [post]
+func HandleVaultsManageRename(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
+	type RenameVaultRequest struct {
+		Name string `json:"name" binding:"required"`
+	}
+
+	type RenameVaultResponse struct {
+		Name string `json:"name" binding:"required"`
+	}
+
+	return func(c *gin.Context) {
+		vaultId, err := strconv.Atoi(c.Param("id"))
+		if err != nil {
+			c.JSON(http.StatusBadRequest, schemas.BadRequestResponse{Error: "Id must be an integer."})
+			return
+		}
+
+		user, ok := middlewares.ExtractUserFromGinContext(c)
+		if !ok {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Msg("Extracting user from Gin context failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		canManageVault, err := vaultservice.CheckUserHasVaultPermission(db, int(user.ID), vaultId, models.VaultPermissionManageVault)
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Checking vault permissions of user failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+		if !canManageVault {
+			c.Status(http.StatusForbidden)
+			return
+		}
+
+		var requestData RenameVaultRequest
+		if ok = bodybinder.Bind(&requestData, c); !ok {
+			return
+		}
+
+		var vault models.Vault
+		err = db.First(&vault, vaultId).Error
+		if err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				c.Status(http.StatusNotFound)
+				return
+			}
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Querying vault failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		vault.Name = requestData.Name
+		err = db.Save(&vault).Error
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Saving vault's new name failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		// TODO: audit
+
+		c.JSON(http.StatusOK, RenameVaultResponse{Name: requestData.Name})
+	}
+}
