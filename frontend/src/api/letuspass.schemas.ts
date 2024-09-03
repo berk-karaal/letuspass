@@ -94,6 +94,14 @@ export interface ControllersHandleVaultsMyKeyVaultKeyResponse {
   key_owner_user_id: number;
 }
 
+export interface ControllersHandleVaultsManageRenameRenameVaultResponse {
+  name: string;
+}
+
+export interface ControllersHandleVaultsManageRenameRenameVaultRequest {
+  name: string;
+}
+
 export interface ControllersHandleVaultsManageRemoveUserRemoveUserRequest {
   user_id: number;
 }

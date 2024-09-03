@@ -22,6 +22,8 @@ import type {
   ControllersHandleVaultsManageAddUserAddUserRequest,
   ControllersHandleVaultsManageListUsersUsersResponseItem,
   ControllersHandleVaultsManageRemoveUserRemoveUserRequest,
+  ControllersHandleVaultsManageRenameRenameVaultRequest,
+  ControllersHandleVaultsManageRenameRenameVaultResponse,
   ControllersHandleVaultsMyKeyVaultKeyResponse,
   GetUserByEmailParams,
   ListVaultItemsParams,
@@ -287,6 +289,25 @@ export const addUserToVault = (
 };
 
 /**
+ * @summary Rename vault
+ */
+export const renameVault = (
+  id: number,
+  controllersHandleVaultsManageRenameRenameVaultRequest: BodyType<ControllersHandleVaultsManageRenameRenameVaultRequest>,
+  options?: SecondParameter<typeof customInstance>,
+) => {
+  return customInstance<ControllersHandleVaultsManageRenameRenameVaultResponse>(
+    {
+      url: `/vaults/${id}/manage/rename`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: controllersHandleVaultsManageRenameRenameVaultRequest,
+    },
+    options,
+  );
+};
+
+/**
  * @summary List users who have access to vault
  */
 export const listVaultUsers = (
@@ -380,6 +401,9 @@ export type RetrieveMyVaultKeyResult = NonNullable<
 >;
 export type AddUserToVaultResult = NonNullable<
   Awaited<ReturnType<typeof addUserToVault>>
+>;
+export type RenameVaultResult = NonNullable<
+  Awaited<ReturnType<typeof renameVault>>
 >;
 export type ListVaultUsersResult = NonNullable<
   Awaited<ReturnType<typeof listVaultUsers>>
