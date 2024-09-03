@@ -21,6 +21,7 @@ import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { IconUserPlus } from "@tabler/icons-react";
+import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import classes from "./styles.module.css";
@@ -47,6 +48,7 @@ export default function AddUserButtonAndModal({
 }) {
   const [opened, { open, close }] = useDisclosure(false);
   const user = useAppSelector((state) => state.user);
+  const queryClient = useQueryClient();
 
   const [errorText, setErrorText] = useState<string | null>(null);
 
@@ -118,6 +120,7 @@ export default function AddUserButtonAndModal({
       return;
     }
 
+    queryClient.invalidateQueries({ queryKey: ["vaultUsers", vaultId] });
     notifications.show({
       title: "User added",
       message: `User '${values.email}' has been added to the vault successfully.`,
