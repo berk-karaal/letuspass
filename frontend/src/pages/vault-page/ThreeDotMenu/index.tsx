@@ -7,6 +7,7 @@ import {
   IconUsersGroup,
 } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
+import LeaveVaultModal from "./LeaveVaultModal";
 import RenameVaultModal from "./RenameVaultModal";
 
 export default function ThreeDotMenu({
@@ -19,6 +20,8 @@ export default function ThreeDotMenu({
   target: React.ReactNode;
 }) {
   const [deleteConfirmationModalOpened, deleteConfirmationModal] =
+    useDisclosure(false);
+  const [leaveConfirmationModalOpened, leaveConfirmationModal] =
     useDisclosure(false);
   const [vaultRenameModalOpened, vaultRenameModal] = useDisclosure(false);
 
@@ -44,7 +47,8 @@ export default function ThreeDotMenu({
           <Menu.Divider />
           <Menu.Item
             leftSection={<IconLogout2 size={"1.1rem"} />}
-            onClick={() => null}
+            color="red"
+            onClick={leaveConfirmationModal.open}
           >
             Leave Vault
           </Menu.Item>
@@ -85,6 +89,12 @@ export default function ThreeDotMenu({
         currentName={vaultName}
         opened={vaultRenameModalOpened}
         close={vaultRenameModal.close}
+      />
+
+      <LeaveVaultModal
+        vaultId={vaultId}
+        opened={leaveConfirmationModalOpened}
+        onClose={leaveConfirmationModal.close}
       />
     </>
   );
