@@ -658,6 +658,13 @@ func HandleVaultsManageRemoveUser(logger *logging.Logger, db *gorm.DB) func(c *g
 			return
 		}
 
+		err = db.Unscoped().Where("vault_id = ? AND key_owner_user_id = ?", vaultId, requestData.UserId).Delete(&models.VaultKey{}).Error
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Removing user from vault failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
 		c.Status(http.StatusNoContent)
 	}
 }
