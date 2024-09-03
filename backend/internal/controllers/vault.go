@@ -285,10 +285,19 @@ func HandleVaultDelete(logger *logging.Logger, db *gorm.DB) func(c *gin.Context)
 			return
 		}
 
-		// TODO: delete vault related data
-		// Delete vault items
-		// Delete vault keys
-		// ...
+		err = db.Where("vault_id = ?", vaultId).Delete(&models.VaultKey{}).Error
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Deleting vault keys failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		err = db.Where("vault_id = ?", vaultId).Delete(&models.VaultItem{}).Error
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Deleting vault items failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
 
 		c.Status(http.StatusNoContent)
 	}
