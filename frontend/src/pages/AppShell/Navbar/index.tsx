@@ -32,6 +32,7 @@ export function AppShellNavbar() {
   const logoutMutation = useMutation({
     mutationFn: authLogout,
     onSuccess: () => {
+      localStorage.removeItem("privateKey");
       notifications.show({
         title: "Logout Successful",
         message: "You have logged-out.",
