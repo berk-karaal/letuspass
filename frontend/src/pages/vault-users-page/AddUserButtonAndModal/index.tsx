@@ -28,7 +28,7 @@ import classes from "./styles.module.css";
 const permissions = [
   {
     value: "manage_vault",
-    description: "Can add and remove users and list users.",
+    description: "Can add, remove and list users. Can change the vault name.",
   },
   {
     value: "delete_vault",
