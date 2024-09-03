@@ -741,6 +741,47 @@ const docTemplate = `{
                 }
             }
         },
+        "/vaults/{id}/leave": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "vaults"
+                ],
+                "summary": "Leave from the vault",
+                "operationId": "leaveVault",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Vault id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.BadRequestResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
         "/vaults/{id}/manage/add-user": {
             "post": {
                 "produces": [
