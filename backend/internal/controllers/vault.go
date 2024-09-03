@@ -334,6 +334,52 @@ func HandleVaultsMyPermissions(logger *logging.Logger, db *gorm.DB) func(c *gin.
 	}
 }
 
+// HandleVaultsLeave
+//
+//	@Summary	Leave from the vault
+//	@Tags		vaults
+//	@Id			leaveVault
+//	@Produce	json
+//	@Success	204
+//	@Failure	400	{object}	schemas.BadRequestResponse
+//	@Failure	401
+//	@Failure	404
+//	@Failure	500
+//	@Router		/vaults/{id}/leave [post]
+//	@Param		id	path	int	true	"Vault id"
+func HandleVaultsLeave(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
+	return func(c *gin.Context) {
+		vaultId, err := strconv.Atoi(c.Param("id"))
+		if err != nil {
+			c.JSON(http.StatusBadRequest, schemas.BadRequestResponse{Error: "Id must be an integer."})
+			return
+		}
+
+		user, ok := middlewares.ExtractUserFromGinContext(c)
+		if !ok {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Msg("Extracting user from Gin context failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		err = db.Where("vault_id = ? AND user_id = ?", vaultId, user.ID).Delete(&models.VaultPermission{}).Error
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Removing user vault permissions failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		err = db.Unscoped().Where("vault_id = ? AND key_owner_user_id = ?", vaultId, user.ID).Delete(&models.VaultKey{}).Error
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Removing user vault key failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		c.Status(http.StatusNoContent)
+	}
+}
+
 // HandleVaultsMyKey
 //
 //	@Summary	Retrieve current user's vault key record for the vault
