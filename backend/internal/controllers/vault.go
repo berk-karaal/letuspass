@@ -629,6 +629,7 @@ func HandleVaultsManageListUsers(logger *logging.Logger, db *gorm.DB) func(c *gi
 			Model(&models.VaultPermission{}).
 			Joins("LEFT OUTER JOIN users ON vault_permissions.user_id = users.id").
 			Where("vault_permissions.vault_id = ?", vaultId).
+			Order("permission ASC").
 			Scan(&usersAndPermissions).Error
 		if err != nil {
 			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Querying users and permissions by vault failed.")
