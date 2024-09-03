@@ -7,16 +7,20 @@ import {
   IconUsersGroup,
 } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
+import RenameVaultModal from "./RenameVaultModal";
 
 export default function ThreeDotMenu({
   vaultId,
+  vaultName,
   target,
 }: {
   vaultId: number;
+  vaultName: string;
   target: React.ReactNode;
 }) {
   const [deleteConfirmationModalOpened, deleteConfirmationModal] =
     useDisclosure(false);
+  const [vaultRenameModalOpened, vaultRenameModal] = useDisclosure(false);
 
   return (
     <>
@@ -26,7 +30,7 @@ export default function ThreeDotMenu({
         <Menu.Dropdown>
           <Menu.Item
             leftSection={<IconAbc size={"1.1rem"} />}
-            onClick={() => null}
+            onClick={vaultRenameModal.open}
           >
             Rename Vault
           </Menu.Item>
@@ -75,6 +79,13 @@ export default function ThreeDotMenu({
           </Button>
         </Group>
       </Modal>
+
+      <RenameVaultModal
+        vaultId={vaultId}
+        currentName={vaultName}
+        opened={vaultRenameModalOpened}
+        close={vaultRenameModal.close}
+      />
     </>
   );
 }

@@ -17,7 +17,7 @@ function VaultPage() {
   const navigate = useNavigate();
 
   const vaultQuery = useQuery({
-    queryKey: ["vault", vaultId],
+    queryKey: ["vault", Number(vaultId)],
     queryFn: () => retrieveVault(Number(vaultId)),
     retry: (failureCount: number, error: Error) => {
       if (failureCount > 2) {
@@ -54,23 +54,26 @@ function VaultPage() {
           )}
         </Title>
 
-        <Box style={{ marginLeft: "auto" }}>
-          <ActionIcon variant="transparent" color="dark" onClick={() => null}>
-            <IconFileTime size={"1.5rem"} />
-          </ActionIcon>
-          <ThreeDotMenu
-            vaultId={Number(vaultId)}
-            target={
-              <ActionIcon
-                variant="transparent"
-                color="dark"
-                onClick={() => null}
-              >
-                <IconDotsVertical size={"1.5rem"} />
-              </ActionIcon>
-            }
-          />
-        </Box>
+        {vaultQuery.isSuccess && (
+          <Box style={{ marginLeft: "auto" }}>
+            <ActionIcon variant="transparent" color="dark" onClick={() => null}>
+              <IconFileTime size={"1.5rem"} />
+            </ActionIcon>
+            <ThreeDotMenu
+              vaultId={Number(vaultId)}
+              vaultName={vaultQuery.data.name}
+              target={
+                <ActionIcon
+                  variant="transparent"
+                  color="dark"
+                  onClick={() => null}
+                >
+                  <IconDotsVertical size={"1.5rem"} />
+                </ActionIcon>
+              }
+            />
+          </Box>
+        )}
       </Group>
       <VaultItemList vaultId={Number(vaultId)} />
     </>
