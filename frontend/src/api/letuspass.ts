@@ -270,6 +270,19 @@ export const retrieveMyVaultKey = (
 };
 
 /**
+ * @summary Leave from the vault
+ */
+export const leaveVault = (
+  id: number,
+  options?: SecondParameter<typeof customInstance>,
+) => {
+  return customInstance<void>(
+    { url: `/vaults/${id}/leave`, method: "POST" },
+    options,
+  );
+};
+
+/**
  * @summary Add user to vault
  */
 export const addUserToVault = (
@@ -398,6 +411,9 @@ export type DeleteVaultItemResult = NonNullable<
 >;
 export type RetrieveMyVaultKeyResult = NonNullable<
   Awaited<ReturnType<typeof retrieveMyVaultKey>>
+>;
+export type LeaveVaultResult = NonNullable<
+  Awaited<ReturnType<typeof leaveVault>>
 >;
 export type AddUserToVaultResult = NonNullable<
   Awaited<ReturnType<typeof addUserToVault>>
