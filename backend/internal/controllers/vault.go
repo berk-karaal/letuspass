@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"slices"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/berk-karaal/letuspass/backend/internal/common/bodybinder"
@@ -653,6 +654,9 @@ func HandleVaultsManageListUsers(logger *logging.Logger, db *gorm.DB) func(c *gi
 		for k, v := range userAndPermissionsMap {
 			result = append(result, UsersResponseItem{Id: k.id, Email: k.email, Permissions: v})
 		}
+		slices.SortFunc(result, func(i, j UsersResponseItem) int {
+			return strings.Compare(i.Email, j.Email)
+		})
 		c.JSON(http.StatusOK, result)
 	}
 }
