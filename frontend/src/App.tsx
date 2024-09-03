@@ -64,7 +64,7 @@ function App() {
       );
       dispatch(startupComplete());
     }
-  }, [currentUserQuery, dispatch]);
+  }, [currentUserQuery.isFetching, dispatch]);
 
   return (
     <>

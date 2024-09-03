@@ -49,7 +49,7 @@ function VaultList() {
     if (vaultsQuery.isSuccess && vaultsQuery.data?.count > 0) {
       setTotalItemCount(vaultsQuery.data?.count);
     }
-  }, [vaultsQuery]);
+  }, [vaultsQuery.isFetching]);
 
   return (
     <>

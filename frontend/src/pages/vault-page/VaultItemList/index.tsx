@@ -96,7 +96,7 @@ export default function VaultItemList({ vaultId }: { vaultId: number }) {
     if (vaultsQuery.isSuccess && vaultsQuery.data?.count >= 0) {
       setTotalItemCount(vaultsQuery.data?.count);
     }
-  }, [vaultsQuery]);
+  }, [vaultsQuery.isFetching]);
 
   useEffect(() => {
     setActivePage(1);
