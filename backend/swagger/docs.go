@@ -1309,11 +1309,15 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "email",
+                "id",
                 "permissions"
             ],
             "properties": {
                 "email": {
                     "type": "string"
+                },
+                "id": {
+                    "type": "integer"
                 },
                 "permissions": {
                     "type": "array",
