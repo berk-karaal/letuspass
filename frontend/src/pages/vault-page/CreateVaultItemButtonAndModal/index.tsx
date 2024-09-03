@@ -170,7 +170,7 @@ export default function CreateVaultItemButtonAndModal({
               disabled={!vaultKeyQuery.isSuccess}
               loading={createVaultItemMutation.isPending}
             >
-              Create Vault
+              Create Item
             </Button>
           </Group>
         </form>
