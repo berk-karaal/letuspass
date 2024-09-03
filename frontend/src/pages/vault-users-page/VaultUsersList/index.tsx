@@ -1,30 +1,23 @@
 import { listVaultUsers } from "@/api/letuspass";
 import { useAppSelector } from "@/store/hooks";
-import {
-  ActionIcon,
-  Box,
-  Group,
-  Loader,
-  Text,
-  useMantineColorScheme,
-  useMantineTheme,
-} from "@mantine/core";
-import { IconSquareX, IconUserFilled } from "@tabler/icons-react";
+import { Box, Group, Loader, Text } from "@mantine/core";
+import { IconUserFilled } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import RemoveUserButtonAndModal from "../RemoveUserButtonAndModal";
 import classes from "./styles.module.css";
 
 function VaultUserBox({
   vaultId,
+  userId,
   userEmail,
   userPermissions,
 }: {
   vaultId: number;
+  userId: number;
   userEmail: string;
   userPermissions: string[];
 }) {
-  const { colorScheme } = useMantineColorScheme();
-  const theme = useMantineTheme();
   const user = useAppSelector((state) => state.user);
 
   return (
@@ -34,17 +27,7 @@ function VaultUserBox({
         <Text size="lg">{userEmail}</Text>
         {user.email !== userEmail && (
           <Box ml={"auto"}>
-            <ActionIcon
-              variant="transparent"
-              onClick={() => {}}
-              color={
-                colorScheme == "light"
-                  ? theme.colors.red[7]
-                  : theme.colors.red[6]
-              }
-            >
-              <IconSquareX size={"1.5rem"} />
-            </ActionIcon>
+            <RemoveUserButtonAndModal vaultId={vaultId} userId={userId} />
           </Box>
         )}
       </Group>
@@ -84,6 +67,7 @@ export default function VaultUsersList({ vaultId }: { vaultId: number }) {
           <VaultUserBox
             key={user.email}
             vaultId={Number(vaultId)}
+            userId={user.id}
             userEmail={user.email}
             userPermissions={user.permissions}
           />
