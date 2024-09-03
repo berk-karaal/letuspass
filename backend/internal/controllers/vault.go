@@ -534,6 +534,7 @@ func HandleVaultsManageAddUser(logger *logging.Logger, db *gorm.DB) func(c *gin.
 //	@Router		/vaults/{id}/manage/users [get]
 func HandleVaultsManageListUsers(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
 	type UsersResponseItem struct {
+		Id          int      `json:"id" binding:"required"`
 		Email       string   `json:"email" binding:"required"`
 		Permissions []string `json:"permissions" binding:"required"`
 	}
@@ -564,10 +565,11 @@ func HandleVaultsManageListUsers(logger *logging.Logger, db *gorm.DB) func(c *gi
 		}
 
 		var usersAndPermissions []struct {
+			Id         int    `gorm:"column:id"`
 			Email      string `gorm:"column:email"`
 			Permission string `gorm:"column:permission"`
 		}
-		err = db.Select("users.email as email, vault_permissions.permission as permission").
+		err = db.Select("users.id as id, users.email as email, vault_permissions.permission as permission").
 			Model(&models.VaultPermission{}).
 			Joins("LEFT OUTER JOIN users ON vault_permissions.user_id = users.id").
 			Where("vault_permissions.vault_id = ?", vaultId).
@@ -578,18 +580,23 @@ func HandleVaultsManageListUsers(logger *logging.Logger, db *gorm.DB) func(c *gi
 			return
 		}
 
-		userAndPermissionsMap := make(map[string][]string)
+		type UserKey struct {
+			id    int
+			email string
+		}
+		userAndPermissionsMap := make(map[UserKey][]string)
 		for _, v := range usersAndPermissions {
-			_, ok := userAndPermissionsMap[v.Email]
+			userKey := UserKey{v.Id, v.Email}
+			_, ok := userAndPermissionsMap[userKey]
 			if !ok {
-				userAndPermissionsMap[v.Email] = []string{}
+				userAndPermissionsMap[userKey] = []string{}
 			}
-			userAndPermissionsMap[v.Email] = append(userAndPermissionsMap[v.Email], v.Permission)
+			userAndPermissionsMap[userKey] = append(userAndPermissionsMap[userKey], v.Permission)
 		}
 
 		result := []UsersResponseItem{}
 		for k, v := range userAndPermissionsMap {
-			result = append(result, UsersResponseItem{Email: k, Permissions: v})
+			result = append(result, UsersResponseItem{Id: k.id, Email: k.email, Permissions: v})
 		}
 		c.JSON(http.StatusOK, result)
 	}
