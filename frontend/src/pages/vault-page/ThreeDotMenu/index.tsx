@@ -1,4 +1,4 @@
-import { Button, Group, Menu, Modal, Text } from "@mantine/core";
+import { Menu } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import {
   IconAbc,
@@ -7,6 +7,7 @@ import {
   IconUsersGroup,
 } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
+import DeleteVaultModal from "./DeleteVaultModal";
 import LeaveVaultModal from "./LeaveVaultModal";
 import RenameVaultModal from "./RenameVaultModal";
 
@@ -54,35 +55,13 @@ export default function ThreeDotMenu({
           </Menu.Item>
           <Menu.Item
             leftSection={<IconTrash size={"1.1rem"} />}
+            color="red"
             onClick={deleteConfirmationModal.open}
           >
             Delete Vault
           </Menu.Item>
         </Menu.Dropdown>
       </Menu>
-
-      <Modal
-        opened={deleteConfirmationModalOpened}
-        onClose={deleteConfirmationModal.close}
-        centered
-        title="Confirmation"
-      >
-        <Text ta={"center"} size="lg" mb={"md"}>
-          Are you sure you want to delete the vault?
-        </Text>
-        <Group justify="space-evenly" my={"lg"}>
-          <Button
-            color="red"
-            leftSection={<IconTrash size={"1.25rem"} />}
-            onClick={() => null}
-          >
-            Delete
-          </Button>
-          <Button color="gray" onClick={deleteConfirmationModal.close}>
-            Cancel
-          </Button>
-        </Group>
-      </Modal>
 
       <RenameVaultModal
         vaultId={vaultId}
@@ -95,6 +74,12 @@ export default function ThreeDotMenu({
         vaultId={vaultId}
         opened={leaveConfirmationModalOpened}
         onClose={leaveConfirmationModal.close}
+      />
+
+      <DeleteVaultModal
+        vaultId={vaultId}
+        opened={deleteConfirmationModalOpened}
+        onClose={deleteConfirmationModal.close}
       />
     </>
   );
