@@ -69,7 +69,7 @@ export default function VaultItemList({ vaultId }: { vaultId: number }) {
     title: searchValueDebounced,
   });
   const vaultsQuery = useQuery({
-    queryKey: ["vault", vaultId, "items", queryValues],
+    queryKey: ["vaultItems", vaultId, queryValues],
     queryFn: () => {
       let params: ListVaultItemsParams = {
         page: queryValues.pageNumber,

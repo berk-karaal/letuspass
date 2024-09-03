@@ -39,7 +39,7 @@ export default function CreateVaultItemButtonAndModal({
       newVaultItem: ControllersHandleVaultItemsCreateVaultItemCreateRequest
     ) => createVaultItem(vaultId, newVaultItem),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["vault", vaultId, "items"] });
+      queryClient.invalidateQueries({ queryKey: ["vaultItems", vaultId] });
       close();
       form.reset();
       notifications.show({

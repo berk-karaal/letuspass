@@ -24,7 +24,7 @@ export default function ThreeDotMenu({
   const deleteVaultItemMutation = useMutation({
     mutationFn: () => deleteVaultItem(vaultId, vaultItemId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["vault", vaultId, "items"] });
+      queryClient.invalidateQueries({ queryKey: ["vaultItems", vaultId] });
       navigate(`/app/vault/${vaultId}`);
       notifications.show({
         title: "Vault item deleted successfully",
