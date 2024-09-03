@@ -275,6 +275,20 @@ definitions:
     required:
     - user_id
     type: object
+  controllers.HandleVaultsManageRename.RenameVaultRequest:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  controllers.HandleVaultsManageRename.RenameVaultResponse:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
   controllers.HandleVaultsMyKey.VaultKeyResponse:
     properties:
       encrypted_vault_key:
@@ -858,6 +872,45 @@ paths:
         "500":
           description: Internal Server Error
       summary: Add user to vault
+      tags:
+      - vault manage
+  /vaults/{id}/manage/rename:
+    post:
+      operationId: renameVault
+      parameters:
+      - description: Vault id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: New name of the vault
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.HandleVaultsManageRename.RenameVaultRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.HandleVaultsManageRename.RenameVaultResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.BadRequestResponse'
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/bodybinder.validationErrorResponse'
+        "500":
+          description: Internal Server Error
+      summary: Rename vault
       tags:
       - vault manage
   /vaults/{id}/manage/users:
