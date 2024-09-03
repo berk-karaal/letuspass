@@ -100,6 +100,7 @@ export interface ControllersHandleVaultsManageRemoveUserRemoveUserRequest {
 
 export interface ControllersHandleVaultsManageListUsersUsersResponseItem {
   email: string;
+  id: number;
   permissions: string[];
 }
 
