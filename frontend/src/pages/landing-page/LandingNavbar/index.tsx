@@ -1,5 +1,5 @@
-import ColorSchemeToggle from "@/components/ColorSchemeToggle";
 import { Box, Container, Group, Title } from "@mantine/core";
+import ColorSchemeToggle from "./ColorSchemeToggle";
 import classes from "./styles.module.css";
 
 export function LandingNavbar() {
