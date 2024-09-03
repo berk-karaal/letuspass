@@ -20,6 +20,7 @@ import {
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 
+import { restQueryRetryFunc } from "@/common/queryRetry";
 import { decryptVaultKey } from "@/common/vaultkey";
 import { AESService } from "@/services/letuscrypto";
 import { useAppSelector } from "@/store/hooks";
@@ -64,20 +65,7 @@ function VaultItemPage() {
   const vaultQuery = useQuery({
     queryKey: ["vault", vaultId],
     queryFn: () => retrieveVault(Number(vaultId)),
-    retry: (failureCount: number, error: Error) => {
-      if (failureCount > 2) {
-        return false;
-      }
-      if (axios.isAxiosError(error)) {
-        if (
-          (error.response?.status ?? 500 >= 400) &&
-          (error.response?.status ?? 500 < 500)
-        ) {
-          return false;
-        }
-      }
-      return true;
-    },
+    retry: restQueryRetryFunc,
   });
 
   const vaultPermissionsQuery = useVaultPermissionsQuery(Number(vaultId));
@@ -85,39 +73,13 @@ function VaultItemPage() {
   const vaultItemQuery = useQuery({
     queryKey: ["vaultItem", Number(vaultItemId)],
     queryFn: () => retrieveVaultItem(Number(vaultId), Number(vaultItemId)),
-    retry: (failureCount: number, error: Error) => {
-      if (failureCount > 2) {
-        return false;
-      }
-      if (axios.isAxiosError(error)) {
-        if (
-          (error.response?.status ?? 500 >= 400) &&
-          (error.response?.status ?? 500 < 500)
-        ) {
-          return false;
-        }
-      }
-      return true;
-    },
+    retry: restQueryRetryFunc,
   });
 
   const vaultKeyQuery = useQuery({
     queryKey: ["vaultKey", vaultId],
     queryFn: () => retrieveMyVaultKey(Number(vaultId)),
-    retry: (failureCount: number, error: Error) => {
-      if (failureCount > 2) {
-        return false;
-      }
-      if (axios.isAxiosError(error)) {
-        if (
-          (error.response?.status ?? 500 >= 400) &&
-          (error.response?.status ?? 500 < 500)
-        ) {
-          return false;
-        }
-      }
-      return true;
-    },
+    retry: restQueryRetryFunc,
   });
 
   useEffect(() => {

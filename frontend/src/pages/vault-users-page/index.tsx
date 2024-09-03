@@ -1,4 +1,5 @@
 import { retrieveVault } from "@/api/letuspass";
+import { restQueryRetryFunc } from "@/common/queryRetry";
 import { ActionIcon, Box, Group, Loader, Text, Title } from "@mantine/core";
 import {
   IconArrowLeft,
@@ -6,7 +7,6 @@ import {
   IconUsersGroup,
 } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import AddUserButtonAndModal from "./AddUserButtonAndModal";
 import VaultUsersList from "./VaultUsersList";
@@ -18,20 +18,7 @@ function VaultUsersPage() {
   const vaultQuery = useQuery({
     queryKey: ["vault", vaultId],
     queryFn: () => retrieveVault(Number(vaultId)),
-    retry: (failureCount: number, error: Error) => {
-      if (failureCount > 2) {
-        return false;
-      }
-      if (axios.isAxiosError(error)) {
-        if (
-          (error.response?.status ?? 500 >= 400) &&
-          (error.response?.status ?? 500 < 500)
-        ) {
-          return false;
-        }
-      }
-      return true;
-    },
+    retry: restQueryRetryFunc,
   });
 
   return (

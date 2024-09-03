@@ -3,6 +3,7 @@ import {
   ControllersHandleVaultItemsCreateVaultItemCreateRequest,
   SchemasBadRequestResponse,
 } from "@/api/letuspass.schemas";
+import { restQueryRetryFunc } from "@/common/queryRetry";
 import { decryptVaultKey } from "@/common/vaultkey";
 import { AESService } from "@/services/letuscrypto";
 import { useAppSelector } from "@/store/hooks";
@@ -70,20 +71,7 @@ export default function CreateVaultItemButtonAndModal({
   const vaultKeyQuery = useQuery({
     queryKey: ["vaultKey", vaultId],
     queryFn: () => retrieveMyVaultKey(Number(vaultId)),
-    retry: (failureCount: number, error: Error) => {
-      if (failureCount > 2) {
-        return false;
-      }
-      if (axios.isAxiosError(error)) {
-        if (
-          (error.response?.status ?? 500 >= 400) &&
-          (error.response?.status ?? 500 < 500)
-        ) {
-          return false;
-        }
-      }
-      return true;
-    },
+    retry: restQueryRetryFunc,
   });
 
   const form = useForm({

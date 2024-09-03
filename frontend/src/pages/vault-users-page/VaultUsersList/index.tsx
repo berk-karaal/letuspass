@@ -1,9 +1,9 @@
 import { listVaultUsers } from "@/api/letuspass";
+import { restQueryRetryFunc } from "@/common/queryRetry";
 import { useAppSelector } from "@/store/hooks";
 import { Box, Group, Loader, Text } from "@mantine/core";
 import { IconUserFilled } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import RemoveUserButtonAndModal from "../RemoveUserButtonAndModal";
 import classes from "./styles.module.css";
 
@@ -42,20 +42,7 @@ export default function VaultUsersList({ vaultId }: { vaultId: number }) {
   const vaultUsersQuery = useQuery({
     queryKey: ["vaultUsers", vaultId],
     queryFn: () => listVaultUsers(Number(vaultId)),
-    retry: (failureCount: number, error: Error) => {
-      if (failureCount > 2) {
-        return false;
-      }
-      if (axios.isAxiosError(error)) {
-        if (
-          (error.response?.status ?? 500 >= 400) &&
-          (error.response?.status ?? 500 < 500)
-        ) {
-          return false;
-        }
-      }
-      return true;
-    },
+    retry: restQueryRetryFunc,
   });
 
   return (

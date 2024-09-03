@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect } from "react";
 import { RouterProvider } from "react-router-dom";
+import { restQueryRetryFunc } from "./common/queryRetry";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -17,17 +18,7 @@ function App() {
     refetchOnWindowFocus: false,
     staleTime: Infinity,
     gcTime: Infinity,
-    retry: (failureCount: number, error: Error) => {
-      if (failureCount > 2) {
-        return false;
-      }
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status == 401) {
-          return false;
-        }
-      }
-      return true;
-    },
+    retry: restQueryRetryFunc,
   });
 
   useEffect(() => {
