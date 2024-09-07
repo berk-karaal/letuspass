@@ -808,3 +808,108 @@ func HandleVaultsManageRename(logger *logging.Logger, db *gorm.DB) func(c *gin.C
 		c.JSON(http.StatusOK, RenameVaultResponse{Name: requestData.Name})
 	}
 }
+
+// HandleVaultAuditLogsList
+//
+//	@Summary	List audit logs of vault
+//	@Tags		vaults
+//	@Id			listVaultAuditLogs
+//	@Produce	json
+//	@Param		id			path		int	true	"Vault id"
+//	@Param		page		query		int	false	"Page number"			default(1)	minimum(1)
+//	@Param		page_size	query		int	false	"Item count per page"	default(10)
+//	@Success	200			{object}	pagination.StandardPaginationResponse[controllers.HandleVaultAuditLogsList.AuditLogResponseItem]
+//	@Failure	401
+//	@Failure	404
+//	@Failure	500
+//	@Router		/vaults/{id}/logs [get]
+func HandleVaultAuditLogsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) {
+	type UserData struct {
+		Id    uint   `json:"id" binding:"required"`
+		Email string `json:"email" binding:"required"`
+	}
+
+	type VaultItemData struct {
+		Id    uint   `json:"id" binding:"required"`
+		Title string `json:"title" binding:"required"`
+	}
+
+	type AuditLogResponseItem struct {
+		Id         uint                  `json:"id" binding:"required"`
+		ActionCode models.AuditLogAction `json:"action_code" binding:"required"`
+		ActionData map[string]any        `json:"action_data" binding:"required"`
+		CreatedAt  time.Time             `json:"created_at" binding:"required"`
+		User       UserData              `json:"user" binding:"required"`
+		VaultItem  *VaultItemData        `json:"vault_item"`
+	}
+
+	return func(c *gin.Context) {
+		vaultId, err := strconv.Atoi(c.Param("id"))
+		if err != nil {
+			c.JSON(http.StatusBadRequest, schemas.BadRequestResponse{Error: "Id must be an integer."})
+			return
+		}
+
+		user, ok := middlewares.ExtractUserFromGinContext(c)
+		if !ok {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Msg("Extracting user from Gin context failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		canReadVault, err := vaultservice.CheckUserHasVaultPermission(db, int(user.ID), vaultId, models.VaultPermissionRead)
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Checking vault permissions of user failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+		if !canReadVault {
+			c.Status(http.StatusForbidden)
+			return
+		}
+
+		var count int64
+		err = db.Model(&models.VaultAuditLog{}).Select("count(*)").
+			Where("vault_id = ?", vaultId).Count(&count).Error
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Querying audit log count failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		auditLogs := []models.VaultAuditLog{}
+		err = db.Scopes(pagination.Paginate(c)).Preload("VaultItem").Preload("User").
+			Order("created_at DESC").Find(&auditLogs, "vault_id = ?", vaultId).Error
+		if err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Querying audit logs failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		results := make([]AuditLogResponseItem, len(auditLogs))
+		for i, v := range auditLogs {
+			log := AuditLogResponseItem{
+				Id:         v.ID,
+				ActionCode: v.ActionCode,
+				ActionData: v.ActionData,
+				CreatedAt:  v.CreatedAt,
+				User: UserData{
+					Id:    v.User.ID,
+					Email: v.User.Email,
+				},
+			}
+			if v.VaultItem.ID != 0 {
+				log.VaultItem = &VaultItemData{
+					Id:    v.VaultItem.ID,
+					Title: v.VaultItem.Title,
+				}
+			}
+			results[i] = log
+		}
+
+		c.JSON(http.StatusOK, pagination.StandardPaginationResponse[AuditLogResponseItem]{
+			Results: results,
+			Count:   int(count),
+		})
+	}
+}
