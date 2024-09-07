@@ -97,7 +97,16 @@ func HandleVaultItemsCreate(logger *logging.Logger, db *gorm.DB) func(c *gin.Con
 			return
 		}
 
-		// TODO: audit log
+		auditLog := models.VaultAuditLog{
+			VaultID:     uint(vaultId),
+			VaultItemID: vaultItem.ID,
+			UserID:      user.ID,
+			ActionCode:  models.AuditLogActionVaultItemCreate,
+			ActionData:  models.AuditLogDataVaultItemCreate(vaultItem.Title),
+		}
+		if err := db.Create(&auditLog).Error; err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Saving audit log failed.")
+		}
 
 		c.JSON(http.StatusCreated, VaultItemCreateResponse{
 			Id:                vaultItem.ID,
@@ -381,7 +390,16 @@ func HandleVaultItemsUpdate(logger *logging.Logger, db *gorm.DB) func(c *gin.Con
 			return
 		}
 
-		// TODO: audit log
+		auditLog := models.VaultAuditLog{
+			VaultID:     uint(vaultId),
+			VaultItemID: vaultItem.ID,
+			UserID:      user.ID,
+			ActionCode:  models.AuditLogActionVaultItemUpdate,
+			ActionData:  models.AuditLogDataVaultItemUpdate(vaultItem.Title),
+		}
+		if err := db.Create(&auditLog).Error; err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Saving audit log failed.")
+		}
 
 		c.JSON(http.StatusOK, VaultItemUpdateResponse{
 			Id:                vaultItem.ID,
@@ -452,14 +470,23 @@ func HandleVaultItemsDelete(logger *logging.Logger, db *gorm.DB) func(c *gin.Con
 			return
 		}
 
-		err = db.Unscoped().Delete(&vaultItem).Error
+		err = db.Delete(&vaultItem).Error
 		if err != nil {
 			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Deleting vault item failed.")
 			c.Status(http.StatusInternalServerError)
 			return
 		}
 
-		// TODO: audit log
+		auditLog := models.VaultAuditLog{
+			VaultID:     uint(vaultId),
+			VaultItemID: vaultItem.ID,
+			UserID:      user.ID,
+			ActionCode:  models.AuditLogActionVaultItemDelete,
+			ActionData:  models.AuditLogDataVaultItemDelete(vaultItem.Title),
+		}
+		if err := db.Create(&auditLog).Error; err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Saving audit log failed.")
+		}
 
 		c.Status(http.StatusNoContent)
 	}

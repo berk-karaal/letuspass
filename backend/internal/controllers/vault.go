@@ -9,6 +9,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/berk-karaal/letuspass/backend/internal/common"
 	"github.com/berk-karaal/letuspass/backend/internal/common/bodybinder"
 	"github.com/berk-karaal/letuspass/backend/internal/common/logging"
 	"github.com/berk-karaal/letuspass/backend/internal/common/orderbyparam"
@@ -91,7 +92,16 @@ func HandleVaultsCreate(logger *logging.Logger, db *gorm.DB) func(c *gin.Context
 			return
 		}
 
-		// TODO: audit log
+		auditLog := models.VaultAuditLog{
+			VaultID:     vault.ID,
+			VaultItemID: 0,
+			UserID:      user.ID,
+			ActionCode:  models.AuditLogActionVaultCreate,
+			ActionData:  models.AuditLogDataVaultCreate(vault.Name),
+		}
+		if err := db.Create(&auditLog).Error; err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Saving audit log failed.")
+		}
 
 		c.JSON(http.StatusCreated, VaultCreateResponse{Id: vault.ID, Name: vault.Name})
 	}
@@ -300,6 +310,17 @@ func HandleVaultDelete(logger *logging.Logger, db *gorm.DB) func(c *gin.Context)
 			return
 		}
 
+		auditLog := models.VaultAuditLog{
+			VaultID:     uint(vaultId),
+			VaultItemID: 0,
+			UserID:      user.ID,
+			ActionCode:  models.AuditLogActionVaultDelete,
+			ActionData:  models.AuditLogDataVaultDelete(),
+		}
+		if err := db.Create(&auditLog).Error; err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Saving audit log failed.")
+		}
+
 		c.Status(http.StatusNoContent)
 	}
 }
@@ -384,6 +405,17 @@ func HandleVaultsLeave(logger *logging.Logger, db *gorm.DB) func(c *gin.Context)
 			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Removing user vault key failed.")
 			c.Status(http.StatusInternalServerError)
 			return
+		}
+
+		auditLog := models.VaultAuditLog{
+			VaultID:     uint(vaultId),
+			VaultItemID: 0,
+			UserID:      user.ID,
+			ActionCode:  models.AuditLogActionVaultUserLeft,
+			ActionData:  models.AuditLogDataVaultUserLeft(),
+		}
+		if err := db.Create(&auditLog).Error; err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Saving audit log failed.")
 		}
 
 		c.Status(http.StatusNoContent)
@@ -570,7 +602,17 @@ func HandleVaultsManageAddUser(logger *logging.Logger, db *gorm.DB) func(c *gin.
 			return
 		}
 
-		// TODO: create audit log
+		auditLog := models.VaultAuditLog{
+			VaultID:     uint(vaultId),
+			VaultItemID: 0,
+			UserID:      user.ID,
+			ActionCode:  models.AuditLogActionVaultAddUser,
+			ActionData: models.AuditLogDataVaultAddUser(newUser.Email, common.Map(newUserVaultPermissions,
+				func(i models.VaultPermission) string { return i.Permission })),
+		}
+		if err := db.Create(&auditLog).Error; err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Saving audit log failed.")
+		}
 
 		c.Status(http.StatusOK)
 	}
@@ -711,18 +753,41 @@ func HandleVaultsManageRemoveUser(logger *logging.Logger, db *gorm.DB) func(c *g
 			return
 		}
 
-		err = db.Where("vault_id = ? AND user_id = ?", vaultId, requestData.UserId).Delete(&models.VaultPermission{}).Error
+		var removedUser models.User
+		err = db.First(&removedUser, requestData.UserId).Error
+		if err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				c.Status(http.StatusNotFound)
+				return
+			}
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Querying user failed.")
+			c.Status(http.StatusInternalServerError)
+			return
+		}
+
+		err = db.Where("vault_id = ? AND user_id = ?", vaultId, removedUser.ID).Delete(&models.VaultPermission{}).Error
 		if err != nil {
 			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Removing user from vault failed.")
 			c.Status(http.StatusInternalServerError)
 			return
 		}
 
-		err = db.Unscoped().Where("vault_id = ? AND key_owner_user_id = ?", vaultId, requestData.UserId).Delete(&models.VaultKey{}).Error
+		err = db.Unscoped().Where("vault_id = ? AND key_owner_user_id = ?", vaultId, removedUser.ID).Delete(&models.VaultKey{}).Error
 		if err != nil {
 			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Removing user from vault failed.")
 			c.Status(http.StatusInternalServerError)
 			return
+		}
+
+		auditLog := models.VaultAuditLog{
+			VaultID:     uint(vaultId),
+			VaultItemID: 0,
+			UserID:      user.ID,
+			ActionCode:  models.AuditLogActionVaultRemoveUser,
+			ActionData:  models.AuditLogDataVaultRemoveUser(removedUser.Email),
+		}
+		if err := db.Create(&auditLog).Error; err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Saving audit log failed.")
 		}
 
 		c.Status(http.StatusNoContent)
@@ -795,6 +860,7 @@ func HandleVaultsManageRename(logger *logging.Logger, db *gorm.DB) func(c *gin.C
 			return
 		}
 
+		oldVaultName := vault.Name
 		vault.Name = requestData.Name
 		err = db.Save(&vault).Error
 		if err != nil {
@@ -803,7 +869,16 @@ func HandleVaultsManageRename(logger *logging.Logger, db *gorm.DB) func(c *gin.C
 			return
 		}
 
-		// TODO: audit
+		auditLog := models.VaultAuditLog{
+			VaultID:     vault.ID,
+			VaultItemID: 0,
+			UserID:      user.ID,
+			ActionCode:  models.AuditLogActionVaultRename,
+			ActionData:  models.AuditLogDataVaultRename(oldVaultName, vault.Name),
+		}
+		if err := db.Create(&auditLog).Error; err != nil {
+			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Saving audit log failed.")
+		}
 
 		c.JSON(http.StatusOK, RenameVaultResponse{Name: requestData.Name})
 	}
@@ -878,8 +953,8 @@ func HandleVaultAuditLogsList(logger *logging.Logger, db *gorm.DB) func(c *gin.C
 		}
 
 		auditLogs := []models.VaultAuditLog{}
-		err = db.Scopes(pagination.Paginate(c)).Preload("VaultItem").Preload("User").
-			Order("created_at DESC").Find(&auditLogs, "vault_id = ?", vaultId).Error
+		err = db.Unscoped().Scopes(pagination.Paginate(c)).Joins("VaultItem").Joins("User").
+			Order("vault_audit_logs.created_at DESC").Find(&auditLogs, "vault_audit_logs.vault_id = ?", vaultId).Error
 		if err != nil {
 			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Querying audit logs failed.")
 			c.Status(http.StatusInternalServerError)

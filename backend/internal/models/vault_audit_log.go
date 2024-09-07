@@ -48,3 +48,38 @@ func AuditLogDataVaultRename(oldName, newName string) map[string]any {
 func AuditLogDataVaultDelete() map[string]any {
 	return map[string]any{}
 }
+
+func AuditLogDataVaultAddUser(addedUserEmail string, permissions []string) map[string]any {
+	return map[string]any{
+		"added_user_email": addedUserEmail,
+		"permissions":      permissions,
+	}
+}
+
+func AuditLogDataVaultRemoveUser(removedUserEmail string) map[string]any {
+	return map[string]any{
+		"removed_user_email": removedUserEmail,
+	}
+}
+
+func AuditLogDataVaultUserLeft() map[string]any {
+	return map[string]any{}
+}
+
+func AuditLogDataVaultItemCreate(title string) map[string]any {
+	return map[string]any{
+		"title": title,
+	}
+}
+
+func AuditLogDataVaultItemUpdate(title string) map[string]any {
+	return map[string]any{
+		"title": title,
+	}
+}
+
+func AuditLogDataVaultItemDelete(title string) map[string]any {
+	return map[string]any{
+		"title": title,
+	}
+}
