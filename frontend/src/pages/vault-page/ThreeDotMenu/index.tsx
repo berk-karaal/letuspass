@@ -1,3 +1,4 @@
+import { useVaultPermissionsQuery } from "@/hooks/useVaultPermissionsQuery";
 import { Menu } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import {
@@ -26,26 +27,33 @@ export default function ThreeDotMenu({
     useDisclosure(false);
   const [vaultRenameModalOpened, vaultRenameModal] = useDisclosure(false);
 
+  const vaultPermissionsQuery = useVaultPermissionsQuery(vaultId);
+
   return (
     <>
       <Menu shadow="md" withArrow>
         <Menu.Target>{target}</Menu.Target>
 
         <Menu.Dropdown>
-          <Menu.Item
-            leftSection={<IconAbc size={"1.1rem"} />}
-            onClick={vaultRenameModal.open}
-          >
-            Rename Vault
-          </Menu.Item>
-          <Menu.Item
-            leftSection={<IconUsersGroup size={"1.1rem"} />}
-            component={Link}
-            to={`/app/vault/${vaultId}/users`}
-          >
-            Manage Vault Users
-          </Menu.Item>
-          <Menu.Divider />
+          {vaultPermissionsQuery.isSuccess &&
+            vaultPermissionsQuery.data.includes("manage_vault") && (
+              <>
+                <Menu.Item
+                  leftSection={<IconAbc size={"1.1rem"} />}
+                  onClick={vaultRenameModal.open}
+                >
+                  Rename Vault
+                </Menu.Item>
+                <Menu.Item
+                  leftSection={<IconUsersGroup size={"1.1rem"} />}
+                  component={Link}
+                  to={`/app/vault/${vaultId}/users`}
+                >
+                  Manage Vault Users
+                </Menu.Item>
+                <Menu.Divider />
+              </>
+            )}
           <Menu.Item
             leftSection={<IconLogout2 size={"1.1rem"} />}
             color="red"
@@ -53,13 +61,16 @@ export default function ThreeDotMenu({
           >
             Leave Vault
           </Menu.Item>
-          <Menu.Item
-            leftSection={<IconTrash size={"1.1rem"} />}
-            color="red"
-            onClick={deleteConfirmationModal.open}
-          >
-            Delete Vault
-          </Menu.Item>
+          {vaultPermissionsQuery.isSuccess &&
+            vaultPermissionsQuery.data.includes("delete_vault") && (
+              <Menu.Item
+                leftSection={<IconTrash size={"1.1rem"} />}
+                color="red"
+                onClick={deleteConfirmationModal.open}
+              >
+                Delete Vault
+              </Menu.Item>
+            )}
         </Menu.Dropdown>
       </Menu>
 
