@@ -6,6 +6,7 @@ import LandingPage from "@/pages/landing-page";
 import ProtectedRoute from "@/pages/ProtectedRoute";
 import VaultItemPage from "@/pages/vault-item-page";
 import VaultPage from "@/pages/vault-page";
+import VaultLogsPage from "./pages/vault-logs-page";
 import VaultUsersPage from "./pages/vault-users-page";
 
 const router = createBrowserRouter([
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
           {
             path: "vault/:vaultId/users",
             element: <VaultUsersPage />,
+          },
+          {
+            path: "vault/:vaultId/logs",
+            element: <VaultLogsPage />,
           },
         ],
       },

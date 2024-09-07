@@ -30,7 +30,6 @@ import {
   IconDotsVertical,
   IconEye,
   IconEyeOff,
-  IconFileTime,
   IconKey,
 } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
@@ -181,14 +180,6 @@ function VaultItemPage() {
           )}
         </Text>
         <Box style={{ marginLeft: "auto" }}>
-          <ActionIcon
-            variant="transparent"
-            color="dark"
-            onClick={() => null}
-            mx={"0.35rem"}
-          >
-            <IconFileTime size={"1.5rem"} />
-          </ActionIcon>
           {vaultPermissionsQuery.isSuccess &&
             vaultPermissionsQuery.data.includes("manage_items") && (
               <>

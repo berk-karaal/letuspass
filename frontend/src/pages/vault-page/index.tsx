@@ -8,7 +8,7 @@ import {
   IconFileTime,
 } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ThreeDotMenu from "./ThreeDotMenu";
 import VaultItemList from "./VaultItemList";
 
@@ -43,7 +43,12 @@ function VaultPage() {
 
         {vaultQuery.isSuccess && (
           <Box style={{ marginLeft: "auto" }}>
-            <ActionIcon variant="transparent" color="dark" onClick={() => null}>
+            <ActionIcon
+              component={Link}
+              to={`/app/vault/${vaultId}/logs`}
+              variant="transparent"
+              color="dark"
+            >
               <IconFileTime size={"1.5rem"} />
             </ActionIcon>
             <ThreeDotMenu
