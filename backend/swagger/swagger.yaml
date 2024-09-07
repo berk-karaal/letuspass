@@ -91,6 +91,48 @@ definitions:
     - email
     - name
     type: object
+  controllers.HandleVaultAuditLogsList.AuditLogResponseItem:
+    properties:
+      action_code:
+        $ref: '#/definitions/models.AuditLogAction'
+      action_data:
+        additionalProperties: {}
+        type: object
+      created_at:
+        type: string
+      id:
+        type: integer
+      user:
+        $ref: '#/definitions/controllers.HandleVaultAuditLogsList.UserData'
+      vault_item:
+        $ref: '#/definitions/controllers.HandleVaultAuditLogsList.VaultItemData'
+    required:
+    - action_code
+    - action_data
+    - created_at
+    - id
+    - user
+    type: object
+  controllers.HandleVaultAuditLogsList.UserData:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+    required:
+    - email
+    - id
+    type: object
+  controllers.HandleVaultAuditLogsList.VaultItemData:
+    properties:
+      id:
+        type: integer
+      title:
+        type: string
+    required:
+    - id
+    - title
+    type: object
   controllers.HandleVaultItemsCreate.VaultItemCreateRequest:
     properties:
       encrypted_note:
@@ -307,6 +349,40 @@ definitions:
     - inviter_user_id
     - inviter_user_public_key
     - key_owner_user_id
+    type: object
+  models.AuditLogAction:
+    enum:
+    - vault_create
+    - vault_rename
+    - vault_delete
+    - vault_add_user
+    - vault_remove_user
+    - vault_user_left
+    - vault_item_create
+    - vault_item_update
+    - vault_item_delete
+    type: string
+    x-enum-varnames:
+    - AuditLogActionVaultCreate
+    - AuditLogActionVaultRename
+    - AuditLogActionVaultDelete
+    - AuditLogActionVaultAddUser
+    - AuditLogActionVaultRemoveUser
+    - AuditLogActionVaultUserLeft
+    - AuditLogActionVaultItemCreate
+    - AuditLogActionVaultItemUpdate
+    - AuditLogActionVaultItemDelete
+  pagination.StandardPaginationResponse-controllers_HandleVaultAuditLogsList_AuditLogResponseItem:
+    properties:
+      count:
+        type: integer
+      results:
+        items:
+          $ref: '#/definitions/controllers.HandleVaultAuditLogsList.AuditLogResponseItem'
+        type: array
+    required:
+    - count
+    - results
     type: object
   pagination.StandardPaginationResponse-controllers_HandleVaultItemsList_VaultItemResponseItem:
     properties:
@@ -862,6 +938,42 @@ paths:
         "500":
           description: Internal Server Error
       summary: Leave from the vault
+      tags:
+      - vaults
+  /vaults/{id}/logs:
+    get:
+      operationId: listVaultAuditLogs
+      parameters:
+      - description: Vault id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - default: 1
+        description: Page number
+        in: query
+        minimum: 1
+        name: page
+        type: integer
+      - default: 10
+        description: Item count per page
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pagination.StandardPaginationResponse-controllers_HandleVaultAuditLogsList_AuditLogResponseItem'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: List audit logs of vault
       tags:
       - vaults
   /vaults/{id}/manage/add-user:
