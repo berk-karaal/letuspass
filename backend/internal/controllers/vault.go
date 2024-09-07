@@ -148,8 +148,8 @@ func HandleVaultsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) 
 
 		var count int64
 		err = db.Select("count(*)").
-			Table("vault_permissions").
-			Where("vault_permissions.deleted_at IS NULL AND vault_permissions.user_id = ? AND vault_permissions.permission = ?",
+			Model(models.VaultPermission{}).
+			Where("vault_permissions.user_id = ? AND vault_permissions.permission = ?",
 				user.ID, models.VaultPermissionRead).
 			Count(&count).Error
 
@@ -161,12 +161,10 @@ func HandleVaultsList(logger *logging.Logger, db *gorm.DB) func(c *gin.Context) 
 
 		results := []VaultResponseItem{}
 		err = db.Scopes(pagination.Paginate(c)).Select("vaults.id, vaults.name, vaults.created_at, vaults.updated_at").
-			Table("vault_permissions").
+			Model(models.VaultPermission{}).
 			Joins("LEFT OUTER JOIN vaults ON vault_permissions.vault_id = vaults.id").
-			Where("vault_permissions.deleted_at IS NULL AND vault_permissions.user_id = ? AND vault_permissions.permission = ?",
-				user.ID, models.VaultPermissionRead).
-			Order(ordering).
-			Scan(&results).Error
+			Where("vault_permissions.user_id = ? AND vault_permissions.permission = ?", user.ID, models.VaultPermissionRead).
+			Order(ordering).Scan(&results).Error
 		if err != nil {
 			logger.RequestEvent(zerolog.ErrorLevel, c).Err(err).Msg("Querying user's vaults failed.")
 			c.Status(http.StatusInternalServerError)
