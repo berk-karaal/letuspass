@@ -5,6 +5,17 @@
  * Project description at https://github.com/berk-karaal/letuspass
  * OpenAPI spec version: 0.0.1
  */
+export type ListVaultAuditLogsParams = {
+  /**
+   * Page number
+   */
+  page?: number;
+  /**
+   * Item count per page
+   */
+  page_size?: number;
+};
+
 export type ListVaultItemsOrdering =
   (typeof ListVaultItemsOrdering)[keyof typeof ListVaultItemsOrdering];
 
@@ -81,10 +92,26 @@ export interface PaginationStandardPaginationResponseControllersHandleVaultsList
   results: ControllersHandleVaultsListVaultResponseItem[];
 }
 
-export interface PaginationStandardPaginationResponseControllersHandleVaultItemsListVaultItemResponseItem {
+export interface PaginationStandardPaginationResponseControllersHandleVaultAuditLogsListAuditLogResponseItem {
   count: number;
-  results: ControllersHandleVaultItemsListVaultItemResponseItem[];
+  results: ControllersHandleVaultAuditLogsListAuditLogResponseItem[];
 }
+
+export type ModelsAuditLogAction =
+  (typeof ModelsAuditLogAction)[keyof typeof ModelsAuditLogAction];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ModelsAuditLogAction = {
+  vault_create: "vault_create",
+  vault_rename: "vault_rename",
+  vault_delete: "vault_delete",
+  vault_add_user: "vault_add_user",
+  vault_remove_user: "vault_remove_user",
+  vault_user_left: "vault_user_left",
+  vault_item_create: "vault_item_create",
+  vault_item_update: "vault_item_update",
+  vault_item_delete: "vault_item_delete",
+} as const;
 
 export interface ControllersHandleVaultsMyKeyVaultKeyResponse {
   encrypted_vault_key: string;
@@ -167,6 +194,11 @@ export interface ControllersHandleVaultItemsListVaultItemResponseItem {
   title: string;
 }
 
+export interface PaginationStandardPaginationResponseControllersHandleVaultItemsListVaultItemResponseItem {
+  count: number;
+  results: ControllersHandleVaultItemsListVaultItemResponseItem[];
+}
+
 export interface ControllersHandleVaultItemsCreateVaultItemCreateResponse {
   encrypted_note: string;
   encrypted_password: string;
@@ -182,6 +214,28 @@ export interface ControllersHandleVaultItemsCreateVaultItemCreateRequest {
   encrypted_username?: string;
   encryption_iv: string;
   title: string;
+}
+
+export interface ControllersHandleVaultAuditLogsListVaultItemData {
+  id: number;
+  title: string;
+}
+
+export interface ControllersHandleVaultAuditLogsListUserData {
+  email: string;
+  id: number;
+}
+
+export type ControllersHandleVaultAuditLogsListAuditLogResponseItemActionData =
+  { [key: string]: unknown };
+
+export interface ControllersHandleVaultAuditLogsListAuditLogResponseItem {
+  action_code: ModelsAuditLogAction;
+  action_data: ControllersHandleVaultAuditLogsListAuditLogResponseItemActionData;
+  created_at: string;
+  id: number;
+  user: ControllersHandleVaultAuditLogsListUserData;
+  vault_item?: ControllersHandleVaultAuditLogsListVaultItemData;
 }
 
 export interface ControllersHandleUsersMeMeResponse {

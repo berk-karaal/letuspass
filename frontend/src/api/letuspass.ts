@@ -26,8 +26,10 @@ import type {
   ControllersHandleVaultsManageRenameRenameVaultResponse,
   ControllersHandleVaultsMyKeyVaultKeyResponse,
   GetUserByEmailParams,
+  ListVaultAuditLogsParams,
   ListVaultItemsParams,
   ListVaultsParams,
+  PaginationStandardPaginationResponseControllersHandleVaultAuditLogsListAuditLogResponseItem,
   PaginationStandardPaginationResponseControllersHandleVaultItemsListVaultItemResponseItem,
   PaginationStandardPaginationResponseControllersHandleVaultsListVaultResponseItem,
 } from "./letuspass.schemas";
@@ -283,6 +285,20 @@ export const leaveVault = (
 };
 
 /**
+ * @summary List audit logs of vault
+ */
+export const listVaultAuditLogs = (
+  id: number,
+  params?: ListVaultAuditLogsParams,
+  options?: SecondParameter<typeof customInstance>,
+) => {
+  return customInstance<PaginationStandardPaginationResponseControllersHandleVaultAuditLogsListAuditLogResponseItem>(
+    { url: `/vaults/${id}/logs`, method: "GET", params },
+    options,
+  );
+};
+
+/**
  * @summary Add user to vault
  */
 export const addUserToVault = (
@@ -414,6 +430,9 @@ export type RetrieveMyVaultKeyResult = NonNullable<
 >;
 export type LeaveVaultResult = NonNullable<
   Awaited<ReturnType<typeof leaveVault>>
+>;
+export type ListVaultAuditLogsResult = NonNullable<
+  Awaited<ReturnType<typeof listVaultAuditLogs>>
 >;
 export type AddUserToVaultResult = NonNullable<
   Awaited<ReturnType<typeof addUserToVault>>
