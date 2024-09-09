@@ -1,0 +1,889 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.8 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.8" pages="9">
+  <diagram name="Crypto ERD" id="6SP_AEATxFSjChrQ0G_f">
+    <mxGraphModel dx="1674" dy="845" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-129" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=none;startArrow=ERmandOne;startFill=0;startSize=9;endArrow=ERzeroToMany;endFill=0;endSize=9;" parent="1" source="_L0nBxgvpoUWWbvcKWrS-1" target="_L0nBxgvpoUWWbvcKWrS-90" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="550" y="180" />
+              <mxPoint x="550" y="235" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-1" value="Vault" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;rounded=0;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="1" vertex="1">
+          <mxGeometry x="334" y="160" width="180" height="90" as="geometry">
+            <mxRectangle x="50" y="40" width="70" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-2" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-1" vertex="1">
+          <mxGeometry y="30" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-3" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;fontStyle=1;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-2" vertex="1">
+          <mxGeometry width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-4" value="ID" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;fontStyle=5;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-2" vertex="1">
+          <mxGeometry x="30" width="150" height="30" as="geometry">
+            <mxRectangle width="150" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-5" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-1" vertex="1">
+          <mxGeometry y="60" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-6" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-5" vertex="1">
+          <mxGeometry width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-7" value="Name" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-5" vertex="1">
+          <mxGeometry x="30" width="150" height="30" as="geometry">
+            <mxRectangle width="150" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-119" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;strokeColor=#A8201A;endSize=9;startSize=9;labelBackgroundColor=none;fontColor=default;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="_L0nBxgvpoUWWbvcKWrS-44" target="_L0nBxgvpoUWWbvcKWrS-80" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="210" y="465" />
+            </Array>
+            <mxPoint x="290" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-44" value="User" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;rounded=0;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="1" vertex="1">
+          <mxGeometry x="90" y="160" width="180" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-45" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-44" vertex="1">
+          <mxGeometry y="30" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-46" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;fontStyle=1;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-45" vertex="1">
+          <mxGeometry width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-47" value="ID" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;fontStyle=5;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-45" vertex="1">
+          <mxGeometry x="30" width="150" height="30" as="geometry">
+            <mxRectangle width="150" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-48" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-44" vertex="1">
+          <mxGeometry y="60" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-49" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-48" vertex="1">
+          <mxGeometry width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-50" value="Email" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-48" vertex="1">
+          <mxGeometry x="30" width="150" height="30" as="geometry">
+            <mxRectangle width="150" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-51" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-44" vertex="1">
+          <mxGeometry y="90" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-52" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-51" vertex="1">
+          <mxGeometry width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-53" value="Password" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-51" vertex="1">
+          <mxGeometry x="30" width="150" height="30" as="geometry">
+            <mxRectangle width="150" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VMKGpCVl5GzCF_DXbxzt-17" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-44" vertex="1">
+          <mxGeometry y="120" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VMKGpCVl5GzCF_DXbxzt-18" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="VMKGpCVl5GzCF_DXbxzt-17" vertex="1">
+          <mxGeometry width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VMKGpCVl5GzCF_DXbxzt-19" value="KeyDerivationSalt" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="VMKGpCVl5GzCF_DXbxzt-17" vertex="1">
+          <mxGeometry x="30" width="150" height="30" as="geometry">
+            <mxRectangle width="150" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VMKGpCVl5GzCF_DXbxzt-5" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-44" vertex="1">
+          <mxGeometry y="150" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VMKGpCVl5GzCF_DXbxzt-6" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="VMKGpCVl5GzCF_DXbxzt-5" vertex="1">
+          <mxGeometry width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VMKGpCVl5GzCF_DXbxzt-7" value="PublicKey" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="VMKGpCVl5GzCF_DXbxzt-5" vertex="1">
+          <mxGeometry x="30" width="150" height="30" as="geometry">
+            <mxRectangle width="150" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-73" value="VaultKey" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;rounded=0;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="1" vertex="1">
+          <mxGeometry x="334" y="360" width="180" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-74" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-73" vertex="1">
+          <mxGeometry y="30" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-75" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;fontStyle=1;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-74" vertex="1">
+          <mxGeometry width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-76" value="ID" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;fontStyle=5;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-74" vertex="1">
+          <mxGeometry x="30" width="150" height="30" as="geometry">
+            <mxRectangle width="150" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-77" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-73" vertex="1">
+          <mxGeometry y="60" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-78" value="FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-77" vertex="1">
+          <mxGeometry width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-79" value="VaultID" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-77" vertex="1">
+          <mxGeometry x="30" width="150" height="30" as="geometry">
+            <mxRectangle width="150" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-80" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-73" vertex="1">
+          <mxGeometry y="90" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-81" value="FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-80" vertex="1">
+          <mxGeometry width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-82" value="KeyOwnerUserID" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-80" vertex="1">
+          <mxGeometry x="30" width="150" height="30" as="geometry">
+            <mxRectangle width="150" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-83" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-73" vertex="1">
+          <mxGeometry y="120" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-84" value="FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-83" vertex="1">
+          <mxGeometry width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-85" value="InviterUserID" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-83" vertex="1">
+          <mxGeometry x="30" width="150" height="30" as="geometry">
+            <mxRectangle width="150" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VMKGpCVl5GzCF_DXbxzt-8" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-73" vertex="1">
+          <mxGeometry y="150" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VMKGpCVl5GzCF_DXbxzt-9" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="VMKGpCVl5GzCF_DXbxzt-8" vertex="1">
+          <mxGeometry width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VMKGpCVl5GzCF_DXbxzt-10" value="EncryptionIV" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="VMKGpCVl5GzCF_DXbxzt-8" vertex="1">
+          <mxGeometry x="30" width="150" height="30" as="geometry">
+            <mxRectangle width="150" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VMKGpCVl5GzCF_DXbxzt-14" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-73" vertex="1">
+          <mxGeometry y="180" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VMKGpCVl5GzCF_DXbxzt-15" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="VMKGpCVl5GzCF_DXbxzt-14" vertex="1">
+          <mxGeometry width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VMKGpCVl5GzCF_DXbxzt-16" value="EncryptedVault&lt;span style=&quot;background-color: initial;&quot;&gt;Key&lt;/span&gt;" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="VMKGpCVl5GzCF_DXbxzt-14" vertex="1">
+          <mxGeometry x="30" width="150" height="30" as="geometry">
+            <mxRectangle width="150" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-86" value="VaultItem" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;rounded=0;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="1" vertex="1">
+          <mxGeometry x="590" y="160" width="180" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-87" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-86" vertex="1">
+          <mxGeometry y="30" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-88" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;fontStyle=1;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-87" vertex="1">
+          <mxGeometry width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-89" value="ID" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;fontStyle=5;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-87" vertex="1">
+          <mxGeometry x="30" width="150" height="30" as="geometry">
+            <mxRectangle width="150" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-90" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-86" vertex="1">
+          <mxGeometry y="60" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-91" value="FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-90" vertex="1">
+          <mxGeometry width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-92" value="VaultID" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-90" vertex="1">
+          <mxGeometry x="30" width="150" height="30" as="geometry">
+            <mxRectangle width="150" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-112" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-86" vertex="1">
+          <mxGeometry y="90" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-113" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-112" vertex="1">
+          <mxGeometry width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-114" value="Title" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-112" vertex="1">
+          <mxGeometry x="30" width="150" height="30" as="geometry">
+            <mxRectangle width="150" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Cglw_5ntAf51uABFJR1N-1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-86" vertex="1">
+          <mxGeometry y="120" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Cglw_5ntAf51uABFJR1N-2" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="Cglw_5ntAf51uABFJR1N-1" vertex="1">
+          <mxGeometry width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Cglw_5ntAf51uABFJR1N-3" value="EncryptionIV" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="Cglw_5ntAf51uABFJR1N-1" vertex="1">
+          <mxGeometry x="30" width="150" height="30" as="geometry">
+            <mxRectangle width="150" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-93" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-86" vertex="1">
+          <mxGeometry y="150" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-94" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-93" vertex="1">
+          <mxGeometry width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-95" value="EncryptedUsername" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-93" vertex="1">
+          <mxGeometry x="30" width="150" height="30" as="geometry">
+            <mxRectangle width="150" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-96" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-86" vertex="1">
+          <mxGeometry y="180" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-97" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-96" vertex="1">
+          <mxGeometry width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-98" value="EncryptedPassword" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-96" vertex="1">
+          <mxGeometry x="30" width="150" height="30" as="geometry">
+            <mxRectangle width="150" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-99" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-86" vertex="1">
+          <mxGeometry y="210" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-100" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-99" vertex="1">
+          <mxGeometry width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_L0nBxgvpoUWWbvcKWrS-101" value="EncryptedNote" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;strokeColor=#0F8B8D;fontColor=#143642;" parent="_L0nBxgvpoUWWbvcKWrS-99" vertex="1">
+          <mxGeometry x="30" width="150" height="30" as="geometry">
+            <mxRectangle width="150" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VMKGpCVl5GzCF_DXbxzt-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;endSize=9;startSize=9;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="_L0nBxgvpoUWWbvcKWrS-1" target="_L0nBxgvpoUWWbvcKWrS-77" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="424" y="335" />
+              <mxPoint x="300" y="335" />
+              <mxPoint x="300" y="435" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Rl6vSyFp5I8arVVywcxP-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=none;startArrow=ERmandOne;startFill=0;startSize=9;endArrow=ERzeroToMany;endFill=0;endSize=9;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="_L0nBxgvpoUWWbvcKWrS-44" target="_L0nBxgvpoUWWbvcKWrS-83" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="170" y="495" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YljNbgSMvhmZ4XE90WVY-2" value="Cryptography Related ERD" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="284" y="90" width="280" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Register" id="qaAltn-Z8wkPpS7bJBUk">
+    <mxGraphModel dx="1969" dy="1394" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="pfdhDkh4jur_6P-D9Tqx-0" />
+        <mxCell id="pfdhDkh4jur_6P-D9Tqx-1" parent="pfdhDkh4jur_6P-D9Tqx-0" />
+        <mxCell id="pfdhDkh4jur_6P-D9Tqx-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;" parent="pfdhDkh4jur_6P-D9Tqx-1" source="pfdhDkh4jur_6P-D9Tqx-3" target="pfdhDkh4jur_6P-D9Tqx-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pfdhDkh4jur_6P-D9Tqx-3" value="Start" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;aspect=fixed;" parent="pfdhDkh4jur_6P-D9Tqx-1" vertex="1">
+          <mxGeometry x="340" y="45" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pfdhDkh4jur_6P-D9Tqx-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="pfdhDkh4jur_6P-D9Tqx-1" source="niJCOOAE-Q_aO9asL-z7-0" target="pfdhDkh4jur_6P-D9Tqx-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pfdhDkh4jur_6P-D9Tqx-5" value="&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;br style=&quot;font-size: 14px;&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;Get &lt;font color=&quot;#0000ff&quot; style=&quot;font-size: 14px;&quot;&gt;email&lt;/font&gt;, &lt;font color=&quot;#0000ff&quot; style=&quot;font-size: 14px;&quot;&gt;name&lt;/font&gt; and &lt;font color=&quot;#0000ff&quot; style=&quot;font-size: 14px;&quot;&gt;password&lt;/font&gt; from user&lt;/div&gt;" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;aspect=fixed;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontSize=14;" parent="pfdhDkh4jur_6P-D9Tqx-1" vertex="1">
+          <mxGeometry x="315" y="137" width="150" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="niJCOOAE-Q_aO9asL-z7-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=#143642;labelBackgroundColor=default;endArrow=classic;fillColor=#FAE5C7;" parent="pfdhDkh4jur_6P-D9Tqx-1" source="pfdhDkh4jur_6P-D9Tqx-7" target="niJCOOAE-Q_aO9asL-z7-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="J70i_6yGHyDezAkQW2em-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#67AB9F;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=#143642;labelBackgroundColor=default;endArrow=none;endFill=0;fillColor=#FAE5C7;" parent="pfdhDkh4jur_6P-D9Tqx-1" source="pfdhDkh4jur_6P-D9Tqx-7" target="J70i_6yGHyDezAkQW2em-0" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pfdhDkh4jur_6P-D9Tqx-7" value="&amp;nbsp; &amp;nbsp; &amp;nbsp;Send register request with&lt;div style=&quot;font-size: 11px;&quot;&gt;&lt;font color=&quot;#0000ff&quot;&gt;email&lt;/font&gt;, &lt;font color=&quot;#0000ff&quot;&gt;name&lt;/font&gt;, &lt;font color=&quot;#0000ff&quot;&gt;password&lt;/font&gt;,&lt;/div&gt;&lt;div style=&quot;font-size: 11px;&quot;&gt;EC public key and&lt;/div&gt;&lt;div style=&quot;font-size: 11px;&quot;&gt;&lt;font color=&quot;#0000ff&quot;&gt;KeyDerivationSalt&amp;nbsp;&lt;/font&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;data&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 11px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;to backend&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=11;" parent="pfdhDkh4jur_6P-D9Tqx-1" vertex="1">
+          <mxGeometry x="292" y="516" width="195" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="pfdhDkh4jur_6P-D9Tqx-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="pfdhDkh4jur_6P-D9Tqx-1" source="pfdhDkh4jur_6P-D9Tqx-5" target="pfdhDkh4jur_6P-D9Tqx-14" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="390" y="227" as="sourcePoint" />
+            <mxPoint x="390" y="371" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pfdhDkh4jur_6P-D9Tqx-14" value="Generate a random &lt;font style=&quot;font-size: 12px;&quot; color=&quot;#0000ff&quot;&gt;KeyDerivationSalt&lt;/font&gt; for the user&#39;s EC key pair" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=12;" parent="pfdhDkh4jur_6P-D9Tqx-1" vertex="1">
+          <mxGeometry x="315" y="263" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="pfdhDkh4jur_6P-D9Tqx-15" value="&lt;span style=&quot;font-size: 20px;&quot;&gt;&lt;b&gt;Register Flow&lt;/b&gt;&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#143642;" parent="pfdhDkh4jur_6P-D9Tqx-1" vertex="1">
+          <mxGeometry x="316" y="-13" width="149" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="niJCOOAE-Q_aO9asL-z7-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="pfdhDkh4jur_6P-D9Tqx-1" source="pfdhDkh4jur_6P-D9Tqx-14" target="niJCOOAE-Q_aO9asL-z7-0" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="390" y="343" as="sourcePoint" />
+            <mxPoint x="389" y="575" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="niJCOOAE-Q_aO9asL-z7-0" value="Derive EC key pair using &lt;font color=&quot;#0000ff&quot;&gt;password&lt;/font&gt; and &lt;font color=&quot;#0000ff&quot;&gt;KeyDerivationSalt&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;" parent="pfdhDkh4jur_6P-D9Tqx-1" vertex="1">
+          <mxGeometry x="314.5" y="389" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="niJCOOAE-Q_aO9asL-z7-3" value="End" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;aspect=fixed;" parent="pfdhDkh4jur_6P-D9Tqx-1" vertex="1">
+          <mxGeometry x="339.5" y="635" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="J70i_6yGHyDezAkQW2em-0" value="Register data is saved as is.&lt;div&gt;No modification&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;is made on the server side.&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;(Except hashing the password.)&lt;/span&gt;&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=10;" parent="pfdhDkh4jur_6P-D9Tqx-1" vertex="1">
+          <mxGeometry x="547" y="504" width="50" height="100" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Login" id="rvIofkUiYIPZaucCskBo">
+    <mxGraphModel dx="989" dy="983" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="kIkodoWyaiEhuRyf4j9A-0" />
+        <mxCell id="kIkodoWyaiEhuRyf4j9A-1" parent="kIkodoWyaiEhuRyf4j9A-0" />
+        <mxCell id="kIkodoWyaiEhuRyf4j9A-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;" parent="kIkodoWyaiEhuRyf4j9A-1" source="kIkodoWyaiEhuRyf4j9A-3" target="kIkodoWyaiEhuRyf4j9A-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kIkodoWyaiEhuRyf4j9A-3" value="Start" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;aspect=fixed;" parent="kIkodoWyaiEhuRyf4j9A-1" vertex="1">
+          <mxGeometry x="340" y="45" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ttuH2yezEBcSg4D2Ca5j-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=#143642;labelBackgroundColor=default;endArrow=classic;fillColor=#FAE5C7;" parent="kIkodoWyaiEhuRyf4j9A-1" source="kIkodoWyaiEhuRyf4j9A-5" target="ttuH2yezEBcSg4D2Ca5j-0" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kIkodoWyaiEhuRyf4j9A-5" value="&lt;div style=&quot;font-size: 13px;&quot;&gt;&lt;br style=&quot;font-size: 13px;&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 13px;&quot;&gt;Get &lt;font style=&quot;font-size: 13px;&quot; color=&quot;#0000ff&quot;&gt;email&amp;nbsp;&lt;/font&gt;and&lt;/div&gt;&lt;div style=&quot;font-size: 13px;&quot;&gt;&lt;font style=&quot;font-size: 13px;&quot; color=&quot;#0000ff&quot;&gt;password&lt;/font&gt; from user&lt;/div&gt;" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;aspect=fixed;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontSize=13;" parent="kIkodoWyaiEhuRyf4j9A-1" vertex="1">
+          <mxGeometry x="315" y="137" width="150" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="kIkodoWyaiEhuRyf4j9A-11" value="&lt;span style=&quot;font-size: 20px;&quot;&gt;&lt;b&gt;Login Flow&lt;/b&gt;&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#143642;" parent="kIkodoWyaiEhuRyf4j9A-1" vertex="1">
+          <mxGeometry x="329" y="-13" width="124" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="UC1plK3RzpqQwWfxZmUx-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="kIkodoWyaiEhuRyf4j9A-1" source="kIkodoWyaiEhuRyf4j9A-13" target="UC1plK3RzpqQwWfxZmUx-0" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kIkodoWyaiEhuRyf4j9A-13" value="Derive EC key pair using &lt;font color=&quot;#0000ff&quot; style=&quot;font-size: 11px;&quot;&gt;password&lt;/font&gt; and &lt;font color=&quot;#ff0080&quot;&gt;response&lt;/font&gt;.KeyDerivationSalt" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=11;" parent="kIkodoWyaiEhuRyf4j9A-1" vertex="1">
+          <mxGeometry x="314.5" y="389" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="kIkodoWyaiEhuRyf4j9A-14" value="End" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;aspect=fixed;" parent="kIkodoWyaiEhuRyf4j9A-1" vertex="1">
+          <mxGeometry x="340" y="635" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ttuH2yezEBcSg4D2Ca5j-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=#143642;labelBackgroundColor=default;endArrow=classic;fillColor=#FAE5C7;" parent="kIkodoWyaiEhuRyf4j9A-1" source="ttuH2yezEBcSg4D2Ca5j-0" target="kIkodoWyaiEhuRyf4j9A-13" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ttuH2yezEBcSg4D2Ca5j-0" value="&amp;nbsp; &amp;nbsp; Send login request with&lt;div style=&quot;font-size: 12px;&quot;&gt;&lt;font color=&quot;#0000ff&quot; style=&quot;font-size: 12px;&quot;&gt;email&lt;/font&gt;&lt;font color=&quot;#000000&quot; style=&quot;font-size: 12px;&quot;&gt;&amp;nbsp;and&amp;nbsp;&lt;/font&gt;&lt;font color=&quot;#0000ff&quot; style=&quot;font-size: 12px;&quot;&gt;password&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 12px;&quot;&gt;data&lt;/div&gt;" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=12;" parent="kIkodoWyaiEhuRyf4j9A-1" vertex="1">
+          <mxGeometry x="292" y="268" width="195" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="UC1plK3RzpqQwWfxZmUx-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="kIkodoWyaiEhuRyf4j9A-1" source="UC1plK3RzpqQwWfxZmUx-0" target="kIkodoWyaiEhuRyf4j9A-14" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UC1plK3RzpqQwWfxZmUx-0" value="Store the derived EC private key&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;in session storage to use&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;when necessary&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=12;" parent="kIkodoWyaiEhuRyf4j9A-1" vertex="1">
+          <mxGeometry x="314.5" y="512" width="150" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="vx3vO0ts3oMI-O2iVDsH" name="Create Vault">
+    <mxGraphModel dx="819" dy="883" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="q0fE_Qg2SusX_wtz1CZE-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;" parent="1" source="ihMsGwAASCWRgGWb_S60-7" target="q0fE_Qg2SusX_wtz1CZE-1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ihMsGwAASCWRgGWb_S60-7" value="Start" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="172.5" y="43" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="q0fE_Qg2SusX_wtz1CZE-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=default;fillColor=#FAE5C7;labelBackgroundColor=none;" parent="1" source="v4tSw_fl6w9PEcK08sy0-5" target="q0fE_Qg2SusX_wtz1CZE-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="q0fE_Qg2SusX_wtz1CZE-1" value="&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;Get &lt;font color=&quot;#0000ff&quot;&gt;vaultName&lt;/font&gt;&amp;nbsp;&lt;/font&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;for the new vault from the user&lt;/span&gt;" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;aspect=fixed;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="1" vertex="1">
+          <mxGeometry x="147.5" y="135" width="150" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="q0fE_Qg2SusX_wtz1CZE-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=default;fillColor=#FAE5C7;labelBackgroundColor=none;" parent="1" source="8HWPqXahzAoUBAa3T9Lo-1" target="q0fE_Qg2SusX_wtz1CZE-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zve5BlXi6RIQPo5v6dcg-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.001;entryY=0.425;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#A8201A;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=none;endArrow=classic;fillColor=#FAE5C7;" parent="1" source="q0fE_Qg2SusX_wtz1CZE-4" target="8HWPqXahzAoUBAa3T9Lo-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="349" y="84" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="223" y="497" />
+              <mxPoint x="352" y="497" />
+              <mxPoint x="352" y="111" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="q0fE_Qg2SusX_wtz1CZE-4" value="&amp;nbsp; Get private key of the user&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;from session storage&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="125" y="379" width="195" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="Dloqsjbha5jDQIw1-g9I-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=default;fillColor=#FAE5C7;labelBackgroundColor=none;" parent="1" source="q0fE_Qg2SusX_wtz1CZE-5" target="Dloqsjbha5jDQIw1-g9I-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="v4tSw_fl6w9PEcK08sy0-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#67AB9F;fontColor=#143642;fillColor=#FAE5C7;dashed=1;endArrow=none;endFill=0;strokeWidth=2;labelBackgroundColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;" parent="1" source="q0fE_Qg2SusX_wtz1CZE-5" target="v4tSw_fl6w9PEcK08sy0-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="q0fE_Qg2SusX_wtz1CZE-5" value="Encrypt &lt;font color=&quot;#ff0080&quot;&gt;VaultKey&lt;/font&gt; using user&#39;s private key and &lt;font color=&quot;#0000ff&quot;&gt;EncryptionIV&lt;/font&gt;. Keep returned ciphertext as &lt;font color=&quot;#0000ff&quot;&gt;EncryptedVaultKey&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;fontSize=11;" parent="1" vertex="1">
+          <mxGeometry x="401.5" y="215" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="WMdaINGtG9zb0IdolauI-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="1" source="Dloqsjbha5jDQIw1-g9I-2" target="WMdaINGtG9zb0IdolauI-1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zve5BlXi6RIQPo5v6dcg-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#67AB9F;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=#143642;labelBackgroundColor=default;endArrow=none;endFill=0;fillColor=#FAE5C7;" parent="1" source="Dloqsjbha5jDQIw1-g9I-2" target="QnYhx8dWER_A19y9M9i0-1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Dloqsjbha5jDQIw1-g9I-2" value="Request&lt;div&gt;&quot;create vault&quot; endpoint with&amp;nbsp;&lt;div&gt;&lt;font color=&quot;#0000ff&quot;&gt;vaultName&lt;/font&gt;, &lt;font color=&quot;#0000ff&quot;&gt;EncryptionIV&lt;/font&gt; and&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#0000ff&quot;&gt;EncryptedVaultKey&lt;/font&gt;&amp;nbsp;data&lt;/div&gt;&lt;/div&gt;" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=10;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="379" y="358" width="195" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="v4tSw_fl6w9PEcK08sy0-3" value="Encryption is performed using&lt;div&gt;AES-GCM algorithm.&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=10;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="604" y="205" width="50" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="v4tSw_fl6w9PEcK08sy0-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=default;fillColor=#FAE5C7;labelBackgroundColor=none;" parent="1" source="q0fE_Qg2SusX_wtz1CZE-1" target="v4tSw_fl6w9PEcK08sy0-5" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="222.5" y="225" as="sourcePoint" />
+            <mxPoint x="222.5" y="369" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v4tSw_fl6w9PEcK08sy0-5" value="&lt;font&gt;Generate a random &lt;/font&gt;&lt;font color=&quot;#ff0080&quot;&gt;VaultKey&lt;/font&gt;&lt;font&gt; for the vault&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="147.5" y="261" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="p_utmp-F0LJEMBCPX9tf-1" value="&lt;b style=&quot;font-size: 20px;&quot;&gt;Create New&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;Vault Flow&lt;/span&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#143642;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="234" y="-22" width="231" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="8HWPqXahzAoUBAa3T9Lo-1" value="&lt;font&gt;Generate a random &lt;font color=&quot;#0000ff&quot;&gt;EncryptionIV&lt;/font&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="401.5" y="77" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="QnYhx8dWER_A19y9M9i0-1" value="This will create the Vault and VaultKey&lt;div&gt;records on the database.&lt;/div&gt;&lt;div&gt;KeyOwnerUserID and&amp;nbsp;InviterUserID of the&lt;/div&gt;&lt;div&gt;VaultKey record&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;will&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;be the user&#39;s id.&lt;/span&gt;&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=10;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="606" y="346" width="50" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="WMdaINGtG9zb0IdolauI-1" value="End" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="426.5" y="489" width="100" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Get Raw Vault Key" id="siTlZIbyiXlVRnKTfVhm">
+    <mxGraphModel dx="1083" dy="402" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="PDkTQywuHYRQGC5oGxm5-0" />
+        <mxCell id="PDkTQywuHYRQGC5oGxm5-1" parent="PDkTQywuHYRQGC5oGxm5-0" />
+        <mxCell id="PDkTQywuHYRQGC5oGxm5-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=default;fillColor=#FAE5C7;labelBackgroundColor=none;" parent="PDkTQywuHYRQGC5oGxm5-1" source="PDkTQywuHYRQGC5oGxm5-3" target="PDkTQywuHYRQGC5oGxm5-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PDkTQywuHYRQGC5oGxm5-3" value="Start" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;aspect=fixed;" parent="PDkTQywuHYRQGC5oGxm5-1" vertex="1">
+          <mxGeometry x="288" y="119" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PDkTQywuHYRQGC5oGxm5-4" value="&lt;span style=&quot;font-size: 20px;&quot;&gt;&lt;b&gt;Get Raw Vault Key Flow&lt;/b&gt;&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#143642;labelBackgroundColor=none;" parent="PDkTQywuHYRQGC5oGxm5-1" vertex="1">
+          <mxGeometry x="215.5" y="67" width="245" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="PDkTQywuHYRQGC5oGxm5-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=default;fillColor=#FAE5C7;labelBackgroundColor=none;" parent="PDkTQywuHYRQGC5oGxm5-1" source="PDkTQywuHYRQGC5oGxm5-6" target="PDkTQywuHYRQGC5oGxm5-8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CNCuGJbBuxX8Ieczibdf-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#67AB9F;fontColor=default;fillColor=#FAE5C7;dashed=1;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;labelBackgroundColor=none;endArrow=none;endFill=0;" parent="PDkTQywuHYRQGC5oGxm5-1" source="PDkTQywuHYRQGC5oGxm5-6" target="CNCuGJbBuxX8Ieczibdf-11" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PDkTQywuHYRQGC5oGxm5-6" value="&amp;nbsp;Get &lt;font color=&quot;#6600cc&quot;&gt;VaultKey&lt;/font&gt; record of&lt;div&gt;the&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;user for the&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;intereseted&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;vault&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;from backend&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;" parent="PDkTQywuHYRQGC5oGxm5-1" vertex="1">
+          <mxGeometry x="240.5" y="230" width="195" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="PDkTQywuHYRQGC5oGxm5-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=default;fillColor=#FAE5C7;labelBackgroundColor=none;" parent="PDkTQywuHYRQGC5oGxm5-1" source="PDkTQywuHYRQGC5oGxm5-33" target="PDkTQywuHYRQGC5oGxm5-10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Zbe4L7jWdMmVMx7E7-wR-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="PDkTQywuHYRQGC5oGxm5-1" source="PDkTQywuHYRQGC5oGxm5-8" target="Zbe4L7jWdMmVMx7E7-wR-0" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PDkTQywuHYRQGC5oGxm5-8" value="&amp;nbsp; Get private key of the user&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;from session storage&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;" parent="PDkTQywuHYRQGC5oGxm5-1" vertex="1">
+          <mxGeometry x="240.5" y="348" width="195" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="PDkTQywuHYRQGC5oGxm5-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#67AB9F;fontColor=default;fillColor=#FAE5C7;dashed=1;endArrow=none;endFill=0;strokeWidth=2;labelBackgroundColor=none;" parent="PDkTQywuHYRQGC5oGxm5-1" source="PDkTQywuHYRQGC5oGxm5-33" target="PDkTQywuHYRQGC5oGxm5-11" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sWAPrvv0r0X_hQayhi2e-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="PDkTQywuHYRQGC5oGxm5-1" source="PDkTQywuHYRQGC5oGxm5-10" target="sWAPrvv0r0X_hQayhi2e-0" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="166" y="914" />
+              <mxPoint x="338" y="914" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PDkTQywuHYRQGC5oGxm5-10" value="&lt;div&gt;Returned plain text is the &lt;font color=&quot;#ff0080&quot;&gt;&lt;b&gt;VaultKey&lt;/b&gt;&lt;/font&gt; of the vault&lt;/div&gt;&lt;div&gt;that user interested&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;" parent="PDkTQywuHYRQGC5oGxm5-1" vertex="1">
+          <mxGeometry x="90.5" y="755" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="PDkTQywuHYRQGC5oGxm5-11" value="&lt;span style=&quot;font-size: 10px;&quot;&gt;Decryption is performed using&lt;/span&gt;&lt;div style=&quot;font-size: 10px;&quot;&gt;AES-GCM algorithm.&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=right;labelPosition=left;pointerEvents=1;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=12;labelBackgroundColor=none;direction=west;verticalLabelPosition=middle;verticalAlign=middle;" parent="PDkTQywuHYRQGC5oGxm5-1" vertex="1">
+          <mxGeometry x="-20" y="618" width="50" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="PDkTQywuHYRQGC5oGxm5-33" value="&lt;div style=&quot;font-size: 11px;&quot;&gt;Decrypt &lt;font color=&quot;#6600cc&quot;&gt;EncryptedVaultKey&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 11px;&quot;&gt;using user&#39;s private key and &lt;font color=&quot;#6600cc&quot;&gt;EncryptionIV&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=11;labelBackgroundColor=none;" parent="PDkTQywuHYRQGC5oGxm5-1" vertex="1">
+          <mxGeometry x="90.5" y="628" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="cqn_KzIhjEbDNATKxdBd-0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="PDkTQywuHYRQGC5oGxm5-1" source="Zbe4L7jWdMmVMx7E7-wR-0" target="PDkTQywuHYRQGC5oGxm5-33" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cqn_KzIhjEbDNATKxdBd-1" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=15;" parent="cqn_KzIhjEbDNATKxdBd-0" vertex="1" connectable="0">
+          <mxGeometry x="-0.6682" y="2" relative="1" as="geometry">
+            <mxPoint x="-23" y="-4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CNCuGJbBuxX8Ieczibdf-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="PDkTQywuHYRQGC5oGxm5-1" source="Zbe4L7jWdMmVMx7E7-wR-0" target="CNCuGJbBuxX8Ieczibdf-3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="515" y="626" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CNCuGJbBuxX8Ieczibdf-10" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=15;" parent="CNCuGJbBuxX8Ieczibdf-7" vertex="1" connectable="0">
+          <mxGeometry x="-0.5534" relative="1" as="geometry">
+            <mxPoint x="10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zbe4L7jWdMmVMx7E7-wR-0" value="Is&lt;div&gt;&lt;font color=&quot;#6600cc&quot;&gt;KeyOwnerUserID&lt;/font&gt; equals to&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#6600cc&quot;&gt;InviterUserID&lt;/font&gt;?&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" parent="PDkTQywuHYRQGC5oGxm5-1" vertex="1">
+          <mxGeometry x="273" y="465" width="130" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="MoJUNBR9DO36M8GBTUcY-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#67AB9F;fontColor=default;fillColor=#FAE5C7;dashed=1;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;labelBackgroundColor=none;endArrow=none;endFill=0;" parent="PDkTQywuHYRQGC5oGxm5-1" source="CNCuGJbBuxX8Ieczibdf-3" target="MoJUNBR9DO36M8GBTUcY-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MoJUNBR9DO36M8GBTUcY-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="PDkTQywuHYRQGC5oGxm5-1" source="CNCuGJbBuxX8Ieczibdf-3" target="MoJUNBR9DO36M8GBTUcY-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CNCuGJbBuxX8Ieczibdf-3" value="&lt;div&gt;Derive &lt;font color=&quot;#009900&quot;&gt;SharedKey&lt;/font&gt; using user&#39;s private key and &lt;font color=&quot;#6600cc&quot;&gt;InviterUserPublicKey&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;" parent="PDkTQywuHYRQGC5oGxm5-1" vertex="1">
+          <mxGeometry x="435.5" y="636" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="CNCuGJbBuxX8Ieczibdf-11" value="&lt;span style=&quot;font-size: 10px;&quot;&gt;Backend responds with:&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;- &lt;font color=&quot;#6600cc&quot;&gt;KeyOwnerUserID&lt;/font&gt;&lt;br&gt;&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;-&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color: rgb(102, 0, 204); font-size: 10px;&quot;&gt;InviterUsedID&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;- &lt;font color=&quot;#6600cc&quot;&gt;EncryptionIV&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;- &lt;font color=&quot;#6600cc&quot;&gt;EncryptedVaultKey&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;- &lt;font color=&quot;#6600cc&quot;&gt;InviterUserPublicKey&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=12;labelBackgroundColor=none;direction=east;verticalLabelPosition=middle;verticalAlign=middle;" parent="PDkTQywuHYRQGC5oGxm5-1" vertex="1">
+          <mxGeometry x="490" y="218" width="50" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="MoJUNBR9DO36M8GBTUcY-3" value="&lt;span style=&quot;font-size: 10px;&quot;&gt;ECDH key exchange&lt;/span&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=12;labelBackgroundColor=none;direction=east;verticalLabelPosition=middle;verticalAlign=middle;" parent="PDkTQywuHYRQGC5oGxm5-1" vertex="1">
+          <mxGeometry x="639" y="626" width="50" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="MoJUNBR9DO36M8GBTUcY-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="PDkTQywuHYRQGC5oGxm5-1" source="MoJUNBR9DO36M8GBTUcY-6" target="MoJUNBR9DO36M8GBTUcY-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MoJUNBR9DO36M8GBTUcY-6" value="&lt;div style=&quot;font-size: 11px;&quot;&gt;Decrypt &lt;font color=&quot;#6600cc&quot;&gt;EncryptedVaultKey&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 11px;&quot;&gt;using &lt;font color=&quot;#009900&quot;&gt;SharedKey&lt;/font&gt; and &lt;font color=&quot;#6600cc&quot;&gt;EncryptionIV&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=11;labelBackgroundColor=none;" parent="PDkTQywuHYRQGC5oGxm5-1" vertex="1">
+          <mxGeometry x="435.5" y="755" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="sWAPrvv0r0X_hQayhi2e-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="PDkTQywuHYRQGC5oGxm5-1" source="MoJUNBR9DO36M8GBTUcY-9" target="sWAPrvv0r0X_hQayhi2e-0" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="515" y="985" />
+              <mxPoint x="338" y="985" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MoJUNBR9DO36M8GBTUcY-9" value="&lt;div&gt;Returned plain text is the &lt;font color=&quot;#ff0080&quot;&gt;&lt;b&gt;VaultKey&lt;/b&gt;&lt;/font&gt; of the vault&lt;/div&gt;&lt;div&gt;that user interested&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;" parent="PDkTQywuHYRQGC5oGxm5-1" vertex="1">
+          <mxGeometry x="435.5" y="874" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="MoJUNBR9DO36M8GBTUcY-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#67AB9F;fontColor=default;fillColor=#FAE5C7;dashed=1;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;labelBackgroundColor=none;endArrow=none;endFill=0;" parent="PDkTQywuHYRQGC5oGxm5-1" source="MoJUNBR9DO36M8GBTUcY-12" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="217" y="522" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="97" y="552" />
+              <mxPoint x="97" y="502" />
+              <mxPoint x="217" y="502" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MoJUNBR9DO36M8GBTUcY-12" value="&lt;span style=&quot;font-size: 10px;&quot;&gt;This means user is the&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;creator of the vault.&lt;/span&gt;&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=right;labelPosition=left;pointerEvents=1;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=12;labelBackgroundColor=none;direction=west;verticalLabelPosition=middle;verticalAlign=middle;" parent="PDkTQywuHYRQGC5oGxm5-1" vertex="1">
+          <mxGeometry x="-20" y="502" width="50" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="sWAPrvv0r0X_hQayhi2e-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="PDkTQywuHYRQGC5oGxm5-1" source="sWAPrvv0r0X_hQayhi2e-0" target="sWAPrvv0r0X_hQayhi2e-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sWAPrvv0r0X_hQayhi2e-0" value="&lt;div&gt;Return &lt;b&gt;&lt;font color=&quot;#ff0080&quot;&gt;VaultKey&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;" parent="PDkTQywuHYRQGC5oGxm5-1" vertex="1">
+          <mxGeometry x="263" y="1037" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="sWAPrvv0r0X_hQayhi2e-3" value="End" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;aspect=fixed;" parent="PDkTQywuHYRQGC5oGxm5-1" vertex="1">
+          <mxGeometry x="288" y="1165" width="100" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Add User to Vault" id="x4FKMhjd8pJgKMIFtkV2">
+    <mxGraphModel dx="1195" dy="1104" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-0" />
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-1" parent="3E-8AUne2SLIJV7ii4fJ-0" />
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;" parent="3E-8AUne2SLIJV7ii4fJ-1" source="3E-8AUne2SLIJV7ii4fJ-3" target="3E-8AUne2SLIJV7ii4fJ-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-3" value="Start" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;aspect=fixed;" parent="3E-8AUne2SLIJV7ii4fJ-1" vertex="1">
+          <mxGeometry x="177.5" y="43" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="3E-8AUne2SLIJV7ii4fJ-1" source="3E-8AUne2SLIJV7ii4fJ-5" target="3E-8AUne2SLIJV7ii4fJ-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-5" value="&lt;div style=&quot;font-size: 12px;&quot;&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;&lt;br style=&quot;font-size: 12px;&quot;&gt;&lt;/font&gt;&lt;/div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;Get email of the new user&amp;nbsp; and the id of the vault (&lt;font style=&quot;font-size: 12px;&quot; color=&quot;#0000ff&quot;&gt;UserEmail&lt;/font&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;, &lt;/font&gt;&lt;font style=&quot;font-size: 12px;&quot; color=&quot;#0000ff&quot;&gt;VaultId&lt;/font&gt;)&lt;/font&gt;" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;aspect=fixed;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontSize=12;" parent="3E-8AUne2SLIJV7ii4fJ-1" vertex="1">
+          <mxGeometry x="152.5" y="135" width="150" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-6" value="&amp;nbsp; &amp;nbsp;Get public key of the new&lt;div&gt;user (&lt;font color=&quot;#ff8000&quot;&gt;newUserPublicKey&lt;/font&gt;)&lt;/div&gt;&lt;div&gt;from backend&lt;/div&gt;" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;" parent="3E-8AUne2SLIJV7ii4fJ-1" vertex="1">
+          <mxGeometry x="130" y="265" width="195" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-7" value="&lt;span style=&quot;font-size: 20px;&quot;&gt;&lt;b&gt;Add User to Vault Flow&lt;/b&gt;&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#143642;" parent="3E-8AUne2SLIJV7ii4fJ-1" vertex="1">
+          <mxGeometry x="254" y="-19" width="236" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="3E-8AUne2SLIJV7ii4fJ-1" target="3E-8AUne2SLIJV7ii4fJ-23" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="510.20588235294144" y="519" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-9" value="&amp;nbsp; Request &quot;add user to vault&quot;&lt;div style=&quot;font-size: 12px;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 12px;&quot;&gt;endpoint with &lt;font color=&quot;#0000ff&quot;&gt;UserEmail&lt;/font&gt;, &lt;font style=&quot;font-size: 12px;&quot; color=&quot;#0000ff&quot;&gt;VaultId&lt;/font&gt;,&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial; font-size: 12px;&quot;&gt;&lt;font style=&quot;font-size: 12px;&quot; color=&quot;#0000ff&quot;&gt;EncryptionIV&lt;/font&gt;, and &lt;font style=&quot;font-size: 12px;&quot; color=&quot;#0000ff&quot;&gt;EncryptedVaultKey&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=12;" parent="3E-8AUne2SLIJV7ii4fJ-1" vertex="1">
+          <mxGeometry x="395" y="441" width="230.5" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="3E-8AUne2SLIJV7ii4fJ-1" source="3E-8AUne2SLIJV7ii4fJ-11" target="3E-8AUne2SLIJV7ii4fJ-14" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-11" value="Get raw&amp;nbsp;&lt;font color=&quot;#ff0080&quot;&gt;VaultKey&lt;/font&gt;&amp;nbsp;of the vault using&lt;div&gt;&lt;u&gt;Get Raw Vault Key&lt;/u&gt;&lt;/div&gt;&lt;div&gt;flow&lt;/div&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=process;rounded=1;size=0.14;arcSize=6;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;whiteSpace=wrap;horizontal=1;labelPosition=center;align=center;strokeWidth=2;" parent="3E-8AUne2SLIJV7ii4fJ-1" vertex="1">
+          <mxGeometry x="415.25" y="197" width="190" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#67AB9F;fontColor=#143642;fillColor=#FAE5C7;dashed=1;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;labelBackgroundColor=default;endArrow=none;endFill=0;" parent="3E-8AUne2SLIJV7ii4fJ-1" source="3E-8AUne2SLIJV7ii4fJ-14" target="3E-8AUne2SLIJV7ii4fJ-22" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_vIYroGF3ZrYg_IwVmHf-0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="3E-8AUne2SLIJV7ii4fJ-1" source="3E-8AUne2SLIJV7ii4fJ-14" target="3E-8AUne2SLIJV7ii4fJ-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-14" value="Derive &lt;font color=&quot;#0000ff&quot;&gt;EncryptedVaultKey&lt;/font&gt; by encrypting &lt;font color=&quot;#ff0080&quot;&gt;VaultKey&lt;/font&gt; using &lt;font color=&quot;#009900&quot;&gt;SharedKey&lt;/font&gt; and &lt;font color=&quot;#0000ff&quot;&gt;EncryptionIV&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;" parent="3E-8AUne2SLIJV7ii4fJ-1" vertex="1">
+          <mxGeometry x="435.25" y="319" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="3E-8AUne2SLIJV7ii4fJ-1" source="3E-8AUne2SLIJV7ii4fJ-6" target="3E-8AUne2SLIJV7ii4fJ-17" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="302.5" y="303" as="sourcePoint" />
+            <mxPoint x="482.5" y="691" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="3E-8AUne2SLIJV7ii4fJ-1" source="3E-8AUne2SLIJV7ii4fJ-17" target="3E-8AUne2SLIJV7ii4fJ-21" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-17" value="&amp;nbsp; Get private key of the user&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;from session storage&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;" parent="3E-8AUne2SLIJV7ii4fJ-1" vertex="1">
+          <mxGeometry x="130" y="381" width="195" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="3E-8AUne2SLIJV7ii4fJ-1" source="3E-8AUne2SLIJV7ii4fJ-19" target="3E-8AUne2SLIJV7ii4fJ-11" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-19" value="&lt;font&gt;Generate a random &lt;font color=&quot;#0000ff&quot;&gt;EncryptionIV&lt;/font&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;" parent="3E-8AUne2SLIJV7ii4fJ-1" vertex="1">
+          <mxGeometry x="435.25" y="78" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="3E-8AUne2SLIJV7ii4fJ-1" source="3E-8AUne2SLIJV7ii4fJ-21" target="3E-8AUne2SLIJV7ii4fJ-19" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="231" y="614" />
+              <mxPoint x="361" y="614" />
+              <mxPoint x="361" y="118" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-21" value="&lt;div&gt;Derive &lt;font color=&quot;#009900&quot;&gt;SharedKey&lt;/font&gt; using user&#39;s private key and&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(255, 128, 0);&quot;&gt;newUserPublicKey&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;" parent="3E-8AUne2SLIJV7ii4fJ-1" vertex="1">
+          <mxGeometry x="152.5" y="497" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-22" value="Encryption is performed using&lt;div&gt;AES-GCM algorithm.&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=10;labelBackgroundColor=none;" parent="3E-8AUne2SLIJV7ii4fJ-1" vertex="1">
+          <mxGeometry x="638.25" y="309" width="50" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="3E-8AUne2SLIJV7ii4fJ-23" value="End" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;aspect=fixed;" parent="3E-8AUne2SLIJV7ii4fJ-1" vertex="1">
+          <mxGeometry x="460.25" y="559" width="100" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="bvbqzHP9VSOFjg1NQSX1" name="Add New Vault Item To Vault">
+    <mxGraphModel dx="989" dy="983" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="l8dX8qTAuT5mcbOgNMxF-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;" parent="1" source="l8dX8qTAuT5mcbOgNMxF-2" target="l8dX8qTAuT5mcbOgNMxF-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l8dX8qTAuT5mcbOgNMxF-2" value="Start" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="340" y="45" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RvSb1eqQ2nDHI9XOiNOk-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;" parent="1" source="l8dX8qTAuT5mcbOgNMxF-4" target="RvSb1eqQ2nDHI9XOiNOk-1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l8dX8qTAuT5mcbOgNMxF-4" value="&lt;div style=&quot;font-size: 12px;&quot;&gt;&lt;br style=&quot;font-size: 12px;&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 12px;&quot;&gt;Get vault id,&lt;font color=&quot;#0000ff&quot;&gt; title&lt;/font&gt;, &lt;font color=&quot;#ff8000&quot;&gt;rawUsername&lt;/font&gt;, &lt;font color=&quot;#ff8000&quot;&gt;rawPassword&lt;/font&gt;, &lt;font color=&quot;#ff8000&quot;&gt;rawNote&lt;/font&gt; data&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;from user&lt;/span&gt;&lt;/div&gt;" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;aspect=fixed;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontSize=12;" parent="1" vertex="1">
+          <mxGeometry x="315" y="137" width="150" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="XWl6bMv-2UpKQ9ooFBDl-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=default;fillColor=#FAE5C7;labelBackgroundColor=none;" parent="1" source="l8dX8qTAuT5mcbOgNMxF-9" target="XWl6bMv-2UpKQ9ooFBDl-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l8dX8qTAuT5mcbOgNMxF-9" value="Generate a random&amp;nbsp;&lt;font color=&quot;#0000ff&quot;&gt;EncryptionIV&lt;/font&gt;&amp;nbsp;for the vault item." style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="315.5" y="386" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="l8dX8qTAuT5mcbOgNMxF-11" value="&lt;span style=&quot;font-size: 20px;&quot;&gt;&lt;b&gt;Add New Vault Item To Vault Flow&lt;/b&gt;&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#143642;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="222" y="-10" width="337" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="6Z1nNVZ7wE0JJ9PmF8Pu-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#67AB9F;fontColor=#67AB9F;fillColor=#FAE5C7;dashed=1;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;labelBackgroundColor=none;endArrow=none;endFill=0;" parent="1" source="l8dX8qTAuT5mcbOgNMxF-23" target="6Z1nNVZ7wE0JJ9PmF8Pu-1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mB76pj4OKiqvdUSzrT70-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="1" source="l8dX8qTAuT5mcbOgNMxF-23" target="mB76pj4OKiqvdUSzrT70-1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l8dX8qTAuT5mcbOgNMxF-23" value="&amp;nbsp; &amp;nbsp; &amp;nbsp;Request &quot;add item to vault&quot;&lt;div style=&quot;font-size: 12px;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 12px;&quot;&gt;endpoint with vault id, &lt;font style=&quot;font-size: 12px;&quot; color=&quot;#0000ff&quot;&gt;title&lt;/font&gt;&lt;font color=&quot;#000000&quot; style=&quot;font-size: 12px;&quot;&gt;,&lt;/font&gt;&lt;font style=&quot;font-size: 12px;&quot; color=&quot;#0000ff&quot;&gt;&amp;nbsp;E&lt;/font&gt;&lt;/span&gt;&lt;span style=&quot;color: rgb(0, 0, 255);&quot;&gt;ncryptedUsername&lt;/span&gt;&lt;span style=&quot;background-color: initial; font-size: 12px;&quot;&gt;,&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 12px;&quot;&gt;&lt;span style=&quot;color: rgb(0, 0, 255);&quot;&gt;EncryptedPassword&lt;/span&gt;&lt;span style=&quot;background-color: initial; font-size: 12px;&quot;&gt;,&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial; color: rgb(0, 0, 255);&quot;&gt;EncryptedNote&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;font color=&quot;#000000&quot;&gt;,&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 12px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;and&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial; color: rgb(0, 0, 255);&quot;&gt;EncryptionIV&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=12;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="274.75" y="661" width="230.5" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="r5ARb-8lxcVvuEP43PHd-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#67AB9F;fontColor=#67AB9F;fillColor=#FAE5C7;dashed=1;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;labelBackgroundColor=none;endArrow=none;endFill=0;" parent="1" source="XWl6bMv-2UpKQ9ooFBDl-3" target="r5ARb-8lxcVvuEP43PHd-1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="AY_Q6ms37LDTr-WepvMz-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=default;fillColor=#FAE5C7;labelBackgroundColor=none;" parent="1" source="XWl6bMv-2UpKQ9ooFBDl-3" target="l8dX8qTAuT5mcbOgNMxF-23" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XWl6bMv-2UpKQ9ooFBDl-3" value="Derive&amp;nbsp;&lt;font color=&quot;#0000ff&quot; style=&quot;font-size: 11px;&quot;&gt;EncryptedUsername&lt;/font&gt;, &lt;font color=&quot;#0000ff&quot; style=&quot;font-size: 11px;&quot;&gt;EncryptedPassword&lt;/font&gt;, &lt;font color=&quot;#0000ff&quot; style=&quot;font-size: 11px;&quot;&gt;EncryptedNote&lt;/font&gt; from the raw inputs" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;fontSize=11;" parent="1" vertex="1">
+          <mxGeometry x="315" y="520" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="r5ARb-8lxcVvuEP43PHd-1" value="&lt;div style=&quot;font-size: 11px;&quot;&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;AES-GCM algorithm is used with&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 11px;&quot;&gt;&lt;font color=&quot;#ff0080&quot; style=&quot;font-size: 11px;&quot;&gt;VaultKey&lt;/font&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt; as the key and&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 11px;&quot;&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;&lt;font color=&quot;#0000ff&quot;&gt;EncryptionIV&lt;/font&gt;&amp;nbsp;&lt;/font&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;as IV to encrypt&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 11px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;font color=&quot;#ff8000&quot;&gt;rawUsername&lt;/font&gt;, &lt;font color=&quot;#ff8000&quot;&gt;rawPassword&lt;/font&gt; and&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 11px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;font color=&quot;#ff8000&quot;&gt;rawNote&lt;/font&gt; separately.&lt;/span&gt;&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=11;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="519" y="510" width="50" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="RvSb1eqQ2nDHI9XOiNOk-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="1" source="RvSb1eqQ2nDHI9XOiNOk-1" target="l8dX8qTAuT5mcbOgNMxF-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RvSb1eqQ2nDHI9XOiNOk-1" value="Get raw&amp;nbsp;&lt;font color=&quot;#ff0080&quot;&gt;VaultKey&lt;/font&gt;&amp;nbsp;of the vault using&lt;div&gt;&lt;u&gt;Get Raw Vault Key&lt;/u&gt;&lt;/div&gt;&lt;div&gt;flow&lt;/div&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=process;rounded=1;size=0.14;arcSize=6;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;whiteSpace=wrap;horizontal=1;labelPosition=center;align=center;labelBackgroundColor=none;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="295" y="272" width="190" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="6Z1nNVZ7wE0JJ9PmF8Pu-1" value="&lt;div style=&quot;font-size: 11px;&quot;&gt;This creates a VaultItem&lt;/div&gt;&lt;div style=&quot;font-size: 11px;&quot;&gt;record on database with&lt;/div&gt;&lt;div style=&quot;font-size: 11px;&quot;&gt;given values.&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=11;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="544" y="649" width="50" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="mB76pj4OKiqvdUSzrT70-1" value="End" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="340" y="781" width="100" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Retrieve a Vault Item" id="QpeRUcGdX-OiIG-aDYe5">
+    <mxGraphModel dx="683" dy="802" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="8P77m85Z4aFGObOho0h4-0" />
+        <mxCell id="8P77m85Z4aFGObOho0h4-1" parent="8P77m85Z4aFGObOho0h4-0" />
+        <mxCell id="8P77m85Z4aFGObOho0h4-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;" parent="8P77m85Z4aFGObOho0h4-1" source="8P77m85Z4aFGObOho0h4-3" target="8P77m85Z4aFGObOho0h4-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8P77m85Z4aFGObOho0h4-3" value="Start" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;aspect=fixed;" parent="8P77m85Z4aFGObOho0h4-1" vertex="1">
+          <mxGeometry x="340" y="45" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8P77m85Z4aFGObOho0h4-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;" parent="8P77m85Z4aFGObOho0h4-1" source="ASEC8ME8TOQYL9rmC8-N-0" target="8P77m85Z4aFGObOho0h4-17" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8P77m85Z4aFGObOho0h4-5" value="&lt;div style=&quot;font-size: 12px;&quot;&gt;&lt;br style=&quot;font-size: 12px;&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 12px;&quot;&gt;Get vault id and vault item id from user&lt;/div&gt;" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;aspect=fixed;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontSize=12;" parent="8P77m85Z4aFGObOho0h4-1" vertex="1">
+          <mxGeometry x="315" y="137" width="150" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="kx5O1LxPJ9qcImEIQSer-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="8P77m85Z4aFGObOho0h4-1" source="8P77m85Z4aFGObOho0h4-7" target="kx5O1LxPJ9qcImEIQSer-0" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yCTKBne-12WpFFLQgOmZ-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="8P77m85Z4aFGObOho0h4-1" source="8P77m85Z4aFGObOho0h4-7" target="yCTKBne-12WpFFLQgOmZ-0" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8P77m85Z4aFGObOho0h4-7" value="Derive &lt;font color=&quot;#0000ff&quot;&gt;rawUsername&lt;/font&gt;, &lt;font color=&quot;#0000ff&quot;&gt;rawPassword&lt;/font&gt; and &lt;font color=&quot;#0000ff&quot;&gt;rawNote&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;" parent="8P77m85Z4aFGObOho0h4-1" vertex="1">
+          <mxGeometry x="315.5" y="544" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="8P77m85Z4aFGObOho0h4-8" value="&lt;span style=&quot;font-size: 20px;&quot;&gt;&lt;b&gt;Retrieve a Vault Item Flow&lt;/b&gt;&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#143642;labelBackgroundColor=none;" parent="8P77m85Z4aFGObOho0h4-1" vertex="1">
+          <mxGeometry x="259" y="-10" width="265" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="8P77m85Z4aFGObOho0h4-16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="8P77m85Z4aFGObOho0h4-1" source="8P77m85Z4aFGObOho0h4-17" target="8P77m85Z4aFGObOho0h4-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8P77m85Z4aFGObOho0h4-17" value="Get raw&amp;nbsp;&lt;font color=&quot;#ff0080&quot;&gt;VaultKey&lt;/font&gt;&amp;nbsp;of the vault using&lt;div&gt;&lt;u&gt;Get Raw Vault Key&lt;/u&gt;&lt;/div&gt;&lt;div&gt;flow&lt;/div&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=process;rounded=1;size=0.14;arcSize=6;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;whiteSpace=wrap;horizontal=1;labelPosition=center;align=center;labelBackgroundColor=none;strokeWidth=2;" parent="8P77m85Z4aFGObOho0h4-1" vertex="1">
+          <mxGeometry x="295" y="412" width="190" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="ASEC8ME8TOQYL9rmC8-N-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;" parent="8P77m85Z4aFGObOho0h4-1" source="8P77m85Z4aFGObOho0h4-5" target="ASEC8ME8TOQYL9rmC8-N-0" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="390" y="227" as="sourcePoint" />
+            <mxPoint x="386" y="537" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OWvctbE4G7fGDjsKX8WE-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#67AB9F;fontColor=#67AB9F;fillColor=#FAE5C7;dashed=1;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;labelBackgroundColor=none;endArrow=none;endFill=0;" parent="8P77m85Z4aFGObOho0h4-1" source="ASEC8ME8TOQYL9rmC8-N-0" target="OWvctbE4G7fGDjsKX8WE-0" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ASEC8ME8TOQYL9rmC8-N-0" value="Retrieve vault item by&lt;div&gt;vault id and vault item id&lt;/div&gt;&lt;div&gt;from backend&lt;/div&gt;" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=12;labelBackgroundColor=none;" parent="8P77m85Z4aFGObOho0h4-1" vertex="1">
+          <mxGeometry x="274.75" y="280" width="230.5" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="OWvctbE4G7fGDjsKX8WE-0" value="&lt;div style=&quot;font-size: 11px;&quot;&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;Backend responds with:&lt;/span&gt;&lt;div style=&quot;font-size: 12px;&quot;&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;-&amp;nbsp;&lt;font color=&quot;#6600cc&quot;&gt;Title&lt;/font&gt;&lt;br&gt;&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;- &lt;font color=&quot;#6600cc&quot;&gt;EncryptedUsername&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;-&amp;nbsp;&lt;font color=&quot;#6600cc&quot;&gt;EncryptedPassword&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;-&amp;nbsp;&lt;font color=&quot;#6600cc&quot;&gt;EncryptedNote&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;-&amp;nbsp;&lt;font color=&quot;#6600cc&quot;&gt;EncryptionIV&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=11;labelBackgroundColor=none;" parent="8P77m85Z4aFGObOho0h4-1" vertex="1">
+          <mxGeometry x="547" y="268" width="50" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="kx5O1LxPJ9qcImEIQSer-0" value="&lt;div style=&quot;&quot;&gt;&lt;div&gt;AES-GCM algorithm is used with&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#ff0080&quot;&gt;VaultKey&lt;/font&gt;&amp;nbsp;as the key and&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#6600cc&quot;&gt;EncryptionIV&lt;/font&gt;&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;as IV to decrypt&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;font color=&quot;#6600cc&quot;&gt;EncryptedUsername&lt;/font&gt;,&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color: rgb(102, 0, 204); background-color: initial;&quot;&gt;EncryptedPassword&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;and&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color: rgb(102, 0, 204);&quot;&gt;EncryptedNote&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;separately.&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=11;labelBackgroundColor=none;" parent="8P77m85Z4aFGObOho0h4-1" vertex="1">
+          <mxGeometry x="547" y="534" width="50" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="yCTKBne-12WpFFLQgOmZ-0" value="End" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;aspect=fixed;" parent="8P77m85Z4aFGObOho0h4-1" vertex="1">
+          <mxGeometry x="341" y="678" width="100" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="uF-1cmB34PpkrBMd-jgZ" name="Update Vault Item">
+    <mxGraphModel dx="78" dy="682" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="htBOCNNb6QQC2RLyPibP-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;" parent="1" source="htBOCNNb6QQC2RLyPibP-2" target="htBOCNNb6QQC2RLyPibP-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="htBOCNNb6QQC2RLyPibP-2" value="Start" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="637" y="-106" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="htBOCNNb6QQC2RLyPibP-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;" parent="1" source="htBOCNNb6QQC2RLyPibP-4" target="htBOCNNb6QQC2RLyPibP-16" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="htBOCNNb6QQC2RLyPibP-4" value="&lt;div style=&quot;font-size: 12px;&quot;&gt;&lt;br style=&quot;font-size: 12px;&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 12px;&quot;&gt;Get vault item id,&lt;font color=&quot;#0000ff&quot;&gt; title&lt;/font&gt;, &lt;font color=&quot;#ff8000&quot;&gt;rawUsername&lt;/font&gt;, &lt;font color=&quot;#ff8000&quot;&gt;rawPassword&lt;/font&gt;, &lt;font color=&quot;#ff8000&quot;&gt;rawNote&lt;/font&gt; data&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;from user&lt;/span&gt;&lt;/div&gt;" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;aspect=fixed;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontSize=12;" parent="1" vertex="1">
+          <mxGeometry x="612" y="-14" width="150" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="htBOCNNb6QQC2RLyPibP-7" value="&lt;span style=&quot;font-size: 20px;&quot;&gt;&lt;b&gt;Update Vault Item Flow&lt;/b&gt;&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#143642;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="569" y="-161" width="237" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="htBOCNNb6QQC2RLyPibP-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="1" source="htBOCNNb6QQC2RLyPibP-10" target="htBOCNNb6QQC2RLyPibP-18" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="htBOCNNb6QQC2RLyPibP-10" value="&amp;nbsp; &amp;nbsp; &amp;nbsp;Request &quot;update vault item&quot;&lt;div style=&quot;font-size: 12px;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 12px;&quot;&gt;endpoint with vault item id, &lt;font style=&quot;font-size: 12px;&quot; color=&quot;#0000ff&quot;&gt;title&lt;/font&gt;&lt;font color=&quot;#000000&quot; style=&quot;font-size: 12px;&quot;&gt;,&lt;/font&gt;&lt;font style=&quot;font-size: 12px;&quot; color=&quot;#0000ff&quot;&gt;&amp;nbsp;&lt;/font&gt;&lt;/span&gt;&lt;span style=&quot;color: rgb(0, 0, 255);&quot;&gt;encryptedUsername&lt;/span&gt;&lt;span style=&quot;background-color: initial; font-size: 12px;&quot;&gt;,&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 12px;&quot;&gt;&lt;span style=&quot;color: rgb(0, 0, 255);&quot;&gt;encryptedPassword&lt;/span&gt;&amp;nbsp;and&lt;/div&gt;&lt;div style=&quot;font-size: 12px;&quot;&gt;&lt;span style=&quot;background-color: initial; color: rgb(0, 0, 255);&quot;&gt;encryptedNote&lt;/span&gt;&lt;/div&gt;" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=12;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="572.25" y="501" width="230.5" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="htBOCNNb6QQC2RLyPibP-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#67AB9F;fontColor=#67AB9F;fillColor=#FAE5C7;dashed=1;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;labelBackgroundColor=none;endArrow=none;endFill=0;" parent="1" source="htBOCNNb6QQC2RLyPibP-13" target="htBOCNNb6QQC2RLyPibP-14" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="htBOCNNb6QQC2RLyPibP-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=default;fillColor=#FAE5C7;labelBackgroundColor=none;" parent="1" source="htBOCNNb6QQC2RLyPibP-13" target="htBOCNNb6QQC2RLyPibP-10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="htBOCNNb6QQC2RLyPibP-13" value="Derive&amp;nbsp;&lt;font color=&quot;#0000ff&quot; style=&quot;font-size: 11px;&quot;&gt;encryptedUsername&lt;/font&gt;, &lt;font color=&quot;#0000ff&quot; style=&quot;font-size: 11px;&quot;&gt;encryptedPassword&lt;/font&gt;, &lt;font color=&quot;#0000ff&quot; style=&quot;font-size: 11px;&quot;&gt;encryptedNote&lt;/font&gt; from the raw inputs" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;fontSize=11;" parent="1" vertex="1">
+          <mxGeometry x="612" y="369" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="htBOCNNb6QQC2RLyPibP-14" value="&lt;div style=&quot;font-size: 11px;&quot;&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;AES-GCM algorithm is used with&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 11px;&quot;&gt;&lt;font color=&quot;#ff0080&quot; style=&quot;font-size: 11px;&quot;&gt;VaultKey&lt;/font&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt; as the key and&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 11px;&quot;&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;&lt;font color=&quot;#ff8000&quot;&gt;EncryptionIV&lt;/font&gt;&amp;nbsp;&lt;/font&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;as IV to encrypt&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 11px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;font color=&quot;#ff8000&quot;&gt;rawUsername&lt;/font&gt;, &lt;font color=&quot;#ff8000&quot;&gt;rawPassword&lt;/font&gt; and&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 11px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;font color=&quot;#ff8000&quot;&gt;rawNote&lt;/font&gt; separately.&lt;/span&gt;&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=11;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="816" y="359" width="50" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="htBOCNNb6QQC2RLyPibP-22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="1" source="htBOCNNb6QQC2RLyPibP-16" target="htBOCNNb6QQC2RLyPibP-20" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="htBOCNNb6QQC2RLyPibP-16" value="Get raw&amp;nbsp;&lt;font color=&quot;#ff0080&quot;&gt;VaultKey&lt;/font&gt;&amp;nbsp;of the vault using&lt;div&gt;&lt;u&gt;Get Raw Vault Key&lt;/u&gt;&lt;/div&gt;&lt;div&gt;flow&lt;/div&gt;" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=process;rounded=1;size=0.14;arcSize=6;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;whiteSpace=wrap;horizontal=1;labelPosition=center;align=center;labelBackgroundColor=none;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="592" y="121" width="190" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="htBOCNNb6QQC2RLyPibP-18" value="End" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;labelBackgroundColor=none;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="637" y="626" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="htBOCNNb6QQC2RLyPibP-23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;fillColor=#FAE5C7;" parent="1" source="htBOCNNb6QQC2RLyPibP-20" target="htBOCNNb6QQC2RLyPibP-13" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="htBOCNNb6QQC2RLyPibP-20" value="Get&amp;nbsp;&amp;nbsp;&lt;div&gt;&lt;font color=&quot;#ff8000&quot;&gt;EncryptionIV&lt;/font&gt; of the vault item&amp;nbsp;&amp;nbsp;&lt;div&gt;from backend by vault item id&amp;nbsp;&amp;nbsp;&lt;/div&gt;&lt;/div&gt;" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;strokeColor=#0F8B8D;fontColor=#143642;fillColor=#FAE5C7;fontSize=12;" parent="1" vertex="1">
+          <mxGeometry x="571.75" y="244" width="230.5" height="76" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
