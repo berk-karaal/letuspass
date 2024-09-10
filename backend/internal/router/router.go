@@ -48,7 +48,7 @@ func SetupRouter(apiConfig config.RestapiConfig) *gin.Engine {
 	router.Use(middlewares.LogHandler(logger))
 	router.Use(cors.New(cors.Config{
 		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"},
-		AllowOrigins:     []string{"http://localhost:5173"},
+		AllowOrigins:     apiConfig.CORSAllowOrigins,
 		AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type"},
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,

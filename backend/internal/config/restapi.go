@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -22,6 +23,8 @@ type RestapiConfig struct {
 
 	SessionTokenCookieName    string
 	SessionTokenExpireSeconds int
+
+	CORSAllowOrigins []string
 }
 
 // NewRestapiConfigFromEnv creates a RestapiConfig from environment variables. It panics if converting types
@@ -58,5 +61,7 @@ func NewRestapiConfigFromEnv() RestapiConfig {
 
 		SessionTokenCookieName:    os.Getenv("SESSION_TOKEN_COOKIE_NAME"),
 		SessionTokenExpireSeconds: sessionTokenExpireSeconds,
+
+		CORSAllowOrigins: strings.Split(os.Getenv("CORS_ALLOW_ORIGINS"), ","),
 	}
 }
