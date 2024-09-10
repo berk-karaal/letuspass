@@ -1,0 +1,7 @@
+:80
+
+root * /usr/share/caddy
+file_server
+
+# SPA handling
+try_files {path} /index.html
