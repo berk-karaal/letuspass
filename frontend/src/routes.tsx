@@ -3,11 +3,12 @@ import { createBrowserRouter } from "react-router-dom";
 import AppPage from "@/pages/app-page";
 import AppShell from "@/pages/AppShell";
 import LandingPage from "@/pages/landing-page";
+import NotFoundPage from "@/pages/not-found-page";
 import ProtectedRoute from "@/pages/ProtectedRoute";
 import VaultItemPage from "@/pages/vault-item-page";
+import VaultLogsPage from "@/pages/vault-logs-page";
 import VaultPage from "@/pages/vault-page";
-import VaultLogsPage from "./pages/vault-logs-page";
-import VaultUsersPage from "./pages/vault-users-page";
+import VaultUsersPage from "@/pages/vault-users-page";
 
 const router = createBrowserRouter([
   {
@@ -47,11 +48,7 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: (
-      <>
-        <h1>Page not found.</h1>
-      </>
-    ),
+    element: <NotFoundPage />,
   },
 ]);
 
