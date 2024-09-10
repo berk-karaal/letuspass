@@ -1,5 +1,5 @@
 import { listVaultAuditLogs } from "@/api/letuspass";
-import { ControllersHandleVaultAuditLogsAuditLogResponseItem } from "@/api/letuspass.schemas";
+import { ControllersHandleVaultAuditLogsListAuditLogResponseItem } from "@/api/letuspass.schemas";
 import { Box, Group, Pagination, Stack, Text } from "@mantine/core";
 import {
   IconAbc,
@@ -99,7 +99,7 @@ function VaultItemLink(
 }
 
 function auditLogToText(
-  log: ControllersHandleVaultAuditLogsAuditLogResponseItem,
+  log: ControllersHandleVaultAuditLogsListAuditLogResponseItem,
   vaultId: number
 ): React.ReactNode {
   switch (log.action_code) {
@@ -195,7 +195,7 @@ function VaultLogBox({
   log,
   vaultId,
 }: {
-  log: ControllersHandleVaultAuditLogsAuditLogResponseItem;
+  log: ControllersHandleVaultAuditLogsListAuditLogResponseItem;
   vaultId: number;
 }) {
   return (
