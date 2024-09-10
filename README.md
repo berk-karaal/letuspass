@@ -3,7 +3,7 @@
 - [LetusPass](#letuspass)
   - [Features](#features)
   - [Demo](#demo)
-  - [Try on your machine](#try-on-your-machine)
+  - [Try on your local machine](#try-on-your-local-machine)
   - [Database ERD](#database-erd)
   - [Encryption System](#encryption-system)
 
@@ -30,10 +30,16 @@ derived from "Let us pass".
 
 [[ Demo video ]]
 
-## Try on your machine
+## Try on your local machine 
 
-[[ Docker compose setup instructions ]]
+Simply just run `docker compose up` in the root directory.
 
+The application will be available at `http://localhost:3000`.
+
+You can access the OpenAPI documentation at `http://localhost:8080/swagger/index.html`.
+
+You can stop the application with `Ctrl+C` and remove the containers using `docker compose down`
+command.
 
 ## Database ERD
 <div align="center">
