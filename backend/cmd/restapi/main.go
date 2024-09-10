@@ -2,6 +2,7 @@ package main
 
 import (
 	golog "log"
+	"os"
 
 	"github.com/berk-karaal/letuspass/backend/internal/config"
 	"github.com/berk-karaal/letuspass/backend/internal/router"
@@ -18,7 +19,9 @@ import (
 func main() {
 	err := godotenv.Load()
 	if err != nil {
-		golog.Fatal(err)
+		if !os.IsNotExist(err) {
+			golog.Fatal(err)
+		}
 	}
 	apiConfig := config.NewRestapiConfigFromEnv()
 
