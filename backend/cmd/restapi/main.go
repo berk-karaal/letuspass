@@ -1,7 +1,7 @@
 package main
 
 import (
-	golog "log"
+	"log"
 	"os"
 
 	"github.com/berk-karaal/letuspass/backend/internal/config"
@@ -20,10 +20,11 @@ func main() {
 	err := godotenv.Load()
 	if err != nil {
 		if !os.IsNotExist(err) {
-			golog.Fatal(err)
+			log.Fatal(err)
 		}
 	}
 	apiConfig := config.NewRestapiConfigFromEnv()
 
+	log.Printf("Starting rest api server.")
 	router.SetupRouter(apiConfig).Run()
 }
