@@ -9,8 +9,8 @@
 
 <br>
 
-LetusPass is a password manager application for teams or personal use. The name is
-derived from "Let us pass".
+LetusPass is a password manager application for teams and personal use. The name is derived from
+"Let us pass".
 
 **Backend stack:** [Go](https://go.dev/), [Gin](https://github.com/gin-gonic/gin),
 [Gorm](https://github.com/go-gorm/gorm), [PostgreSQL](https://www.postgresql.org/),
