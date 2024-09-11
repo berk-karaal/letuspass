@@ -12,8 +12,13 @@
 LetusPass is a password manager application for teams or personal use. The name is
 derived from "Let us pass".
 
-**Backend stack:** Go, Gin, Gorm, PostgreSQL, swaggo/swag, zerolog <br>
-**Frontend stack:** React, Mantine, React Router, Redux, React Query, Axios, Orval
+**Backend stack:** [Go](https://go.dev/), [Gin](https://github.com/gin-gonic/gin),
+[Gorm](https://github.com/go-gorm/gorm), [PostgreSQL](https://www.postgresql.org/),
+[swaggo/swag](https://github.com/swaggo/swag), [zerolog](https://github.com/rs/zerolog) <br>
+**Frontend stack:** [React](https://react.dev/), [Mantine](https://mantine.dev/), [React
+Router](https://reactrouter.com/), [Redux](https://redux.js.org/), [React
+Query](https://tanstack.com/query/latest/docs/framework/react/overview),
+[Axios](https://github.com/axios/axios), [Orval](https://github.com/orval-labs/orval)
 
 ## Features
 - End-to-end encryption
