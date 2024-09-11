@@ -33,7 +33,9 @@ Query](https://tanstack.com/query/latest/docs/framework/react/overview),
 
 ## Demo
 
-[[ Demo video ]]
+Watch demo video on YouTube:
+
+[![Demo video](https://img.youtube.com/vi/k7Nc9b3VfMY/0.jpg)](https://youtu.be/k7Nc9b3VfMY)
 
 ## Try on your local machine 
 
