@@ -4,7 +4,9 @@ import (
 	"log"
 	"os"
 
+	"github.com/berk-karaal/letuspass/backend/internal/common/logging"
 	"github.com/berk-karaal/letuspass/backend/internal/config"
+	"github.com/berk-karaal/letuspass/backend/internal/databases/postgres"
 	"github.com/berk-karaal/letuspass/backend/internal/router"
 	"github.com/joho/godotenv"
 )
@@ -25,6 +27,15 @@ func main() {
 	}
 	apiConfig := config.NewRestapiConfigFromEnv()
 
+	logger := logging.NewLogger(apiConfig.LogFile)
+
+	postgresDb, err := postgres.NewDB(postgres.GenerateDSN(
+		apiConfig.DbHost, apiConfig.DbUser, apiConfig.DbPassword, apiConfig.DbName,
+		apiConfig.DbPort, apiConfig.DbSSLMode, apiConfig.DbTimeZone))
+	if err != nil {
+		log.Fatal("Failed to connect to postgres database: ", err)
+	}
+
 	log.Printf("Starting rest api server.")
-	router.SetupRouter(apiConfig).Run()
+	router.SetupRouter(apiConfig, logger, postgresDb).Run()
 }
