@@ -6,8 +6,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/berk-karaal/letuspass/backend/internal/config"
-	"github.com/berk-karaal/letuspass/backend/internal/router"
+	"github.com/berk-karaal/letuspass/backend/internal/tests"
 )
 
 func TestHandleMetricsStatus(t *testing.T) {
@@ -15,8 +14,7 @@ func TestHandleMetricsStatus(t *testing.T) {
 		Status string `json:"status"`
 	}
 
-	apiConfig := config.NewRestapiConfigFromEnv()
-	r := router.SetupRouter(apiConfig)
+	r, _, _ := tests.SetupTestRouter()
 
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/api/v1/metrics/status", nil)
