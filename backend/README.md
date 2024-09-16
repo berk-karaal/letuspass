@@ -25,3 +25,9 @@ $ just swag
 
 > If [just](https://github.com/casey/just) is not installed on your system, you can find
 > corresponding commands in the `Justfile`.
+
+## Run Tests
+
+```console
+$ just test
+```
