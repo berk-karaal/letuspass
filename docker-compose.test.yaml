@@ -1,0 +1,37 @@
+services:
+  postgres-test:
+    image: postgres:16-alpine
+    # volumes:
+    #   - ./var/testing-db:/var/lib/postgresql/data
+    # ports:
+    #   - "5433:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=letuspass-test
+
+  backend-test:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.test
+    restart: none
+    # ports:
+    #   - "8080:8080"
+    volumes:
+      - ./logs:/logs
+      - ./testing-cache:/cache
+    depends_on:
+      - postgres-test
+    environment:
+      - GIN_MODE=release
+      - LOG_FILE=/logs/backend-test.log
+      - DB_HOST=postgres-test
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=letuspass-test
+      - DB_PORT=5432
+      - DB_SSL_MODE=disable
+      - DB_TIME_ZONE=UTC
+      - SESSION_TOKEN_COOKIE_NAME=session_token
+      - SESSION_TOKEN_EXPIRE_SECONDS=86400
+      - CORS_ALLOW_ORIGINS=http://localhost:3000

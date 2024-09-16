@@ -1,17 +1,13 @@
 package router
 
 import (
-	"fmt"
-	golog "log"
 	"reflect"
 	"strings"
 	"time"
 
 	"github.com/berk-karaal/letuspass/backend/internal/common/logging"
 	"github.com/berk-karaal/letuspass/backend/internal/config"
-	"github.com/berk-karaal/letuspass/backend/internal/databases/postgres"
 	"github.com/berk-karaal/letuspass/backend/internal/middlewares"
-	"github.com/berk-karaal/letuspass/backend/internal/models"
 	_ "github.com/berk-karaal/letuspass/backend/swagger"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/requestid"
@@ -20,25 +16,11 @@ import (
 	"github.com/go-playground/validator/v10"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"gorm.io/gorm"
 )
 
-func SetupRouter(apiConfig config.RestapiConfig) *gin.Engine {
+func SetupRouter(apiConfig config.RestapiConfig, logger *logging.Logger, postgresDb *gorm.DB) *gin.Engine {
 	registerJsonTagNames()
-
-	logger := logging.NewLogger(apiConfig.LogFile)
-
-	postgresDsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=%s TimeZone=%s",
-		apiConfig.DbHost, apiConfig.DbUser, apiConfig.DbPassword, apiConfig.DbName,
-		apiConfig.DbPort, apiConfig.DbSSLMode, apiConfig.DbTimeZone)
-	postgresDb, err := postgres.NewDB(postgresDsn)
-	if err != nil {
-		golog.Fatal(err)
-	}
-	err = postgresDb.AutoMigrate(&models.User{}, &models.UserSession{}, &models.Vault{}, &models.VaultPermission{},
-		&models.VaultItem{}, &models.VaultKey{}, &models.VaultAuditLog{})
-	if err != nil {
-		golog.Fatal(err)
-	}
 
 	gin.SetMode(apiConfig.GinMode)
 

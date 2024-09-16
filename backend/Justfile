@@ -6,3 +6,7 @@ default:
 swag:
     swag fmt -g cmd/restapi/main.go
     swag init --pd -d ./internal/controllers -g ../../cmd/restapi/main.go -o ./swagger
+
+# Run tests with docker compose
+test:
+    docker compose -f ../docker-compose.test.yaml up --build --abort-on-container-exit
